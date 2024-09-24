@@ -1,0 +1,361 @@
+$backcolor: #192434; //背景颜色
+
+//  头部
+::v-deep .el-form-item__label {
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 400;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+::v-deep .el-input--small .el-input__inner {
+    background: #0b1420;
+    color: #a8aec9;
+    border: 1px solid #24354b;
+}
+::v-deep .el-card__body {
+    background-color: #0d1827;
+}
+
+::v-deep .el-card {
+    border: none;
+    border-radius: 10px;
+    overflow: visible !important;
+    background-color: #0d1827;
+}
+
+// 表格
+::v-deep .el-table__header-wrapper th {
+    background-color: #1f3950;
+    color: #fff;
+}
+::v-deep.el-table th.el-table__cell.is-leaf,
+.el-table td.el-table__cell {
+    background-color: #0d1827;
+    color: #fff;
+}
+::v-deep .el-table__fixed-right::before,
+.el-table__fixed::before {
+    background-color: #0d1827;
+}
+
+::v-deep .el-table__row {
+    background-color: #0d1827;
+    color: #a8aec9;
+}
+
+::v-deep .el-table--border,
+.el-table--group {
+    border: 1px solid #1f3950;
+}
+
+::v-deep .el-table__cell {
+    border: 0 !important;
+}
+
+::v-deep .el-table__inner-wrapper {
+    &::before {
+        display: none;
+    }
+}
+
+::v-deep .el-table::before {
+    height: 0px;
+}
+
+::v-deep .el-table--border::after,
+.el-table--group::after {
+    background-color: #0d1827;
+}
+
+::v-deep .el-table tbody tr:hover > td {
+    background-color: #0d1827 !important; //修改成自己想要的颜色即可
+}
+::v-deep .el-table__empty-block {
+    background-color: #0d1827;
+}
+
+::v-deep.el-table .el-table__cell {
+    background-color: #0d1827 !important;
+}
+
+//  分页
+::v-deep .pagination-container {
+    height: 50px;
+    background-color: #0d1827;
+}
+
+::v-deep .el-pagination__total {
+    color: #a8aec9;
+}
+
+::v-deep .el-input .el-input--mini .el-input--suffix {
+    background: #0b1420;
+    color: #a8aec9;
+}
+
+::v-deep .el-pagination__sizes .el-input .el-input__inner {
+    background: #0b1420;
+    color: #a8aec9;
+    border: 1px solid #24354b;
+}
+
+::v-deep .el-pagination .btn-next {
+    background: #0b1420;
+    color: #a8aec9;
+    border: 1px solid #24354b;
+}
+::v-deep .el-pagination .btn-prev {
+    background: #0b1420;
+    color: #a8aec9;
+    border: 1px solid #24354b;
+}
+
+::v-deep .el-pagination__editor.el-input .el-input__inner {
+    background: #0b1420;
+    color: #a8aec9;
+    border: 1px solid #24354b;
+}
+
+// 按钮
+::v-deep .el-button--text {
+    padding: 8px 15px;
+    border-radius: 6px 6px 6px 6px;
+    border: 1px solid #2f70ec;
+}
+
+::v-deep.el-table .fixed-width .el-button--mini {
+    padding: 6px 8px;
+}
+::v-deep .el-button .el-button--primary .el-button--mini > span {
+    padding: 0 4px;
+}
+::v-deep .el-button .el-button--info .el-button--mini > span {
+    padding: 0 4px;
+}
+::v-deep .el-button .el-button--warning .el-button--mini > span {
+    padding: 0 4px;
+}
+::v-deep .el-button .el-button--danger .el-button--mini > span {
+    padding: 0 4px;
+}
+
+// 日期选择框
+::v-deep.el-range-editor.el-input__inner {
+    display: -webkit-inline-box !important;
+    display: -ms-inline-flexbox !important;
+    display: inline-flex !important;
+    background-color: #0b1420 !important;
+    border: solid 1px #1d2b3d;
+    height: 30px;
+}
+::v-deep .el-range-editor--small .el-range-input {
+    font-size: 13px;
+    background-color: transparent !important;
+}
+
+// table上面的按钮栏
+::v-deep .el-button--primary.is-plain.is-disabled {
+    color: #fff;
+    background-color: #3c7eff;
+    border-color: #3c7eff;
+}
+::v-deep .el-button--primary.is-plain {
+    color: #fff;
+    background-color: #3c7eff;
+    border-color: #3c7eff;
+}
+
+::v-deep .el-button--success.is-plain.is-disabled {
+    color: #24c346;
+    background-color: #1a3923;
+    border-color: #1a3923;
+}
+::v-deep .el-button--success.is-plain {
+    color: #24c346;
+    background-color: #1a3923;
+    border-color: #1a3923;
+}
+
+::v-deep .el-button--danger.is-plain.is-disabled {
+    color: #fff;
+    background-color: #f76965;
+    border-color: #f76965;
+}
+::v-deep .el-button--danger.is-plain {
+    color: #fff;
+    background-color: #f76965;
+    border-color: #f76965;
+}
+
+::v-deep .el-button--warning.is-plain.is-disabled {
+    color: #fff;
+    background-color: #c9cdd4;
+    border-color: #c9cdd4;
+}
+::v-deep .el-button--warning.is-plain {
+    color: #fff;
+    background-color: #c9cdd4;
+    border-color: #c9cdd4;
+}
+//  标签
+::v-deep .el-tag.el-tag--success {
+    background: #003d1c;
+    border-radius: 0px 0px 0px 0px;
+    border: 1px solid #03ff79;
+    color: #03ff79;
+}
+
+::v-deep .el-tag.el-tag--info {
+    background: #001234;
+    border-radius: 0px 0px 0px 0px;
+    border: 1px solid #2f70ec;
+    color: #2f70ec;
+}
+
+::v-deep .el-tag.el-tag--warning {
+    background: #2b1b00;
+    border-radius: 0px 0px 0px 0px;
+    border: 1px solid #ffa407;
+    color: #ffa407;
+}
+
+::v-deep .el-tag.el-tag--danger {
+    background: #4a0000;
+    border-radius: 0px 0px 0px 0px;
+    border: 1px solid #ff0000;
+    color: #ff0000;
+}
+
+// 弹出层
+::v-deep .el-dialog__header {
+    padding: 20px 20px 10px;
+    background-color: #0d1827;
+}
+
+::v-deep .el-dialog__title {
+    line-height: 24px;
+    font-size: 18px;
+    color: #fff;
+}
+
+::v-deep .el-dialog__body {
+    padding: 30px 20px;
+    color: #606266;
+    font-size: 14px;
+    word-break: break-all;
+    background-color: #0d1827;
+}
+
+::v-deep .el-dialog__footer {
+    padding: 10px 20px 20px;
+    text-align: right;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: #0d1827;
+}
+
+::v-deep .el-input--medium .el-input__inner {
+    height: 36px;
+    line-height: 36px;
+    color: #fff;
+    background-color: #0d1827;
+    border: 1px solid #24354b;
+}
+::v-deep .el-textarea__inner {
+    background-color: #0d1827;
+    color: #606266;
+    border: 1px solid #24354b;
+}
+
+// 树状图
+::v-deep .el-tree-node__content {
+    background-color: #4b5f7e !important;
+    color: #fff;
+}
+::v-deep .el-tree-node__content:hover {
+    background-color: #4b5f7e !important;
+}
+
+::v-deep .el-tree-node.is-current > .el-tree-node__content {
+    background-color: #4b5f7e !important;
+    color: #a8aec9;
+}
+
+::v-deep .el-tree-node:focus > .el-tree-node__content {
+    background-color: #4b5f7e !important;
+    color: #a8aec9;
+}
+
+// 选择框
+::v-deep .select_box {
+    // 默认placeholder
+    ::v-deep .el-input__inner::placeholder {
+        font-size: 14px;
+        font-weight: 500;
+        color: #192434;
+    }
+    // 默认框状态样式更改
+    ::v-deep .el-input__wrapper {
+        height: 42px;
+        background-color: #192434 !important;
+        box-shadow: 0 0 0 1px #204c42 inset !important;
+        --el-select-focus-border-color: #5ac087 !important;
+        --el-select-hover-border-color: #5ac087 !important;
+    }
+    // 修改下拉框样式-点击框focus
+    ::v-deep .is-focus .el-input__wrapper {
+        box-shadow: 0 0 0 1px #5ac087 inset !important;
+        --el-select-focus-border-color: #5ac087 !important;
+        --el-select-hover-border-color: #5ac087 !important;
+    }
+    ::v-deep .el-select__caret {
+        color: #5ac087 !important; // 清除按钮
+    }
+    ::v-deep .el-input__inner {
+        color: #fff !important; // 选中字体色
+    }
+
+    .el-select-dropdown__wrap el-scrollbar__wrap {
+        background-color: #192434 !important;
+    }
+}
+
+// 下拉框-展开样式
+.el-select-dropdown__item.selected {
+    background-color: #000000 !important; // 选中
+}
+.el-select-dropdown__item.hover {
+    background-color: #000000 !important; // hover
+}
+::v-deep .el-dropdown-menu__item:not(.is-disabled) {
+    color: $backcolor !important; // disabled
+}
+.el-select-dropdown__item {
+    color: #fff !important; // 下拉项颜色
+    background-color: #001234;
+}
+::v-deep .el-popper {
+    background-color: $backcolor !important; // 展开下拉背景
+    border: 1px solid $backcolor !important; // 展开下拉边框
+}
+::v-deep .el-popper .el-popper__arrow::before {
+    border-top: 1px solid $backcolor !important; // 箭头按钮边框
+    background-color: $backcolor !important; // 箭头按钮背景色
+}
+
+//删除输入框右侧的上下箭头
+
+::v-deep .numrule input::-webkit-outer-spin-button,
+::v-deep .numrule input::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+}
+::v-deep .numrule input[type='number'] {
+    -moz-appearance: textfield !important;
+}
+
+::v-deep input[type='number']::-webkit-inner-spin-button,
+::v-deep input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+}

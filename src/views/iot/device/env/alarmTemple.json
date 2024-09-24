@@ -1,0 +1,246 @@
+{
+    "tabs": [
+        {
+            "configname": "报警设置",
+            "id": "dh_01",
+            "father": false,
+            "children": []
+        }
+    ],
+    "list": [
+        {
+            "title": "报警设置",
+            "id": "DIV_1",
+            "children": [
+                {
+                    "id": "DIV_1_1",
+                    "level": 1,
+                    "gutter": 20,
+                    "style": {
+                        "display": "flex",
+                        "flex-direction": "column"
+                    },
+                    "children": [
+                        {
+                            "level": 2,
+                            "span": 24,
+                            "gutter": 20,
+                            "id": "DIV_1_1_1",
+                            "style": {
+                                "display": "flex",
+                                "flex-direction": "column"
+                            },
+                            "children": [
+                                {
+                                    "level": 3,
+                                    "span": 24,
+                                    "id": "DIV_01_01_1",
+                                    "style": {
+                                        "width": "100%",
+                                        "background": "#07111e",
+                                        "border-radius": "17px 17px 17px 17px",
+                                        "padding-left": "22px",
+                                        "padding-bottom": "10px",
+                                        "margin-top": "18px"
+                                    },
+                                    "children": [
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "组件1",
+                                            "componentName": "titleBox",
+                                            "title": "报警名称",
+                                            "img": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ENV/%E6%B8%A9%E5%BA%A6%20%286%29%402x.png",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "id": "组件1",
+                                            "componentName": "inputBox",
+                                            "valueID": [1],
+                                            "childrenSpan": [12, 12],
+                                            "title": "报警器名称",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "id": "组件1",
+                                            "componentName": "inputBox",
+                                            "valueID": [1],
+                                            "childrenSpan": [12, 12],
+                                            "title": "外部一名称",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "id": "组件1",
+                                            "componentName": "inputBox",
+                                            "valueID": [1],
+                                            "childrenSpan": [12, 12],
+                                            "title": "外部二名称",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "id": "组件1",
+                                            "componentName": "inputBox",
+                                            "valueID": [1],
+                                            "childrenSpan": [12, 12],
+                                            "title": "外部三名称",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "id": "组件1",
+                                            "componentName": "inputBox",
+                                            "valueID": [1],
+                                            "childrenSpan": [12, 12],
+                                            "title": "外部四名称",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "id": "组件1",
+                                            "componentName": "inputBox",
+                                            "valueID": [1],
+                                            "childrenSpan": [12, 12],
+                                            "title": "外部五名称",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "id": "组件1",
+                                            "componentName": "inputBox",
+                                            "valueID": [1],
+                                            "childrenSpan": [12, 12],
+                                            "title": "外部六名称",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "level": 2,
+                            "span": 24,
+                            "gutter": 20,
+                            "id": "DIV_2_1_1",
+                            "style": {
+                                "display": "flex",
+                                "flex-direction": "column"
+                            },
+                            "children": [
+                                {
+                                    "level": 3,
+                                    "span": 24,
+                                    "id": "DIV_03_02_2",
+                                    "style": {
+                                        "width": "100%",
+                                        "background": "#07111e",
+                                        "border-radius": "17px 17px 17px 17px",
+                                        "padding-left": "22px",
+                                        "padding-bottom": "10px",
+                                        "margin-top": "18px"
+                                    },
+                                    "children": [
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "组件1",
+                                            "componentName": "titleBox",
+                                            "title": "报警参数",
+                                            "img": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ENV/icon_%E5%BC%80%E5%BA%A6%402x.png",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "gutter": 20,
+                                            "id": "组件2",
+                                            "componentName": "switchBox",
+                                            "title": "温度报警开关：",
+                                            "valueID": [1],
+                                            "childrenSpan": [10, 14],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "gutter": 20,
+                                            "id": "组件2",
+                                            "componentName": "inputBox",
+                                            "title": "温度上限",
+                                            "valueID": [1],
+                                            "childrenSpan": [10, 14],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "gutter": 20,
+                                            "id": "组件2",
+                                            "componentName": "inputBox",
+                                            "title": "温度下限",
+                                            "valueID": [1],
+                                            "childrenSpan": [10, 14],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

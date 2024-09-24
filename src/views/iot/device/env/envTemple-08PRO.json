@@ -1,0 +1,1973 @@
+{
+    "tabs": [
+        {
+            "configname": "养殖设置",
+            "id": "dh_01",
+            "father": false,
+            "children": [
+                {
+                    "configname": "日龄设置",
+                    "id": "DIV_01_01_1",
+                    "offset": 0
+                },
+                {
+                    "configname": "报警设置",
+                    "id": "DIV_01_02_2",
+                    "offset": 0
+                },
+                {
+                    "configname": "温度设置",
+                    "id": "DIV_01_03_3",
+                    "offset": 0
+                }
+            ]
+        },
+        {
+            "configname": "控制设置",
+            "id": "dh_02",
+            "father": false,
+            "children": [
+                {
+                    "configname": "风机设置",
+                    "id": "DIV_02_01_1",
+                    "offset": 0
+                },
+                {
+                    "configname": "比例设置",
+                    "id": "DIV_02_02_2",
+                    "offset": 0
+                },
+                {
+                    "configname": "光照设置",
+                    "id": "DIV_02_02_3",
+                    "offset": 0
+                },
+                {
+                    "configname": "系统变量",
+                    "id": "DIV_02_03_4",
+                    "offset": 0
+                },
+                {
+                    "configname": "湿度控制",
+                    "id": "DIV_02_03_5",
+                    "offset": 0
+                },
+                {
+                    "configname": "加热设置",
+                    "id": "DIV_02_03_6",
+                    "offset": 0
+                },
+                {
+                    "configname": "制冷设置",
+                    "id": "DIV_02_04_7",
+                    "offset": 0
+                },
+                {
+                    "configname": "有害气体",
+                    "id": "DIV_02_04_8",
+                    "offset": 0
+                }
+            ]
+        },
+        {
+            "configname": "安装设置",
+            "id": "dh_03",
+            "father": false,
+            "children": [
+                {
+                    "configname": "温度传感器设置",
+                    "id": "DIV_02_04_8",
+                    "offset": 0
+                },
+                {
+                    "configname": "开度设置",
+                    "id": "DIV_02_04_8",
+                    "offset": 0
+                },
+                {
+                    "configname": "数据校准",
+                    "id": "DIV_02_04_8",
+                    "offset": 0
+                },
+                {
+                    "configname": "继电器控制",
+                    "id": "DIV_02_04_8",
+                    "offset": 0
+                }
+            ]
+        }
+    ],
+    "list": [
+        {
+            "title": "养殖设置",
+            "id": "DIV_0",
+            "children": [
+                {
+                    "id": "DIV_0_1",
+                    "level": 1,
+                    "gutter": 20,
+                    "style": {
+                        "display": "flex",
+                        "flex-direction": "column"
+                    },
+                    "children": [
+                        {
+                            "level": 2,
+                            "span": 8,
+                            "gutter": 20,
+                            "id": "DIV_0_1",
+                            "style": {
+                                "display": "flex",
+                                "flex-direction": "column"
+                            },
+                            "children": [
+                                {
+                                    "level": 3,
+                                    "span": 24,
+                                    "id": "DIV_01_01_1",
+                                    "style": {
+                                        "width": "100%",
+                                        "background": "#07111e",
+                                        "border-radius": "17px 17px 17px 17px",
+                                        "padding-left": "22px",
+                                        "padding-bottom": "10px",
+                                        "margin-top": "18px"
+                                    },
+                                    "children": [
+                                        {
+                                            "level": 4,
+                                            "span": 12,
+                                            "id": "comment1",
+                                            "componentName": "titleBox",
+                                            "title": "日龄设置",
+                                            "img": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ENV/%E6%97%A5%E5%8E%86%20%282%29%402x.png",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 12,
+                                            "gutter": 20,
+                                            "id": "comment2",
+                                            "componentName": "inputBox",
+                                            "title": "日龄:",
+                                            "valueID": ["DaySetting01"],
+                                            "childrenSpan": [10, 14],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "level": 3,
+                                    "span": 24,
+                                    "id": "DIV_01_02_2",
+                                    "style": {
+                                        "width": "100%",
+                                        "background": "#07111e",
+                                        "border-radius": "17px 17px 17px 17px",
+                                        "padding-left": "22px",
+                                        "padding-bottom": "10px",
+                                        "margin-top": "18px"
+                                    },
+                                    "children": [
+                                        {
+                                            "level": 4,
+                                            "span": 12,
+                                            "id": "comment3",
+                                            "componentName": "titleBox",
+                                            "title": "报警设置",
+                                            "img": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ENV/%E6%8A%A5%E8%AD%A6%20%286%29%402x.png",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 0,
+                                            "id": "comment4",
+                                            "componentName": "switchBox",
+                                            "title": "报警类型:",
+                                            "textDirection": "right",
+                                            "gutter": 20,
+                                            "valueID": ["null"],
+                                            "childrenSpan": [10, 14],
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment5",
+                                            "componentName": "deviceSetting",
+                                            "titleList": [
+                                                {
+                                                    "type": "input",
+                                                    "title": "类型"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "温度"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "湿度"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "CO2"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "氨气"
+                                                }
+                                            ],
+                                            "colTitle": ["上限", "下限"],
+                                            "valueID": [
+                                                ["text", "AlarmSettingTemperatureMax", "AlarmSettingHumidityMax", "AlarmSettingCO2Max", "AlarmSettingAmmoniaMax"],
+                                                ["text", "AlarmSettingTemperatureMin", "AlarmSettingHumidityMin", "AlarmSettingCO2Min", "AlarmSettingAmmoniaMin"]
+                                            ],
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "level": 2,
+                            "span": 16,
+                            "gutter": 20,
+                            "id": "DIV_0_2",
+                            "style": {
+                                "display": "flex",
+                                "flex-direction": "column",
+                                "background": "#07111e",
+                                "border-radius": "17px 17px 17px 17px",
+                                "padding-left": "22px",
+                                "padding-bottom": "10px",
+                                "margin-top": "18px"
+                            },
+                            "children": [
+                                {
+                                    "level": 3,
+                                    "span": 24,
+                                    "id": "DIV_01_03_3",
+                                    "style": {
+                                        "width": "100%",
+                                        "display": "flex",
+                                        "flex-direction": "column"
+                                    },
+                                    "children": [
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment6",
+                                            "componentName": "titleBox",
+                                            "title": "温度设置",
+                                            "img": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ENV/%E6%B8%A9%E5%BA%A6%20%286%29%402x.png",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment7",
+                                            "componentName": "deviceSetting",
+                                            "titleList": [
+                                                {
+                                                    "type": "input",
+                                                    "title": "模式"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "1"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "2"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "3"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "4"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "5"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "6"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "7"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "8"
+                                                }
+                                            ],
+                                            "colTitle": ["日龄", "温度"],
+                                            "valueID": [
+                                                [
+                                                    "text",
+                                                    "TemperatureSettingDay01",
+                                                    "TemperatureSettingDay02",
+                                                    "TemperatureSettingDay03",
+                                                    "TemperatureSettingDay04",
+                                                    "TemperatureSettingDay05",
+                                                    "TemperatureSettingDay06",
+                                                    "TemperatureSettingDay07",
+                                                    "TemperatureSettingDay08"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "TemperatureSettingTemperature01",
+                                                    "TemperatureSettingTemperature02",
+                                                    "TemperatureSettingTemperature03",
+                                                    "TemperatureSettingTemperature04",
+                                                    "TemperatureSettingTemperature05",
+                                                    "TemperatureSettingTemperature06",
+                                                    "TemperatureSettingTemperature07",
+                                                    "TemperatureSettingTemperature08"
+                                                ]
+                                            ],
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "控制设置",
+            "id": "DIV_1",
+            "children": [
+                {
+                    "id": "DIV_1_1",
+                    "level": 1,
+                    "gutter": 20,
+                    "style": {
+                        "display": "flex",
+                        "flex-direction": "column"
+                    },
+                    "children": [
+                        {
+                            "level": 2,
+                            "span": 24,
+                            "gutter": 20,
+                            "id": "DIV_1_1",
+                            "style": {
+                                "display": "flex",
+                                "flex-wrap": "wrap",
+                                "justify-content": "space-between"
+                            },
+                            "children": [
+                                {
+                                    "level": 3,
+                                    "span": 24,
+                                    "id": "DIV_02_01_1",
+                                    "style": {
+                                        "width": "100%",
+                                        "background": "#07111e",
+                                        "border-radius": "17px 17px 17px 17px",
+                                        "padding-left": "22px",
+                                        "padding-bottom": "10px",
+                                        "margin-top": "18px"
+                                    },
+                                    "children": [
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment8",
+                                            "componentName": "titleBox",
+                                            "title": "风机设置",
+                                            "img": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ENV/%E9%A3%8E%E6%9C%BA%20%282%29%402x.png",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment9",
+                                            "componentName": "deviceSetting",
+                                            "titleList": [
+                                                {
+                                                    "type": "span",
+                                                    "title": "级别"
+                                                },
+                                                {
+                                                    "type": "span",
+                                                    "title": "类型"
+                                                },
+                                                {
+                                                    "type": "select",
+                                                    "title": "1"
+                                                },
+                                                {
+                                                    "type": "select",
+                                                    "title": "2"
+                                                },
+                                                {
+                                                    "type": "select",
+                                                    "title": "3"
+                                                },
+                                                {
+                                                    "type": "select",
+                                                    "title": "4"
+                                                },
+                                                {
+                                                    "type": "select",
+                                                    "title": "5"
+                                                },
+                                                {
+                                                    "type": "select",
+                                                    "title": "6"
+                                                },
+                                                {
+                                                    "type": "select",
+                                                    "title": "7"
+                                                },
+                                                {
+                                                    "type": "select",
+                                                    "title": "8"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "开启时间"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "关闭时间"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "温差"
+                                                }
+                                            ],
+                                            "colTitle": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"],
+                                            "valueID": [
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "array_00_level1-air_status",
+                                                    "array_01_level1-air_status",
+                                                    "array_02_level1-air_status",
+                                                    "array_03_level1-air_status",
+                                                    "array_04_level1-air_status",
+                                                    "array_05_level1-air_status",
+                                                    "array_06_level1-air_status",
+                                                    "array_07_level1-air_status",
+                                                    "FanSettingOpenTime01",
+                                                    "FanSettingCloseTime01",
+                                                    "FanSettingTemperatureDiff01"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "array_01_level2-air_status",
+                                                    "array_02_level2-air_status",
+                                                    "array_03_level2-air_status",
+                                                    "array_04_level2-air_status",
+                                                    "array_05_level2-air_status",
+                                                    "array_06_level2-air_status",
+                                                    "array_07_level2-air_status",
+                                                    "array_08_level2-air_status",
+                                                    "FanSettingOpenTime02",
+                                                    "FanSettingCloseTime02",
+                                                    "FanSettingTemperatureDiff02"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "array_01_level3-air_status",
+                                                    "array_02_level3-air_status",
+                                                    "array_03_level3-air_status",
+                                                    "array_04_level3-air_status",
+                                                    "array_05_level3-air_status",
+                                                    "array_06_level3-air_status",
+                                                    "array_07_level3-air_status",
+                                                    "array_08_level3-air_status",
+                                                    "FanSettingOpenTime03",
+                                                    "FanSettingCloseTime03",
+                                                    "FanSettingTemperatureDiff03"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "array_01_level4-air_status",
+                                                    "array_02_level4-air_status",
+                                                    "array_03_level4-air_status",
+                                                    "array_04_level4-air_status",
+                                                    "array_05_level4-air_status",
+                                                    "array_06_level4-air_status",
+                                                    "array_07_level4-air_status",
+                                                    "array_08_level4-air_status",
+                                                    "FanSettingOpenTime04",
+                                                    "FanSettingCloseTime04",
+                                                    "FanSettingTemperatureDiff04"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "array_01_level5-air_status",
+                                                    "array_02_level5-air_status",
+                                                    "array_03_level5-air_status",
+                                                    "array_04_level5-air_status",
+                                                    "array_05_level5-air_status",
+                                                    "array_06_level5-air_status",
+                                                    "array_07_level5-air_status",
+                                                    "array_08_level5-air_status",
+                                                    "FanSettingOpenTime05",
+                                                    "FanSettingCloseTime05",
+                                                    "FanSettingTemperatureDiff05"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "array_01_level6-air_status",
+                                                    "array_02_level6-air_status",
+                                                    "array_03_level6-air_status",
+                                                    "array_04_level6-air_status",
+                                                    "array_05_level6-air_status",
+                                                    "array_06_level6-air_status",
+                                                    "array_07_level6-air_status",
+                                                    "array_08_level6-air_status",
+                                                    "FanSettingOpenTime06",
+                                                    "FanSettingCloseTime06",
+                                                    "FanSettingTemperatureDiff06"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "array_01_level7-air_status",
+                                                    "array_02_level7-air_status",
+                                                    "array_03_level7-air_status",
+                                                    "array_04_level7-air_status",
+                                                    "array_05_level7-air_status",
+                                                    "array_06_level7-air_status",
+                                                    "array_07_level7-air_status",
+                                                    "array_08_level7-air_status",
+                                                    "FanSettingOpenTime07",
+                                                    "FanSettingCloseTime07",
+                                                    "FanSettingTemperatureDiff07"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "array_01_level8-air_status",
+                                                    "array_02_level8-air_status",
+                                                    "array_03_level8-air_status",
+                                                    "array_04_level8-air_status",
+                                                    "array_05_level8-air_status",
+                                                    "array_06_level8-air_status",
+                                                    "array_07_level8-air_status",
+                                                    "array_08_level8-air_status",
+                                                    "FanSettingOpenTime08",
+                                                    "FanSettingCloseTime08",
+                                                    "FanSettingTemperatureDiff08"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "array_01_level9-air_status",
+                                                    "array_02_level9-air_status",
+                                                    "array_03_level9-air_status",
+                                                    "array_04_level9-air_status",
+                                                    "array_05_level9-air_status",
+                                                    "array_06_level9-air_status",
+                                                    "array_07_level9-air_status",
+                                                    "array_08_level9-air_status",
+                                                    "FanSettingOpenTime09",
+                                                    "FanSettingCloseTime09",
+                                                    "FanSettingTemperatureDiff09"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "array_01_level10-air_status",
+                                                    "array_02_level10-air_status",
+                                                    "array_03_level10-air_status",
+                                                    "array_04_level10-air_status",
+                                                    "array_05_level10-air_status",
+                                                    "array_06_level10-air_status",
+                                                    "array_07_level10-air_status",
+                                                    "array_08_level10-air_status",
+                                                    "FanSettingOpenTime10",
+                                                    "FanSettingCloseTime10",
+                                                    "FanSettingTemperatureDiff10"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "array_01_level11-air_status",
+                                                    "array_02_level11-air_status",
+                                                    "array_03_level11-air_status",
+                                                    "array_04_level11-air_status",
+                                                    "array_05_level11-air_status",
+                                                    "array_06_level11-air_status",
+                                                    "array_07_level11-air_status",
+                                                    "array_08_level11-air_status",
+                                                    "FanSettingOpenTime11",
+                                                    "FanSettingCloseTime11",
+                                                    "FanSettingTemperatureDiff11"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "array_01_level12-air_status",
+                                                    "array_02_level12-air_status",
+                                                    "array_03_level12-air_status",
+                                                    "array_04_level12-air_status",
+                                                    "array_05_level12-air_status",
+                                                    "array_06_level12-air_status",
+                                                    "array_07_level12-air_status",
+                                                    "array_08_level12-air_status",
+                                                    "FanSettingOpenTime12",
+                                                    "FanSettingCloseTime12",
+                                                    "FanSettingTemperatureDiff12"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "array_01_level13-air_status",
+                                                    "array_02_level13-air_status",
+                                                    "array_03_level13-air_status",
+                                                    "array_04_level13-air_status",
+                                                    "array_05_level13-air_status",
+                                                    "array_06_level13-air_status",
+                                                    "array_07_level13-air_status",
+                                                    "array_08_level13-air_status",
+                                                    "FanSettingOpenTime13",
+                                                    "FanSettingCloseTime13",
+                                                    "FanSettingTemperatureDiff13"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "array_01_level14-air_status",
+                                                    "array_02_level14-air_status",
+                                                    "array_03_level14-air_status",
+                                                    "array_04_level14-air_status",
+                                                    "array_05_level14-air_status",
+                                                    "array_06_level14-air_status",
+                                                    "array_07_level14-air_status",
+                                                    "array_08_level14-air_status",
+                                                    "FanSettingOpenTime14",
+                                                    "FanSettingCloseTime14",
+                                                    "FanSettingTemperatureDiff14"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "array_01_level15-air_status",
+                                                    "array_02_level15-air_status",
+                                                    "array_03_level15-air_status",
+                                                    "array_04_level15-air_status",
+                                                    "array_05_level15-air_status",
+                                                    "array_06_level15-air_status",
+                                                    "array_07_level15-air_status",
+                                                    "array_08_level15-air_status",
+                                                    "FanSettingOpenTime15",
+                                                    "FanSettingCloseTime15",
+                                                    "FanSettingTemperatureDiff15"
+                                                ]
+                                            ],
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "level": 3,
+                                    "span": 13,
+                                    "id": "DIV_02_02_2",
+                                    "style": {
+                                        "width": "100%",
+                                        "background": "#07111e",
+                                        "border-radius": "17px 17px 17px 17px",
+                                        "padding-left": "22px",
+                                        "padding-bottom": "10px",
+                                        "margin-top": "18px"
+                                    },
+                                    "children": [
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment10",
+                                            "componentName": "titleBox",
+                                            "title": "比例设置",
+                                            "img": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ENV/WIP%E5%B7%A5%E5%85%B7%E4%B8%8E%E5%81%9C%E8%BD%A6%E4%BD%8D%E5%8F%8A%E7%A9%BA%E9%97%B4%E6%AF%94%E4%BE%8B%E8%AE%BE%E7%BD%AE%402x.png",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment11",
+                                            "componentName": "deviceSetting",
+                                            "titleList": [
+                                                {
+                                                    "type": "span",
+                                                    "title": "级别"
+                                                },
+                                                {
+                                                    "type": "span",
+                                                    "title": "类型"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "变频一"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "侧风窗"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "天花窗"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "卷帘"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "滑帘"
+                                                }
+                                            ],
+                                            "colTitle": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"],
+                                            "valueID": [
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "ScaleSettingFrequencyConversion01",
+                                                    "ScaleSettingFrequencyConversion02",
+                                                    "ScaleSettingFrequencyConversion03",
+                                                    "ScaleSettingFrequencyConversion04",
+                                                    "ScaleSettingFrequencyConversion05"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "ScaleSettingFrequencyConversion06",
+                                                    "ScaleSettingFrequencyConversion07",
+                                                    "ScaleSettingFrequencyConversion08",
+                                                    "ScaleSettingFrequencyConversion09",
+                                                    "ScaleSettingFrequencyConversion10"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "ScaleSettingFrequencyConversion11",
+                                                    "ScaleSettingFrequencyConversion12",
+                                                    "ScaleSettingFrequencyConversion13",
+                                                    "ScaleSettingFrequencyConversion14",
+                                                    "ScaleSettingFrequencyConversion15"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "ScaleSettingFrequencyConversion16",
+                                                    "ScaleSettingFrequencyConversion17",
+                                                    "ScaleSettingFrequencyConversion18",
+                                                    "ScaleSettingFrequencyConversion19",
+                                                    "ScaleSettingFrequencyConversion20"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "ScaleSettingFrequencyConversion21",
+                                                    "ScaleSettingFrequencyConversion22",
+                                                    "ScaleSettingFrequencyConversion23",
+                                                    "ScaleSettingFrequencyConversion24",
+                                                    "ScaleSettingFrequencyConversion25"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "ScaleSettingFrequencyConversion26",
+                                                    "ScaleSettingFrequencyConversion27",
+                                                    "ScaleSettingFrequencyConversion28",
+                                                    "ScaleSettingFrequencyConversion29",
+                                                    "ScaleSettingFrequencyConversion30"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "ScaleSettingFrequencyConversion31",
+                                                    "ScaleSettingFrequencyConversion32",
+                                                    "ScaleSettingFrequencyConversion33",
+                                                    "ScaleSettingFrequencyConversion34",
+                                                    "ScaleSettingFrequencyConversion35"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "ScaleSettingFrequencyConversion36",
+                                                    "ScaleSettingFrequencyConversion37",
+                                                    "ScaleSettingFrequencyConversion38",
+                                                    "ScaleSettingFrequencyConversion39",
+                                                    "ScaleSettingFrequencyConversion40"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "ScaleSettingFrequencyConversion41",
+                                                    "ScaleSettingFrequencyConversion42",
+                                                    "ScaleSettingFrequencyConversion43",
+                                                    "ScaleSettingFrequencyConversion44",
+                                                    "ScaleSettingFrequencyConversion45"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "ScaleSettingFrequencyConversion46",
+                                                    "ScaleSettingFrequencyConversion47",
+                                                    "ScaleSettingFrequencyConversion48",
+                                                    "ScaleSettingFrequencyConversion49",
+                                                    "ScaleSettingFrequencyConversion50"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "ScaleSettingFrequencyConversion51",
+                                                    "ScaleSettingFrequencyConversion52",
+                                                    "ScaleSettingFrequencyConversion53",
+                                                    "ScaleSettingFrequencyConversion54",
+                                                    "ScaleSettingFrequencyConversion55"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "ScaleSettingFrequencyConversion56",
+                                                    "ScaleSettingFrequencyConversion57",
+                                                    "ScaleSettingFrequencyConversion58",
+                                                    "ScaleSettingFrequencyConversion59",
+                                                    "ScaleSettingFrequencyConversion60"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "ScaleSettingFrequencyConversion61",
+                                                    "ScaleSettingFrequencyConversion62",
+                                                    "ScaleSettingFrequencyConversion63",
+                                                    "ScaleSettingFrequencyConversion64",
+                                                    "ScaleSettingFrequencyConversion65"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "ScaleSettingFrequencyConversion66",
+                                                    "ScaleSettingFrequencyConversion67",
+                                                    "ScaleSettingFrequencyConversion68",
+                                                    "ScaleSettingFrequencyConversion69",
+                                                    "ScaleSettingFrequencyConversion70"
+                                                ],
+                                                [
+                                                    "text",
+                                                    "text",
+                                                    "ScaleSettingFrequencyConversion71",
+                                                    "ScaleSettingFrequencyConversion72",
+                                                    "ScaleSettingFrequencyConversion73",
+                                                    "ScaleSettingFrequencyConversion74",
+                                                    "ScaleSettingFrequencyConversion75"
+                                                ]
+                                            ],
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "level": 3,
+                                    "span": 10,
+                                    "id": "DIV_02_02_3",
+                                    "style": {
+                                        "width": "100%",
+                                        "background": "#07111e",
+                                        "border-radius": "17px 17px 17px 17px",
+                                        "padding-left": "22px",
+                                        "padding-bottom": "10px",
+                                        "margin-top": "18px"
+                                    },
+                                    "children": [
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment12",
+                                            "componentName": "titleBox",
+                                            "title": "光照设置",
+                                            "img": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ENV/%E5%85%89%E7%85%A7%402x.png",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment13",
+                                            "componentName": "deviceSetting",
+                                            "titleList": [
+                                                {
+                                                    "type": "span",
+                                                    "title": "类目"
+                                                },
+                                                {
+                                                    "type": "span",
+                                                    "title": "亮度"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "开启时"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "开启分"
+                                                },
+                                                {
+                                                    "type": "boolean",
+                                                    "title": "开关"
+                                                }
+                                            ],
+                                            "colTitle": ["光照1", "光照2", "光照3", "光照4", "光照5", "光照6", "光照7", "光照8", "光照9", "光照10", "光照11", "光照12", "光照13", "光照14", "光照15"],
+                                            "valueID": [
+                                                ["text", "IlluminationSettingDimming01", "IlluminationSettingTimeH01", "IlluminationSettingTimeS01", "IlluminationSettingEnable01"],
+                                                ["text", "IlluminationSettingDimming02", "IlluminationSettingTimeH02", "IlluminationSettingTimeS02", "IlluminationSettingEnable02"],
+                                                ["text", "IlluminationSettingDimming03", "IlluminationSettingTimeH03", "IlluminationSettingTimeS03", "IlluminationSettingEnable03"],
+                                                ["text", "IlluminationSettingDimming04", "IlluminationSettingTimeH04", "IlluminationSettingTimeS04", "IlluminationSettingEnable04"],
+                                                ["text", "IlluminationSettingDimming05", "IlluminationSettingTimeH05", "IlluminationSettingTimeS05", "IlluminationSettingEnable05"],
+                                                ["text", "IlluminationSettingDimming06", "IlluminationSettingTimeH06", "IlluminationSettingTimeS06", "IlluminationSettingEnable06"],
+                                                ["text", "IlluminationSettingDimming07", "IlluminationSettingTimeH07", "IlluminationSettingTimeS07", "IlluminationSettingEnable07"],
+                                                ["text", "IlluminationSettingDimming08", "IlluminationSettingTimeH08", "IlluminationSettingTimeS08", "IlluminationSettingEnable08"],
+                                                ["text", "IlluminationSettingDimming09", "IlluminationSettingTimeH09", "IlluminationSettingTimeS09", "IlluminationSettingEnable09"],
+                                                ["text", "IlluminationSettingDimming10", "IlluminationSettingTimeH10", "IlluminationSettingTimeS10", "IlluminationSettingEnable10"],
+                                                ["text", "IlluminationSettingDimming11", "IlluminationSettingTimeH11", "IlluminationSettingTimeS11", "IlluminationSettingEnable11"],
+                                                ["text", "IlluminationSettingDimming12", "IlluminationSettingTimeH12", "IlluminationSettingTimeS12", "IlluminationSettingEnable12"],
+                                                ["text", "IlluminationSettingDimming13", "IlluminationSettingTimeH13", "IlluminationSettingTimeS13", "IlluminationSettingEnable13"],
+                                                ["text", "IlluminationSettingDimming14", "IlluminationSettingTimeH14", "IlluminationSettingTimeS14", "IlluminationSettingEnable14"],
+                                                ["text", "IlluminationSettingDimming15", "IlluminationSettingTimeH15", "IlluminationSettingTimeS15", "IlluminationSettingEnable15"]
+                                            ],
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "level": 3,
+                                    "span": 13,
+                                    "id": "DIV_02_03_4",
+                                    "style": {
+                                        "width": "100%",
+                                        "background": "#07111e",
+                                        "border-radius": "17px 17px 17px 17px",
+                                        "padding-left": "22px",
+                                        "padding-bottom": "10px",
+                                        "margin-top": "18px"
+                                    },
+                                    "children": [
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment14",
+                                            "componentName": "titleBox",
+                                            "title": "系统变量",
+                                            "img": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ENV/%E7%B3%BB%E7%BB%9F%20%281%29%402x.png",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 6,
+                                            "gutter": 20,
+                                            "id": "comment15",
+                                            "componentName": "inputBox",
+                                            "title": "幸福温度:",
+                                            "valueID": ["SystemSettingHappinessIndex "],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 6,
+                                            "gutter": 20,
+                                            "id": "comment16",
+                                            "componentName": "inputBox",
+                                            "title": "最小时间:",
+                                            "valueID": ["SystemSettingInitialLessTime"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 6,
+                                            "gutter": 20,
+                                            "id": "comment17",
+                                            "componentName": "inputBox",
+                                            "title": "降级延时:",
+                                            "valueID": ["SystemSettingDowngradingDelay"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 6,
+                                            "gutter": 20,
+                                            "id": "comment18",
+                                            "componentName": "inputBox",
+                                            "title": "隧道温度:",
+                                            "valueID": ["SystemSettingTunnelTemperature"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 6,
+                                            "gutter": 20,
+                                            "id": "comment19",
+                                            "componentName": "inputBox",
+                                            "title": "默认时间:",
+                                            "valueID": ["SystemSettingDefaultStartup"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 6,
+                                            "gutter": 20,
+                                            "id": "comment20",
+                                            "componentName": "inputBox",
+                                            "title": "通风级别:",
+                                            "valueID": ["SystemSettingVentilationLevel"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 6,
+                                            "gutter": 20,
+                                            "id": "comment21",
+                                            "componentName": "inputBox",
+                                            "title": "初始级别:",
+                                            "valueID": ["SystemSettingInitialLevelOfTunnel"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 6,
+                                            "gutter": 20,
+                                            "id": "comment22",
+                                            "componentName": "inputBox",
+                                            "title": "升级延时:",
+                                            "valueID": ["SystemSettingUpgradeDelay"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "level": 3,
+                                    "span": 10,
+                                    "id": "DIV_02_03_5",
+                                    "style": {
+                                        "width": "100%",
+                                        "background": "#07111e",
+                                        "border-radius": "17px 17px 17px 17px",
+                                        "padding-left": "22px",
+                                        "padding-bottom": "10px",
+                                        "margin-top": "18px",
+                                        "display": "flex",
+                                        "flex-wrap": "wrap",
+                                        "justify-content": "space-start"
+                                    },
+                                    "children": [
+                                        {
+                                            "level": 4,
+                                            "span": 12,
+                                            "id": "comment23",
+                                            "componentName": "titleBox",
+                                            "title": "湿度设置",
+                                            "img": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ENV/%E6%B9%BF%E5%BA%A6%20%282%29%402x.png",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 10,
+                                            "id": "comment24",
+                                            "componentName": "switchBox",
+                                            "title": "湿度开关:",
+                                            "textDirection": "right",
+                                            "gutter": 20,
+                                            "valueID": ["HumiditySettingEnable"],
+                                            "childrenSpan": [14, 8],
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "5px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "gutter": 20,
+                                            "id": "comment25",
+                                            "componentName": "inputBox",
+                                            "title": "控制间隔:",
+                                            "valueID": ["HumiditySettingControlInterval"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "5px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "gutter": 20,
+                                            "id": "comment26",
+                                            "componentName": "inputBox",
+                                            "title": "开始湿度:",
+                                            "valueID": ["HumiditySettingStartHumidity"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "5px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "gutter": 20,
+                                            "id": "comment27",
+                                            "componentName": "inputBox",
+                                            "title": "结束湿度:",
+                                            "valueID": ["HumiditySettingEndHumidity"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "5px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "gutter": 20,
+                                            "id": "comment28",
+                                            "componentName": "inputBox",
+                                            "title": "控制时间:",
+                                            "valueID": ["HumiditySettingControlDuration"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "5px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "gutter": 20,
+                                            "id": "comment29",
+                                            "componentName": "inputBox",
+                                            "title": "湿度差异:",
+                                            "valueID": ["HumiditySettingHumidityDeviation"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "5px"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "level": 3,
+                                    "span": 8,
+                                    "id": "DIV_02_03_6",
+                                    "style": {
+                                        "width": "100%",
+                                        "background": "#07111e",
+                                        "border-radius": "17px 17px 17px 17px",
+                                        "padding-left": "22px",
+                                        "padding-bottom": "10px",
+                                        "margin-top": "18px"
+                                    },
+                                    "children": [
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment30",
+                                            "componentName": "titleBox",
+                                            "title": "加热设置",
+                                            "img": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ENV/161%E5%8A%A0%E7%83%AD%E3%80%81%E7%81%AB%E7%84%B0%20%281%29%402x.png",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment31",
+                                            "componentName": "deviceSetting",
+                                            "titleList": [
+                                                {
+                                                    "type": "span",
+                                                    "title": "类目"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "加热1"
+                                                }
+                                            ],
+                                            "colTitle": ["开启时间", "关闭时间", "开启温度", "结束温度", "开始时", "开始分", "结束时", "结束分"],
+                                            "valueID": [
+                                                ["text", "HeatingSettingOpenTime01"],
+                                                ["text", "HeatingSettingCloseTime01"],
+                                                ["text", "HeatingSettingStartTemperature01"],
+                                                ["text", "HeatingSettingEndTemperature01"],
+                                                ["text", "HeatingSettingStartTimeH01"],
+                                                ["text", "HeatingSettingStartTimeS01"],
+                                                ["text", "HeatingSettingEndTimeH01"],
+                                                ["text", "HeatingSettingEndTimeS01"]
+                                            ],
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "level": 3,
+                                    "span": 9,
+                                    "id": "DIV_02_04_7",
+                                    "style": {
+                                        "width": "100%",
+                                        "background": "#07111e",
+                                        "border-radius": "17px 17px 17px 17px",
+                                        "padding-left": "22px",
+                                        "padding-bottom": "10px",
+                                        "margin-top": "18px"
+                                    },
+                                    "children": [
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment32",
+                                            "componentName": "titleBox",
+                                            "title": "制冷设置",
+                                            "img": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ENV/%E5%88%B6%E5%86%B7%402x.png",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment33",
+                                            "componentName": "deviceSetting",
+                                            "titleList": [
+                                                {
+                                                    "type": "span",
+                                                    "title": "类目"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "制冷一"
+                                                }
+                                            ],
+                                            "colTitle": ["开启时间", "关闭时间", "开启温度", "结束温度", "开始时", "开始分", "结束时", "结束分"],
+                                            "valueID": [
+                                                ["text", "CoolingSettingOpenTime01"],
+                                                ["text", "CoolingSettingCloseTime01"],
+                                                ["text", "CoolingSettingStartTemperature01"],
+                                                ["text", "CoolingSettingEndTemperature01"],
+                                                ["text", "CoolingSettingStartTimeH01"],
+                                                ["text", "CoolingSettingStartTimeS01"],
+                                                ["text", "CoolingSettingEndTimeH01"],
+                                                ["text", "CoolingSettingEndTimeS01"]
+                                            ],
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "level": 3,
+                                    "span": 6,
+                                    "id": "DIV_02_04_8",
+                                    "style": {
+                                        "width": "100%",
+                                        "background": "#07111e",
+                                        "border-radius": "17px 17px 17px 17px",
+                                        "padding-left": "22px",
+                                        "padding-bottom": "10px",
+                                        "margin-top": "18px"
+                                    },
+                                    "children": [
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment34",
+                                            "componentName": "titleBox",
+                                            "title": "有害气体",
+                                            "img": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ENV/%E6%B0%94%E4%BD%93%E7%9B%91%E6%B5%8B%402x.png",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "gutter": 20,
+                                            "id": "comment35",
+                                            "componentName": "inputBox",
+                                            "title": "间隔时间:",
+                                            "valueID": ["HarmfulGasControlInterval"],
+                                            "childrenSpan": [10, 14],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "gutter": 20,
+                                            "id": "comment36",
+                                            "componentName": "inputBox",
+                                            "title": "控制时间:",
+                                            "valueID": ["HarmfulGasControlDuration"],
+                                            "childrenSpan": [10, 14],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "gutter": 20,
+                                            "id": "comment37",
+                                            "componentName": "inputBox",
+                                            "title": "温度差异:",
+                                            "valueID": ["HarmfulGasTemperatureDeviation"],
+                                            "childrenSpan": [10, 14],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "gutter": 20,
+                                            "id": "comment38",
+                                            "componentName": "inputBox",
+                                            "title": "氨气开始:",
+                                            "valueID": ["HarmfulGasNH3Start"],
+                                            "childrenSpan": [10, 14],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "gutter": 20,
+                                            "id": "comment39",
+                                            "componentName": "inputBox",
+                                            "title": "氨气结束:",
+                                            "valueID": ["HarmfulGasNH3End"],
+                                            "childrenSpan": [10, 14],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "gutter": 20,
+                                            "id": "comment40",
+                                            "componentName": "inputBox",
+                                            "title": "CO2开始:",
+                                            "valueID": ["HarmfulGasCO2Start"],
+                                            "childrenSpan": [10, 14],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "gutter": 20,
+                                            "id": "comment41",
+                                            "componentName": "inputBox",
+                                            "title": "CO2结束:",
+                                            "valueID": ["HarmfulGasCO2End"],
+                                            "childrenSpan": [10, 14],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "安装设置",
+            "id": "DIV_2",
+            "children": [
+                {
+                    "id": "DIV_2_1",
+                    "level": 1,
+                    "gutter": 20,
+                    "style": {
+                        "display": "flex",
+                        "flex-direction": "column"
+                    },
+                    "children": [
+                        {
+                            "level": 2,
+                            "span": 8,
+                            "gutter": 20,
+                            "id": "DIV_2_1_1",
+                            "style": {
+                                "display": "flex",
+                                "flex-direction": "column"
+                            },
+                            "children": [
+                                {
+                                    "level": 3,
+                                    "span": 24,
+                                    "id": "DIV_03_01_1",
+                                    "style": {
+                                        "width": "100%",
+                                        "background": "#07111e",
+                                        "border-radius": "17px 17px 17px 17px",
+                                        "padding-left": "22px",
+                                        "padding-bottom": "10px",
+                                        "margin-top": "18px"
+                                    },
+                                    "children": [
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment42",
+                                            "componentName": "titleBox",
+                                            "title": "温度传感器设置",
+                                            "img": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ENV/%E6%B8%A9%E5%BA%A6%20%286%29%402x.png",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment43",
+                                            "componentName": "deviceSetting",
+                                            "titleList": [
+                                                {
+                                                    "type": "input",
+                                                    "title": "模式"
+                                                },
+                                                {
+                                                    "type": "boolean",
+                                                    "title": "接口一"
+                                                },
+                                                {
+                                                    "type": "boolean",
+                                                    "title": "接口二"
+                                                },
+                                                {
+                                                    "type": "boolean",
+                                                    "title": "接口三"
+                                                }
+                                            ],
+                                            "colTitle": ["室外温度", "平均温度", "加热1", "制冷", "隧道通风", "最小通风"],
+                                            "isBit": true,
+                                            "valueID": [
+                                                ["text", "TemperatureSensorOutdoorTemperature01", "TemperatureSensorOutdoorTemperature01", "TemperatureSensorOutdoorTemperature01"],
+                                                ["text", "TemperatureSensorIndoorTemperature01", "TemperatureSensorIndoorTemperature01", "TemperatureSensorIndoorTemperature01"],
+                                                ["text", "TemperatureSensorHeatingOne01", "TemperatureSensorHeatingOne01", "TemperatureSensorHeatingOne01"],
+                                                ["text", "TemperatureSensorRefrigeration01", "TemperatureSensorRefrigeration01", "TemperatureSensorRefrigeration01"],
+                                                ["text", "TemperatureSensorTunnelVentilation01", "TemperatureSensorTunnelVentilation01", "TemperatureSensorTunnelVentilation01"],
+                                                ["text", "TemperatureSensorMinimumVentilation01", "TemperatureSensorMinimumVentilation01", "TemperatureSensorMinimumVentilation01"]
+                                            ],
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "level": 2,
+                            "span": 16,
+                            "gutter": 20,
+                            "id": "DIV_2_1_2",
+                            "style": {
+                                "display": "flex",
+                                "flex-direction": "column"
+                            },
+                            "children": [
+                                {
+                                    "level": 3,
+                                    "span": 24,
+                                    "id": "DIV_03_02_2",
+                                    "style": {
+                                        "width": "100%",
+                                        "background": "#07111e",
+                                        "border-radius": "17px 17px 17px 17px",
+                                        "padding-left": "22px",
+                                        "padding-bottom": "10px",
+                                        "margin-top": "18px"
+                                    },
+                                    "children": [
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment44",
+                                            "componentName": "titleBox",
+                                            "title": "开度设置",
+                                            "img": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ENV/icon_%E5%BC%80%E5%BA%A6%402x.png",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment45",
+                                            "componentName": "deviceSetting",
+                                            "titleList": [
+                                                {
+                                                    "type": "input",
+                                                    "title": "类目"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "控制模式"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "T1"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "T2"
+                                                },
+                                                {
+                                                    "type": "input",
+                                                    "title": "T3"
+                                                }
+                                            ],
+                                            "colTitle": ["天花", "滑帘", "卷帘窗", "侧风窗"],
+                                            "valueID": [
+                                                ["text", "OpeningSettingSmallpoxControl", "OpeningSettingSmallpoxT1", "OpeningSettingSmallpoxT2", "OpeningSettingSmallpoxT3"],
+                                                ["text", "OpeningSettingSlidingCurtainControl", "OpeningSettingSlidingCurtainT1", "OpeningSettingSlidingCurtainT2", "OpeningSettingSlidingCurtainT3"],
+                                                ["text", "OpeningSettingRollerShutterControl", "OpeningSettingRollerShutterT1", "OpeningSettingRollerShutterT2", "OpeningSettingRollerShutterT3"],
+                                                ["text", "OpeningSettingCorssWindControl", "OpeningSettingCorssWindT1", "OpeningSettingCorssWindT2", "OpeningSettingCorssWindT3"]
+                                            ],
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "level": 3,
+                                    "span": 24,
+                                    "id": "DIV_03_03_2",
+                                    "style": {
+                                        "width": "100%",
+                                        "background": "#07111e",
+                                        "border-radius": "17px 17px 17px 17px",
+                                        "padding-left": "22px",
+                                        "padding-bottom": "10px",
+                                        "margin-top": "18px"
+                                    },
+                                    "children": [
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment46",
+                                            "componentName": "titleBox",
+                                            "title": "数据校准",
+                                            "img": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ENV/%E6%A0%A1%E5%87%86%402x.png",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 6,
+                                            "gutter": 20,
+                                            "id": "comment47",
+                                            "componentName": "inputBox",
+                                            "title": "氨气:",
+                                            "valueID": ["DatacCalibrationNH3"],
+                                            "childrenSpan": [10, 14],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 6,
+                                            "gutter": 20,
+                                            "id": "comment48",
+                                            "componentName": "inputBox",
+                                            "title": "室内湿度:",
+                                            "valueID": ["DatacCalibrationIndoorHumidity"],
+                                            "childrenSpan": [14, 10],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 6,
+                                            "gutter": 20,
+                                            "id": "comment49",
+                                            "componentName": "inputBox",
+                                            "title": "室外湿度:",
+                                            "valueID": ["DatacCalibrationOutdoorHumidity"],
+                                            "childrenSpan": [14, 10],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 6,
+                                            "gutter": 20,
+                                            "id": "comment50",
+                                            "componentName": "inputBox",
+                                            "title": "CO2:",
+                                            "valueID": ["DatacCalibrationCO2"],
+                                            "childrenSpan": [10, 14],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 6,
+                                            "gutter": 20,
+                                            "id": "comment51",
+                                            "componentName": "inputBox",
+                                            "title": "温度1:",
+                                            "valueID": ["DatacCalibrationTemp1"],
+                                            "childrenSpan": [10, 14],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 6,
+                                            "gutter": 20,
+                                            "id": "comment52",
+                                            "componentName": "inputBox",
+                                            "title": "温度2:",
+                                            "valueID": ["DatacCalibrationTemp2"],
+                                            "childrenSpan": [10, 14],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 6,
+                                            "gutter": 20,
+                                            "id": "comment53",
+                                            "componentName": "inputBox",
+                                            "title": "温度3:",
+                                            "valueID": ["DatacCalibrationTemp3"],
+                                            "childrenSpan": [10, 14],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "level": 2,
+                            "span": 24,
+                            "gutter": 20,
+                            "id": "DIV_2_1_3",
+                            "style": {
+                                "display": "flex",
+                                "flex-direction": "column"
+                            },
+                            "children": [
+                                {
+                                    "level": 3,
+                                    "span": 24,
+                                    "id": "DIV_03_04_4",
+                                    "style": {
+                                        "width": "100%",
+                                        "background": "#07111e",
+                                        "border-radius": "17px 17px 17px 17px",
+                                        "padding-left": "22px",
+                                        "padding-bottom": "10px",
+                                        "margin-top": "18px"
+                                    },
+                                    "children": [
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment54",
+                                            "componentName": "titleBox",
+                                            "title": "继电器设置",
+                                            "img": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ENV/icon_%E5%BC%80%E5%BA%A6%402x.png",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment55",
+                                            "componentName": "deviceSetting",
+                                            "titleList": [
+                                                {
+                                                    "type": "span",
+                                                    "title": "类目"
+                                                },
+                                                {
+                                                    "type": "select",
+                                                    "title": "继电器01"
+                                                },
+                                                {
+                                                    "type": "select",
+                                                    "title": "继电器02"
+                                                },
+                                                {
+                                                    "type": "select",
+                                                    "title": "继电器03"
+                                                },
+                                                {
+                                                    "type": "select",
+                                                    "title": "继电器04"
+                                                },
+                                                {
+                                                    "type": "select",
+                                                    "title": "继电器05"
+                                                },
+                                                {
+                                                    "type": "select",
+                                                    "title": "继电器06"
+                                                },
+                                                {
+                                                    "type": "select",
+                                                    "title": "继电器07"
+                                                },
+                                                {
+                                                    "type": "select",
+                                                    "title": "继电器08"
+                                                }
+                                            ],
+                                            "colTitle": ["1"],
+                                            "Option": [
+                                                { "value": "0", "label": "不启用" },
+                                                { "value": "1", "label": "风机一" },
+                                                { "value": "2", "label": "风机二" },
+                                                { "value": "3", "label": "风机三" },
+                                                { "value": "4", "label": "风机四" },
+                                                { "value": "5", "label": "风机五" },
+                                                { "value": "6", "label": "风机六" },
+                                                { "value": "7", "label": "风机七" },
+                                                { "value": "8", "label": "风机八" },
+                                                { "value": "9", "label": "加热" },
+                                                { "value": "10", "label": "冷却" },
+                                                { "value": "11", "label": "侧风窗开" },
+                                                { "value": "12", "label": "侧风窗关" },
+                                                { "value": "13", "label": "滑帘开" },
+                                                { "value": "14", "label": "滑帘关" },
+                                                { "value": "15", "label": "卷帘开" },
+                                                { "value": "16", "label": "卷帘关" },
+                                                { "value": "17", "label": "天花窗开" },
+                                                { "value": "18", "label": "天花窗关" },
+                                                { "value": "19", "label": "照明" },
+                                                { "value": "20", "label": "报警" }
+                                            ],
+                                            "selectIcon": false,
+                                            "valueID": [["text", "RelayControl01", "RelayControl02", "RelayControl03", "RelayControl04", "RelayControl05", "RelayControl06", "RelayControl07", "RelayControl08"]],
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "22px"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "data": {
+        "type": "env",
+        "fansNum": 8,
+        "hot": 1,
+        "cold": 1,
+        "light": 1,
+        "enableMap": {
+            "fans": [1, 2, 3, 4, 5, 6, 7, 8],
+            "hot": [9],
+            "cold": [10],
+            "light": [19]
+        }
+    }
+}

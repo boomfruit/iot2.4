@@ -1,0 +1,357 @@
+{
+    "tabs": [
+        {
+            "configname": "报警设置",
+            "id": "dh_01",
+            "father": false,
+            "children": [
+                {
+                    "configname": "报警名称",
+                    "id": "DIV_01_01_1",
+                    "offset": 0
+                },
+                {
+                    "configname": "报警参数",
+                    "id": "DIV_01_02_2",
+                    "offset": 0
+                }
+            ]
+        }
+    ],
+    "list": [
+        {
+            "title": "报警设置",
+            "id": "DIV_1",
+            "children": [
+                {
+                    "id": "DIV_1_1",
+                    "level": 1,
+                    "gutter": 20,
+                    "style": {
+                        "display": "flex",
+                        "flex-direction": "column"
+                    },
+                    "children": [
+                        {
+                            "level": 2,
+                            "span": 24,
+                            "gutter": 20,
+                            "id": "DIV_1_1",
+                            "style": {
+                                "display": "flex",
+                                "flex-wrap": "wrap",
+                                "justify-content": "space-between"
+                            },
+                            "children": [
+                                {
+                                    "level": 3,
+                                    "span": 24,
+                                    "id": "DIV_1_1_01",
+                                    "style": {
+                                        "width": "100%",
+                                        "background": "#07111e",
+                                        "border-radius": "17px 17px 17px 17px",
+                                        "padding-left": "22px",
+                                        "padding-bottom": "10px",
+                                        "margin-top": "18px",
+                                        "display": "flex",
+                                        "flex-wrap": "wrap",
+                                        "justify-content": "space-start"
+                                    },
+                                    "children": [
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment1",
+                                            "componentName": "titleBox",
+                                            "title": "报警名称",
+                                            "img": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/alarm_name.png",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "gutter": 20,
+                                            "id": "comment2",
+                                            "componentName": "inputBox",
+                                            "title": "报警器名称:",
+                                            "valueID": ["deviceName"],
+                                            "inside": true,
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "5px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "gutter": 20,
+                                            "id": "comment3",
+                                            "componentName": "inputBox",
+                                            "inside": true,
+                                            "title": "外部一名称:",
+                                            "valueID": ["external1"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "5px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "gutter": 20,
+                                            "id": "comment4",
+                                            "componentName": "inputBox",
+                                            "title": "外部二名称:",
+                                            "inside": true,
+                                            "valueID": ["external2"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "5px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "gutter": 20,
+                                            "id": "comment5",
+                                            "componentName": "inputBox",
+                                            "title": "外部三名称:",
+                                            "inside": true,
+                                            "valueID": ["external3"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "5px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "gutter": 20,
+                                            "id": "comment6",
+                                            "componentName": "inputBox",
+                                            "title": "外部四名称:",
+                                            "inside": true,
+                                            "valueID": ["external4"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "5px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "gutter": 20,
+                                            "id": "comment7",
+                                            "componentName": "inputBox",
+                                            "title": "外部五名称:",
+                                            "inside": true,
+                                            "valueID": ["external5"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "5px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "gutter": 20,
+                                            "id": "comment8",
+                                            "componentName": "inputBox",
+                                            "title": "外部六名称:",
+                                            "inside": true,
+                                            "valueID": ["external6"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "5px"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "level": 3,
+                                    "span": 24,
+                                    "id": "DIV_1_1_01",
+                                    "style": {
+                                        "width": "100%",
+                                        "background": "#07111e",
+                                        "border-radius": "17px 17px 17px 17px",
+                                        "padding-left": "22px",
+                                        "padding-bottom": "10px",
+                                        "margin-top": "18px",
+                                        "display": "flex",
+                                        "flex-wrap": "wrap",
+                                        "justify-content": "space-start"
+                                    },
+                                    "children": [
+                                        {
+                                            "level": 4,
+                                            "span": 24,
+                                            "id": "comment9",
+                                            "componentName": "titleBox",
+                                            "title": "报警参数",
+                                            "img": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/alarm_name.png",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "gutter": 20,
+                                            "id": "comment10",
+                                            "componentName": "switchBox",
+                                            "title": "报警器开关:",
+                                            "valueID": ["DataTemperatureAlarm"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "5px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "gutter": 20,
+                                            "id": "comment11",
+                                            "componentName": "inputBox",
+                                            "title": "温度上限:",
+                                            "valueID": ["DataTemperatureMax"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "5px"
+                                            }
+                                        },
+                                        {
+                                            "level": 4,
+                                            "span": 8,
+                                            "gutter": 20,
+                                            "id": "comment12",
+                                            "componentName": "inputBox",
+                                            "title": "温度下限:",
+                                            "valueID": ["DataTemperatureMin"],
+                                            "childrenSpan": [12, 12],
+                                            "textDirection": "right",
+                                            "style": {
+                                                "width": "100%",
+                                                "margin-top": "10px",
+                                                "padding-right": "5px"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "data": {
+        "type": "alarm",
+        "view": [
+            {
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/uvw_data.png",
+                "title": "U相",
+                "key": "U",
+                "value": ""
+            },
+            {
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/uvw_data.png",
+                "title": "V相",
+                "key": "V",
+                "value": ""
+            },
+            {
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/uvw_data.png",
+                "title": "W相",
+                "key": "W",
+                "value": ""
+            },
+            {
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/uvw_data.png",
+                "title": "错相",
+                "key": "error",
+                "value": ""
+            },
+            {
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/out_device_data.png",
+                "title": "外部一",
+                "key": "device_name1",
+                "value": ""
+            },
+            {
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/out_device_data.png",
+                "title": "外部二",
+                "key": "device_name2",
+                "value": ""
+            },
+            {
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/out_device_data.png",
+                "title": "外部三",
+                "key": "device_name3",
+                "value": ""
+            },
+            {
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/out_device_data.png",
+                "title": "外部四",
+                "key": "device_name4",
+                "value": ""
+            },
+            {
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/out_device_data.png",
+                "title": "外部五",
+                "key": "device_name5",
+                "value": ""
+            },
+            {
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/out_device_data.png",
+                "title": "外部六",
+                "key": "device_name6",
+                "value": ""
+            },
+            {
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/data_temp.png",
+                "title": "温度",
+                "key": "temp",
+                "value": ""
+            },
+            {
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/battery.png",
+                "title": "电量",
+                "key": "battery",
+                "value": ""
+            }
+        ]
+    }
+}
