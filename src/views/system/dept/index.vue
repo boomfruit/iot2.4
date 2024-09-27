@@ -432,4 +432,18 @@ export default {
         border-radius: 3px;
     }
 }
+
+// 树状图
+::v-deep .el-upload--picture-card {
+    background-color: transparent !important;
+    border: 1px dashed #c0ccda;
+    border-radius: 6px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 148px;
+    height: 148px;
+    cursor: pointer;
+    line-height: 146px;
+    vertical-align: top;
+}
 </style>

@@ -139,6 +139,7 @@ export default {
             });
         },
         transformData(data) {
+            console.log(data, 'datadata');
             if (!this.isBit) {
                 return data.map((row) => {
                     // 假设每行的第一个元素作为 Id，其余元素作为 value
@@ -198,21 +199,6 @@ export default {
             }
             return Point; // 或者return Point.reverse();对数组进行反向操作
         },
-    },
-
-    watch: {
-        // valueIDs: {
-        //     handler(newVal, oldVal) {
-        //         // this.$nextTick(() => {
-        //         this.composeList = this.transformData(newVal);
-        //         console.log('修改信息:', this.composeList);
-        //         // });
-        //     },
-        //     // 深度观察以检测数组内部的变化
-        //     deep: true,
-        //     // 立即触发一次回调
-        //     immediate: true,
-        // },
     },
 };
 </script>

@@ -143,42 +143,35 @@ export default {
                             // },
                         ],
                     },
-                    {
-                        name: '栏舍监管',
-                        key: 6,
-                        icon_key: 'shack',
-                        icon: iconList['shack'][0],
-                        path: 'smartAquaculture/barns/index',
-                    },
-                    {
-                        name: '场景列表',
-                        key: 7,
-                        icon_key: 'notificationChannels',
-                        icon: iconList['notificationChannels'][0],
-                        path: 'smartAquaculture/scene/list/index',
-                    },
-                    {
-                        name: '数据中心',
-                        key: 'parent_data_center',
-                        icon_key: 'equipmentGrouping',
-                        icon: iconList['equipmentGrouping'][1],
-                        children: [
-                            {
-                                name: '历史记录',
-                                key: 9,
-                                icon_key: 'equipmentGrouping',
-                                icon: iconList['equipmentGrouping'][0],
-                                path: 'smartAquaculture/dataCenter/history',
-                            },
-                            {
-                                name: '数据分析',
-                                key: 10,
-                                icon_key: 'equipmentManagement',
-                                icon: iconList['equipmentManagement'][1],
-                                path: 'smartAquaculture/dataCenter/analysis',
-                            },
-                        ],
-                    },
+                    // {
+                    //     name: '场景列表',
+                    //     key: 7,
+                    //     icon_key: 'notificationChannels',
+                    //     icon: iconList['notificationChannels'][0],
+                    //     path: 'smartAquaculture/scene/list/index',
+                    // },
+                    //  {
+                    //      name: '数据中心',
+                    //      key: 'parent_data_center',
+                    //      icon_key: 'equipmentGrouping',
+                    //      icon: iconList['equipmentGrouping'][1],
+                    //      children: [
+                    //          {
+                    //              name: '历史记录',
+                    //              key: 9,
+                    //              icon_key: 'equipmentGrouping',
+                    //              icon: iconList['equipmentGrouping'][0],
+                    //              path: 'smartAquaculture/dataCenter/history',
+                    //          },
+                    //          {
+                    //              name: '数据分析',
+                    //              key: 10,
+                    //              icon_key: 'equipmentManagement',
+                    //              icon: iconList['equipmentManagement'][1],
+                    //              path: 'smartAquaculture/dataCenter/analysis',
+                    //          },
+                    //      ],
+                    //  },
                 ],
                 alarmCenter: [
                     {

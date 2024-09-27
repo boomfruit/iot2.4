@@ -34,15 +34,7 @@
                 <el-table-column :label="$t('remark')" align="left" header-align="center" prop="remark" min-width="150" />
                 <el-table-column :label="$t('opation')" align="center" class-name="small-padding fixed-width" width="200">
                     <template slot-scope="scope">
-                        <el-button
-                            size="small"
-                            type="primary"
-                            style="padding: 5px"
-                            icon="el-icon-view"
-                            @click="handleUpdate(scope.row)"
-                            v-hasPermi="['iot:category:query']"
-                            v-if="scope.row.isSys == '0' ? true : !isTenant"
-                        >
+                        <el-button size="small" style="padding: 5px" icon="el-icon-view" @click="handleUpdate(scope.row)" v-hasPermi="['iot:category:query']" v-if="scope.row.isSys == '0' ? true : !isTenant">
                             {{ $t('look') }}
                         </el-button>
                         <el-button
@@ -270,4 +262,5 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '@/assets/styles/tableView.scss';
+@import '@/assets/styles/sunseen-btn.scss';
 </style>

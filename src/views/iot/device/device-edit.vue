@@ -397,9 +397,8 @@ import switchBox from './env/components/switchBox.vue';
 import pureText from './env/components/pureText.vue';
 import deviceSetting from './env/components/deviceSetting.vue';
 
-import alarm06DataJson from './env/alarm06Temple.json';
-import env08ProDataJson from './env/envTemple-08PRO.json';
-
+import { divideArrayIntoParts } from '@/utils/index';
+import { getProductMOdelJson } from '@/api/iot/model';
 export default {
     name: 'DeviceEdit',
     dicts: ['iot_device_status', 'iot_location_way'],
@@ -470,8 +469,6 @@ export default {
     },
     data() {
         return {
-            alarm06DataJson,
-            env08ProDataJson,
             // 二维码内容
             qrText: '尚行科技',
             // 打开设备配置对话框
@@ -790,6 +787,7 @@ export default {
             deviceSynchronization(this.form.serialNumber).then(async (response) => {
                 // 获取缓存物模型
                 response.data.cacheThingsModel = await this.getCacheThingsModdel(response.data.productId);
+
                 // 152 环控-EC08PRO
                 // 153 报警器-D06
                 // 获取设备运行状态
@@ -852,7 +850,8 @@ export default {
                         this.$nextTick(() => {
                             // 环空器
                             if (this.deviceType === 'env') {
-                                this.dataJson = { ...this.findLevelFourObjects(this.dataJson, _obj) };
+                                const _data = JSON.parse(JSON.stringify(this.dataJson));
+                                this.dataJson = { ...this.findLevelFourObjects(_data, _obj) };
                             } else {
                                 // 1-10个外部名称
                                 for (let i = 1; i <= 10; i++) {
@@ -860,7 +859,9 @@ export default {
                                     _obj[key] = response.data[key];
                                 }
                                 _obj['deviceName'] = response.data.deviceName;
-                                this.dataJson = { ...this.findLevelFourObjectsAlarm(this.dataJson, _obj) };
+                                const _data = JSON.parse(JSON.stringify(this.dataJson));
+
+                                this.dataJson = { ...this.findLevelFourObjectsAlarm(_data, _obj) };
                             }
                         });
                         resolve(response.data.thingsModels);
@@ -977,9 +978,10 @@ export default {
         },
         /** 返回按钮 */
         goBack() {
-            const obj = {
-                path: '/smartAquaculture/iot/device',
-            };
+            // const obj = {
+            //     path: '/smartAquaculture/iot/device',
+            // };
+            this.$router.go(-1);
             this.$tab.closeOpenPage(obj);
             this.reset();
         },
@@ -1095,13 +1097,16 @@ export default {
         async getDeviceStatusWitchThingsModel(response) {
             // 获取缓存物模型
             response.data.cacheThingsModel = await this.getCacheThingsModdel(response.data.productId);
-            if (response.data.productId == 152) {
-                this.dataJson = this.env08ProDataJson;
-                this.deviceType = 'env';
-            } else {
-                this.dataJson = this.alarm06DataJson;
-                this.deviceType = 'alarm';
-            }
+            // 获取配置JSON
+            getProductMOdelJson(response.data.productId).then((res) => {
+                if (response.data.productId == 152) {
+                    this.dataJson = JSON.parse(res.data);
+                    this.deviceType = 'env';
+                } else {
+                    this.dataJson = JSON.parse(res.data);
+                    this.deviceType = 'alarm';
+                }
+            });
             this.getDeviceTypeJson = true;
             // 获取设备运行状态
             response.data.thingsModels = await this.getDeviceStatus(response.data);
@@ -1354,10 +1359,10 @@ export default {
             }
 
             function updateValueIDForInputOrSwitch(obj) {
-                let _data = JSON.parse(JSON.stringify(data));
+                let _data = data;
                 const idList = [];
                 if (obj.valueID[0] !== 'null') {
-                    const _id = JSON.parse(JSON.stringify(obj.valueID[0]));
+                    const _id = obj.valueID[0];
                     idList.push({
                         id: _id,
                         value: _data[_id] || '',
@@ -1369,20 +1374,23 @@ export default {
                     });
                 }
                 that.$refs[obj.id][0].getData(idList);
-                obj.valueID = idList;
+                // obj.valueID = idList;
             }
 
             function updateValueIDForDeviceSetting(obj) {
                 const idList = [];
-                obj.valueID.forEach((item, index) => {
-                    idList.push(
-                        item.map((itm) => ({
-                            id: JSON.parse(JSON.stringify(itm)),
-                            value: data[itm] || '',
-                        }))
-                    );
+                const _obj = JSON.parse(JSON.stringify(obj.valueID));
+                const _length = _obj.length;
+                const oneArr = _obj.flat();
+                oneArr.forEach((item) => {
+                    idList.push({
+                        id: item, // 假设 id 就是 item 中的每个元素
+                        value: data[item] || '',
+                    });
                 });
-                that.$refs[obj.id][0].getData(idList);
+
+                console.log(divideArrayIntoParts(idList, _length), 'divideArrayIntoParts(idList, _length)');
+                that.$refs[obj.id][0].getData(divideArrayIntoParts(idList, _length));
                 obj.valueID = idList;
             }
             traverse(jsonData);
@@ -1416,7 +1424,6 @@ export default {
 
             function updateValueIDForInputOrSwitch(obj) {
                 const idList = [];
-                console.log(obj.valueID, 'obj.valueID[0]');
                 if (obj.valueID[0] !== 'null') {
                     const _id = obj.valueID[0];
                     idList.push({

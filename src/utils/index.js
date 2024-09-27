@@ -655,3 +655,32 @@ export function bytesToBitsArray(byteArray) {
     }
     return bitsArrays;
 }
+
+/**
+ * 自定义函数名：divideArrayIntoParts
+ * @param array 被操作数组
+ * @param parts 几份
+ */
+export function divideArrayIntoParts(array, parts) {
+    const dividedLists = [];
+    if (parts <= 0) {
+        throw new Error('Number of parts must be positive');
+    }
+
+    const partSize = Math.ceil(array.length / parts);
+
+    for (let i = 0; i < parts; i++) {
+        const start = i * partSize;
+        const end = start + partSize;
+        dividedLists.push(array.slice(start, end));
+    }
+    return dividedLists;
+}
+
+export function chunkArray(array, size) {
+    let result = [];
+    for (let i = 0; i < array.length; i += size) {
+        result.push(array.slice(i, i + size));
+    }
+    return result;
+}

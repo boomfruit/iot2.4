@@ -61,30 +61,34 @@
                             <div class="shack-item-header-title">{{ item.name }}</div>
                         </el-col>
                         <el-col :span="10">
-                            <div class="shack-item-header-alarm">
+                            <div class="shack-item-header-alarm" v-if="item.exceptionInfo">
                                 <div class="shack-item-header-alarm-icon"></div>
-                                <div class="shack-item-header-alarm-value">U相电压异常</div>
+                                <div class="shack-item-header-alarm-value">{{ item.exceptionInfo }}</div>
                             </div>
                         </el-col>
                         <el-col :span="5">
                             <div class="shack-item-header-detail">
-                                <div class="shack-item-header-detail-icon" @click="handleUpdate(item)"></div>
-                                <div class="shack-item-header-detail-value" @click="handleDelete(item)"></div>
+                                <div class="shack-item-header-detail-icon" @click.stop="handleUpdate(item)"></div>
+                                <div class="shack-item-header-detail-value" @click.stop="handleDelete(item)"></div>
                             </div>
                         </el-col>
                     </el-row>
                 </div>
                 <div class="shack-item-content" :class="[currentHoverId === item.id ? 'shack-item-content-hover' : '']">
-                    <div style="display: flex">
+                    <div style="display: flex; justify-content: center">
+                        <el-image v-if="!item.dataTemperatureAva01" style="width: 56px" :src="require('@/assets/sunseen/shack/no-data.png')"></el-image>
+                    </div>
+
+                    <div v-if="item.dataTemperatureAva01" style="display: flex">
                         <div class="shack-item-content-title-icon"></div>
                         <div class="shack-item-content-title-name">平均室温</div>
                     </div>
-                    <div style="height: 70px; display: flex">
-                        <div class="shack-item-content-indoorTemp">{{ item.avaTemp }}℃</div>
+                    <div v-if="item.dataTemperatureAva01" style="height: 70px; display: flex">
+                        <div class="shack-item-content-indoorTemp">{{ item.dataTemperatureAva01 }}℃</div>
                         <div class="shack-item-content-targetTemp-box">
                             <div class="shack-item-content-targetTemp-icon"></div>
                             <div class="shack-item-content-targetTemp-name">目标温度</div>
-                            <div class="shack-item-content-targetTemp-value">{{ item.targetTmp }}℃</div>
+                            <div class="shack-item-content-targetTemp-value">{{ item.dataTargetTemperature }}℃</div>
                         </div>
                     </div>
                 </div>
@@ -272,8 +276,6 @@ export default {
                         return {
                             ...item,
                             alarm: false,
-                            avaTemp: 27.6,
-                            targetTmp: 27.6,
                             info: [
                                 {
                                     name: '日龄',
@@ -655,6 +657,7 @@ $bg-top-btn2: #142342;
             background: #07111e;
             border-radius: 9px 9px 9px 9px;
             border: 1px solid #1b2a40;
+
             .shack-item-content-title-icon {
                 width: 17px;
                 height: 17px;
@@ -700,6 +703,7 @@ $bg-top-btn2: #142342;
                 }
                 .shack-item-content-targetTemp-value {
                     padding-left: 4px;
+                    padding-top: 3px;
                     font-family: PingFang SC, PingFang SC;
                     font-weight: bold;
                     font-size: 13px;

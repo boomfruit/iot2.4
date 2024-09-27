@@ -35,7 +35,7 @@
                             {{ $t('iot.group.index.637432-11') }}
                         </el-button>
                         <el-button v-hasPermi="['iot:group:add']" size="small" type="success" style="padding: 5px" icon="el-icon-edit" @click="selectDevice(scope.row)">{{ $t('iot.group.index.637432-12') }}</el-button>
-                        <el-button v-hasPermi="['iot:group:query']" size="small" type="primary" style="padding: 5px" icon="el-icon-view" @click="handleUpdate(scope.row)">{{ $t('iot.group.index.637432-13') }}</el-button>
+                        <el-button v-hasPermi="['iot:group:query']" size="small" style="padding: 5px" icon="el-icon-view" @click="handleUpdate(scope.row)">{{ $t('iot.group.index.637432-13') }}</el-button>
                         <el-button v-hasPermi="['iot:group:remove']" size="small" type="danger" style="padding: 5px" icon="el-icon-delete" @click="handleDelete(scope.row)">
                             {{ $t('iot.group.index.637432-14') }}
                         </el-button>
@@ -276,4 +276,5 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '@/assets/styles/tableView.scss';
+@import '@/assets/styles/sunseen-btn.scss';
 </style>

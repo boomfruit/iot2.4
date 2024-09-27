@@ -359,3 +359,7 @@ $backcolor: #192434; //背景颜色
     -webkit-appearance: none !important;
     margin: 0 !important;
 }
+
+::v-deep .el-select-dropdown__list {
+    background-color: #000000 !important;
+}

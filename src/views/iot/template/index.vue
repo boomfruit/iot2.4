@@ -8,18 +8,18 @@
                             <el-input v-model="queryParams.templateName" :placeholder="$t('template.index.891112-1')" clearable @keyup.enter.native="handleQuery" />
                         </el-form-item>
 
-                        <template v-if="searchShow">
+                        <!-- <template v-if="searchShow">
                             <el-form-item :label="$t('template.index.891112-2')" prop="type">
                                 <el-select v-model="queryParams.type" :placeholder="$t('template.index.891112-3')" clearable>
                                     <el-option v-for="dict in dict.type.iot_things_type" :key="dict.value" :label="dict.label" :value="dict.value" />
                                 </el-select>
                             </el-form-item>
-                        </template>
+                        </template> -->
 
                         <el-form-item>
-                            <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">{{ $t('search') }}</el-button>
-                            <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">{{ $t('reset') }}</el-button>
-                            <el-button type="text" @click="searchChange">
+                            <el-button class="el-button" type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+                            <el-button class="el-button" icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+                            <!-- <el-button type="text" @click="searchChange">
                                 {{ searchShow ? $t('template.index.891112-113') : $t('template.index.891112-112') }}
                                 <i
                                     :class="{
@@ -27,7 +27,7 @@
                                         'el-icon-arrow-up': searchShow,
                                     }"
                                 ></i>
-                            </el-button>
+                            </el-button> -->
                         </el-form-item>
                     </el-form>
                 </el-col>
@@ -98,15 +98,7 @@
                 </el-table-column>
                 <el-table-column :label="$t('opation')" align="center" class-name="small-padding fixed-width" width="150">
                     <template slot-scope="scope">
-                        <el-button
-                            size="small"
-                            type="primary"
-                            style="padding: 5px"
-                            icon="el-icon-view"
-                            @click="handleUpdate(scope.row)"
-                            v-hasPermi="['iot:template:query']"
-                            v-if="scope.row.isSys == '0' ? true : !isTenant"
-                        >
+                        <el-button size="small" style="padding: 5px" icon="el-icon-view" @click="handleUpdate(scope.row)" v-hasPermi="['iot:template:query']" v-if="scope.row.isSys == '0' ? true : !isTenant">
                             {{ $t('look') }}
                         </el-button>
                         <el-button
@@ -1124,11 +1116,19 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/tableView.scss';
+@import '@/assets/styles/sunseen-btn.scss';
+// 字体
 .numInputCss {
     width: 100%;
 }
 
 .numInputCss ::v-deep .el-input .el-input__inner {
     text-align: left;
+}
+::v-deep .el-input__inner {
+    color: #fff !important;
+    background: #0b1420 !important;
+    border-radius: 5px 5px 5px 5px;
+    border: 1px solid #24354b;
 }
 </style>

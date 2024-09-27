@@ -613,9 +613,7 @@ export default {
                             this.alarmBitArray = [..._bitArray[0]];
                         }
                         this.updateDeviceStatus(this.deviceInfo);
-                        this.$nextTick(function () {
-                            // this.MonitorChart();
-                        });
+                        this.$nextTick(function () {});
                         // 添加message事件监听器
                         this.mqttCallback();
                     }
@@ -627,6 +625,11 @@ export default {
                 if (newVal == 'env') {
                     this.dataJson = env08ProDataJson;
                     this.getIcon();
+                    // 获取环控数据
+                    setTimeout(() => {
+                        this.getEnvData();
+                        this.MonitorChart();
+                    }, 1.5 * 1000);
                     this.getDeviceTypeJson = true;
                 } else {
                     this.dataJson = alarm06DataJson;
@@ -722,6 +725,56 @@ export default {
             this.deviceEnableIcon['hot'] = new Array(this.dataJson.data.hot).fill(this.iconImages['fire_gray']);
             this.deviceEnableIcon['cold'] = new Array(this.dataJson.data.cold).fill(this.iconImages['cold_gray']);
             this.deviceEnableIcon['light'] = new Array(this.dataJson.data.light).fill(this.iconImages['light_gray']);
+        },
+        getEnvData() {
+            // 设备开关数据 需要展示的是（风机开关、开度一，二、制冷、加热、光照....）以实际情况而定
+            const enable = this.deviceInfo.thingsModels.find((item) => {
+                return item.id === 'DataAllDeviceStatus';
+            });
+            // PrefixZero
+            // enable.value
+            const _item = PrefixZero(parseInt(enable.value).toString(2), 32).split('');
+            // 风机
+            console.log(this.dataJson.data.enableMap.fans, 'this.dataJson.data');
+            this.dataJson.data.enableMap.fans.forEach((item, idx) => {
+                if (_item[item] == '1') {
+                    // 开启状态
+                    this.deviceEnableIcon['fans'][idx] = this.iconImages['fan_active'];
+                } else {
+                    // 关闭状态
+                    this.deviceEnableIcon['fans'][idx] = this.iconImages['fan_gray'];
+                }
+            });
+            // 加热
+            this.dataJson.data.enableMap.hot.forEach((item, idx) => {
+                if (_item[item] == '1') {
+                    // 开启状态
+                    this.deviceEnableIcon['hot'][idx] = this.iconImages['fire_active'];
+                } else {
+                    // 关闭状态
+                    this.deviceEnableIcon['hot'][idx] = this.iconImages['fire_gray'];
+                }
+            });
+            // 制冷
+            this.dataJson.data.enableMap.cold.forEach((item, idx) => {
+                if (_item[item] == '1') {
+                    // 开启状态
+                    this.deviceEnableIcon['cold'][idx] = this.iconImages['cold_active'];
+                } else {
+                    // 关闭状态
+                    this.deviceEnableIcon['cold'][idx] = this.iconImages['cold_gray'];
+                }
+            });
+            // 光照
+            this.dataJson.data.enableMap.light.forEach((item, idx) => {
+                if (_item[item] == '1') {
+                    // 开启状态
+                    this.deviceEnableIcon['light'][idx] = this.iconImages['light_active'];
+                } else {
+                    // 关闭状态
+                    this.deviceEnableIcon['light'][idx] = this.iconImages['light_gray'];
+                }
+            });
         },
         /* Mqtt回调处理 */
         mqttCallback() {
@@ -880,54 +933,6 @@ export default {
                         }
                     }
                 }
-
-                // 设备开关数据 需要展示的是（风机开关、开度一，二、制冷、加热、光照....）以实际情况而定
-                const enable = this.deviceInfo.thingsModels.find((item) => {
-                    return item.id === 'DataAllDeviceStatus';
-                });
-                // PrefixZero
-                // enable.value
-                const _item = PrefixZero(parseInt(enable.value).toString(2), 32).split('');
-                // 风机
-                // this.dataJson.data.enableMap.fans.forEach(item, (idx) => {
-                //     if (_item[item] == '1') {
-                //         // 开启状态
-                //         this.deviceEnableIcon['fans'][idx] = this.iconImages['fan_active'];
-                //     } else {
-                //         // 关闭状态
-                //         this.deviceEnableIcon['fans'][idx] = this.iconImages['fan_gray'];
-                //     }
-                // });
-                // // 加热
-                // this.dataJson.data.enableMap.hot.forEach(item, (idx) => {
-                //     if (_item[item] == '1') {
-                //         // 开启状态
-                //         this.deviceEnableIcon['hot'][idx] = this.iconImages['fire_active'];
-                //     } else {
-                //         // 关闭状态
-                //         this.deviceEnableIcon['hot'][idx] = this.iconImages['fire_gray'];
-                //     }
-                // });
-                // // 制冷
-                // this.dataJson.data.enableMap.cold.forEach(item, (idx) => {
-                //     if (_item[item] == '1') {
-                //         // 开启状态
-                //         this.deviceEnableIcon['cold'][idx] = this.iconImages['cold_active'];
-                //     } else {
-                //         // 关闭状态
-                //         this.deviceEnableIcon['cold'][idx] = this.iconImages['cold_gray'];
-                //     }
-                // });
-                // // 光照
-                // this.dataJson.data.enableMap.light.forEach(item, (idx) => {
-                //     if (_item[item] == '1') {
-                //         // 开启状态
-                //         this.deviceEnableIcon['light'][idx] = this.iconImages['light_active'];
-                //     } else {
-                //         // 关闭状态
-                //         this.deviceEnableIcon['light'][idx] = this.iconImages['light_gray'];
-                //     }
-                // });
             });
         },
 
