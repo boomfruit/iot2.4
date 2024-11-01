@@ -2,8 +2,8 @@
     <div>
         <el-row :gutter="20" style="margin: 10px 0px 20px 0px">
             <el-col>
-                <div style="overflow: hidden">
-                    <!-- <div ref="map" style="height: 700px"></div> -->
+                <div>
+                    <div ref="map" style="height: 700px"></div>
                 </div>
             </el-col>
         </el-row>
@@ -180,7 +180,7 @@ export default {
             option = {
                 title: {
                     text: '设备分布（在线数 ' + this.deviceList.filter((x) => x.status == 3).length + '）',
-                    subtext: 'open source iot platform',
+                    subtext: 'sunseen iot platform',
                     sublink: '',
                     target: '_blank',
                     textStyle: {

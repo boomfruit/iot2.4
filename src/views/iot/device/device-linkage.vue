@@ -446,7 +446,7 @@ export default {
     data() {
         return {
             // 二维码内容
-            qrText: 'fastbee',
+            qrText: 'SUNSEEN',
             // 打开设备配置对话框
             openSummary: false,
             //二维码

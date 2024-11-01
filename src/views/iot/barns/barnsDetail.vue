@@ -193,10 +193,6 @@
                                 <div style="color: #fff; text-align: center">{{ '照明' + (idx4 + 1) }}</div>
                             </div>
                         </div>
-                        <!-- <div class="env-data-status-item" v-for="item in dataStatusList">
-                            <div class="env-data-status-item-title">{{ item.name }}</div>
-                            <el-image style="width: 30px; height: 30px" :src="item.imgUrl"></el-image>
-                        </div> -->
                     </div>
                 </div>
             </el-col>
@@ -255,7 +251,7 @@ export default {
             bindDeviceList: [],
             bindDeviceListFlat: [],
             removeOpen: false,
-            baseUrl: 'http://192.168.0.13/prod-api/',
+            baseUrl: '/prod-api',
             tempUrl: require('@/assets/sunseen/shackDetail/temp.png'),
             dayUrl: require('@/assets/sunseen/shackDetail/day.png'),
             humUrl: require('@/assets/sunseen/shackDetail/hum.png'),

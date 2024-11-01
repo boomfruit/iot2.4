@@ -92,7 +92,7 @@ export default {
       roleGroup: {},
       postGroup: {},
       activeTab: 'userinfo',
-      qrText: 'fastbee',
+      qrText: 'SUNSEEN',
       wxbind: '',
       secureBindDialog: false,
       password: '',

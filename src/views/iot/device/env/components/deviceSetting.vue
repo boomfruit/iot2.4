@@ -1,34 +1,55 @@
 <template>
-    <div v-if="isGetDataDone">
-        <div class="box-title">
-            <div class="box-title-item" v-for="item in titleList" :key="item">{{ item.title }}</div>
+    <div v-if="isGetDataDone" class="device-setting-container">
+        <!-- 滚动控件容器 -->
+        <div class="controls-container">
+            <div v-if="isScroll" class="scroll-controls" style="margin-bottom: 10px">
+                <el-button-group>
+                    <el-button size="small" @click="handleScroll('left')" icon="el-icon-arrow-left">左对齐</el-button>
+                    <el-button size="small" @click="handleScroll('center')">居中</el-button>
+                    <el-button size="small" @click="handleScroll('right')" icon="el-icon-arrow-right">右对齐</el-button>
+                </el-button-group>
+            </div>
         </div>
-        <div v-for="(col, iid) in colTitle" :key="iid" class="col-box">
-            <div v-for="(item, idx) in titleList.length" :key="idx" class="col-item">
-                <div :class="[idx == 0 ? 'col-input-title' : 'col-input']" v-if="composeList.length > 0">
-                    <!-- 输入框 -->
-                    <el-input v-if="idx != 0 && titleList[idx].type == 'input'" v-model="composeList[iid][idx].value" @change="inputChange(composeList[iid][idx])"></el-input>
-                    <!-- 文本 -->
-                    <span v-if="idx != 0 && titleList[idx].type == 'span'">{{ composeList[iid][idx].value }}</span>
-                    <!-- 选择框 -->
-                    <el-select class="select-box" :popper-append-to-body="false" v-if="idx != 0 && titleList[idx].type == 'select'" v-model="composeList[iid][idx].value" @change="selectChange(composeList[iid][idx])">
-                        <el-option v-for="(itm, optionIdx) in selectOption" :key="optionIdx" :label="itm.label" :value="itm.value">
-                            <div style="display: flex; align-items: center" v-if="selectIcon">
-                                <el-image style="width: 20px; height: 20px; margin-right: 5px" :src="iconList[optionIdx]"></el-image>
-                                <span>{{ itm.label }}</span>
-                            </div>
-                            <div v-else>
-                                <span>{{ itm.label }}</span>
-                            </div>
-                        </el-option>
-                    </el-select>
-                    <!-- 布尔 -->
-                    <el-popconfirm v-if="idx != 0 && titleList[idx].type == 'boolean'" :value="composeList[iid][idx].value" :title="clickTitle" @confirm="confirmBit(composeList[iid][idx], iid, idx)">
-                        <el-button type="primary" slot="reference" v-if="composeList[iid][idx].value === '1'" @click="triggerTitle('关闭')">开启</el-button>
-                        <el-button type="waring" slot="reference" v-else @click="triggerTitle('开启')">关闭</el-button>
-                    </el-popconfirm>
 
-                    <span v-if="idx == 0">{{ colTitle[iid] }}</span>
+        <div class="device-setting-content-box" style="overflow-x: scroll" ref="scrollContainer">
+            <div class="scrollable-content" :style="{ width: domWidth }">
+                <div class="box-title" :style="{ width: scrollWidth }">
+                    <div class="box-title-item" v-for="item in titleList" :key="item">{{ item.title }}</div>
+                </div>
+                <div v-for="(col, iid) in colTitle" :key="iid" class="col-box">
+                    <div v-for="(item, idx) in titleList.length" :key="idx" class="col-item">
+                        <div :class="[idx == 0 ? 'col-input-title' : 'col-input']" v-if="composeList.length > 0">
+                            <!-- 输入框 -->
+                            <el-input v-if="idx != 0 && titleList[idx].type == 'input'" v-model="composeList[iid][idx].value" @change="inputChange(composeList[iid][idx])"></el-input>
+                            <!-- 文本 -->
+                            <span v-if="idx != 0 && titleList[idx].type == 'span'">{{ composeList[iid][idx].value }}</span>
+                            <!-- 选择框 -->
+                            <el-select
+                                class="select-box"
+                                :popper-append-to-body="false"
+                                v-if="idx != 0 && titleList[idx].type == 'select'"
+                                v-model="composeList[iid][idx].value"
+                                @change="selectChange(composeList[iid][idx])"
+                            >
+                                <el-option v-for="(itm, optionIdx) in selectOption" :key="optionIdx" :label="itm.label" :value="itm.value">
+                                    <div style="display: flex; align-items: center" v-if="selectIcon">
+                                        <el-image style="width: 20px; height: 20px; margin-right: 5px" :src="iconList[optionIdx]"></el-image>
+                                        <span>{{ itm.label }}</span>
+                                    </div>
+                                    <div v-else>
+                                        <span>{{ itm.label }}</span>
+                                    </div>
+                                </el-option>
+                            </el-select>
+                            <!-- 布尔 -->
+                            <el-popconfirm v-if="idx != 0 && titleList[idx].type == 'boolean'" :value="composeList[iid][idx].value" :title="clickTitle" @confirm="confirmBit(composeList[iid][idx], iid, idx)">
+                                <el-button type="primary" slot="reference" v-if="composeList[iid][idx].value === '1'" @click="triggerTitle('关闭')">开启</el-button>
+                                <el-button type="waring" slot="reference" v-else @click="triggerTitle('开启')">关闭</el-button>
+                            </el-popconfirm>
+
+                            <span v-if="idx == 0">{{ colTitle[iid] }}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -58,6 +79,10 @@ export default {
             iconList: [close, open, circle, supersede],
             clickTitle: '',
             isGetDataDone: false,
+            moveOffsetBar: 0,
+            SystemSettingInitialLevelOfTunnel: 0, // 初始级别
+            SystemSettingVentilationLevel: 0, // 通风级别
+            scrollPosition: 'left', // 新增：记录当前滚动位置
         };
     },
     props: {
@@ -103,6 +128,24 @@ export default {
             type: Boolean,
             default: false,
         },
+        // 是否显示通风模式
+        isShowFanMode: {
+            type: Boolean,
+            default: false,
+        },
+        // 是否需要滚动
+        isScroll: {
+            type: Boolean,
+            default: false,
+        },
+        scrollWidth: {
+            type: String,
+            default: '100%',
+        },
+        domWidth: {
+            type: String,
+            default: '100%',
+        },
     },
     components: {},
 
@@ -113,9 +156,58 @@ export default {
     mounted() {},
 
     methods: {
+        // 新增：处理滚动方法
+        handleScroll(position) {
+            const container = this.$refs.scrollContainer;
+            if (!container) {
+                console.log('Container not found');
+                return;
+            }
+
+            // 添加调试日志
+            console.log('Container:', container);
+            console.log('ScrollWidth:', container.scrollWidth);
+            console.log('OffsetWidth:', container.offsetWidth);
+
+            const scrollWidth = container.scrollWidth;
+            const clientWidth = container.clientWidth;
+
+            switch (position) {
+                case 'left':
+                    container.scrollLeft = 0;
+                    break;
+                case 'center':
+                    container.scrollLeft = (scrollWidth - clientWidth) / 2;
+                    break;
+                case 'right':
+                    container.scrollLeft = scrollWidth - clientWidth;
+                    break;
+            }
+        },
+        // 是环控器且是风机控制或开度控制时
+        getModeType(data) {
+            this.SystemSettingInitialLevelOfTunnel = parseInt(data[0]);
+            this.SystemSettingVentilationLevel = parseInt(data[1]);
+        },
         getData(data) {
             this.$nextTick(() => {
                 this.composeList = this.transformData(data);
+                if (this.isShowFanMode) {
+                    this.composeList.forEach((arr, index) => {
+                        arr.forEach((item, idx) => {
+                            if (idx === 1 && item.Id === 'text') {
+                                if (index < this.SystemSettingInitialLevelOfTunnel - 1) {
+                                    item.value = '最小通风';
+                                } else if (index >= this.SystemSettingInitialLevelOfTunnel - 1 && index < this.SystemSettingVentilationLevel) {
+                                    item.value = '隧道通风';
+                                } else {
+                                    item.value = '无';
+                                }
+                            }
+                        });
+                    });
+                }
+                console.log('this.composeList', this.composeList);
                 this.isGetDataDone = true;
             });
         },
@@ -139,7 +231,6 @@ export default {
             });
         },
         transformData(data) {
-            console.log(data, 'datadata');
             if (!this.isBit) {
                 return data.map((row) => {
                     // 假设每行的第一个元素作为 Id，其余元素作为 value
@@ -199,21 +290,39 @@ export default {
             }
             return Point; // 或者return Point.reverse();对数组进行反向操作
         },
+        showFansLevel(e) {},
     },
 };
 </script>
 <style lang="scss" scoped>
 @import '@/assets/styles/tableView.scss';
 
+.device-setting-wrapper {
+    position: relative;
+    width: 100%;
+}
+
 .select-box {
     ::v-deep .el-select-dropdown__list {
         background-color: #001234 !important;
     }
 }
+
+.device-setting-content-box {
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
 .box-title {
     display: flex;
     background: #d1faff;
     border-radius: 10px 10px 10px 10px;
+    position: relative;
     .box-title-item {
         text-align: center;
         flex: 1;
@@ -232,7 +341,7 @@ export default {
     color: #fff;
     .col-item {
         flex: 1;
-        padding: 0px 10px;
+        padding: 0px 3px;
         text-align: center;
         line-height: 40px;
     }
@@ -247,5 +356,12 @@ export default {
 }
 ::v-deep .el-input__inner {
     border-radius: 16px;
+}
+.static-box {
+    position: static;
+    left: 0;
+    top: -30px;
+    display: flex;
+    justify-content: end;
 }
 </style>

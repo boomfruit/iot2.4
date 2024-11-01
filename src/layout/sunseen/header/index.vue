@@ -80,7 +80,7 @@ export default {
             this.$store.dispatch('changeCurrentIdx', idx);
             const _routerMap = {
                 1: 'index',
-                2: 'smartAquaculture/iot/template',
+                2: 'smartAquaculture/iot/device',
                 3: 'farmManagement',
                 4: 'alarmCenter/alert',
                 5: 'resourceManagement/template/protocol',

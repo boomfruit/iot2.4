@@ -7,7 +7,7 @@
           <div style="font-size: 42px; padding-top: 40px; width: 300px; margin: 0 auto">
             <img :src="logo" alt="logo" style="width: 100px; height: 100px; float: left" />
             <div style="float: left; margin-top: 13px; width: 200px; text-align: left">
-              <div>Fastbee</div>
+              <div>SUNSEEN</div>
               <div style="letter-spacing: 1.5px; font-size: 20px; font-weight: 600; margin-top: 5px; margin-left: 3px">
                 {{ $t('register.platForm') }}</div>
             </div>

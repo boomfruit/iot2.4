@@ -121,10 +121,6 @@
                 <el-form-item label="栏舍位置" prop="location">
                     <el-input v-model="form.location" placeholder="请输入栏舍位置" />
                 </el-form-item>
-                <!-- <el-form-item label="栏舍使用年限" prop="age">
-                  <el-input v-model="form.age" placeholder="请输入栏舍使用年限" />
-              </el-form-item> -->
-
                 <el-form-item label="养殖品种">
                     <el-select :disabled="form.id" style="width: 100%" v-model="form.breedId" placeholder="请选择">
                         <el-option v-for="subItem in breedList" :key="subItem.id" :label="subItem.breedName" :value="subItem.id" />

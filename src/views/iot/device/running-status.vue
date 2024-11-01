@@ -483,7 +483,7 @@
                                         style="height: 48px; width: 48px; display: flex; justify-content: center; align-items: center; flex-direction: column; margin: 10px"
                                     >
                                         <el-image :src="deviceEnableIcon.fans[idx1]" style="height: 32px; width: 32px; margin: 0 auto"></el-image>
-                                        <div style="color: #fff; text-align: center">{{ '风机' + (idx1 + 1) }}</div>
+                                        <div style="color: #fff; text-align: center; font-size: 12px">{{ '风机' + (idx1 + 1) }}</div>
                                     </div>
                                     <div
                                         v-for="(item, idx2) in dataJson.data.hot"
@@ -512,7 +512,7 @@
                                 </div>
                             </el-card>
                             <!-- 设备监测图表-->
-                            <el-row :gutter="20" style="padding: 20px 10px 20px 10px; border-radius: 15px; margin-right: 5px" v-if="deviceInfo.chartList.length > 0">
+                            <el-row :gutter="20" style="padding: 20px 10px 20px 10px; border-radius: 15px; margin-right: 5px">
                                 <el-col :xs="24" :sm="12" :md="12" :lg="4" :xl="4" v-for="(item, index) in deviceInfo.chartList" :key="index">
                                     <el-card shadow="hover" style="border-radius: 30px; margin-bottom: 12px">
                                         <div ref="map" style="height: 160px; width: 160px; margin: 0 auto"></div>
@@ -578,6 +578,7 @@ import { getLatestFirmware } from '@/api/iot/firmware';
 
 import { PrefixZero, bytesToBitsArray } from '@/utils/index';
 import { serviceInvoke } from '@/api/iot/runstatus';
+import { getProductMOdelJson } from '@/api/iot/model';
 
 import alarm06DataJson from './env/alarm06Temple.json';
 import env08ProDataJson from './env/envTemple-08PRO.json';
@@ -601,6 +602,24 @@ export default {
                 if (newVal && newVal.deviceId != 0) {
                     if (newVal && newVal.deviceId != 0) {
                         this.deviceInfo = newVal;
+                        console.log(this.deviceInfo, 'this.deviceInfo');
+                        // 获取JSON配置
+                        getProductMOdelJson(this.deviceInfo.productId).then((res) => {
+                            // EC08 152
+                            // EC12 154
+                            // EC22 155
+                            if (this.deviceInfo.productId == 152 || this.deviceInfo.productId == 154 || this.deviceInfo.productId == 155) {
+                                this.dataJson = JSON.parse(res.data);
+                                this.getIcon();
+                                setTimeout(() => {
+                                    this.getEnvData();
+                                    this.MonitorChart();
+                                }, 1000 * 3);
+                                this.getDeviceTypeJson = true;
+                            } else {
+                                this.dataJson = JSON.parse(res.data);
+                            }
+                        });
                         // 获取到DataAlarmInfo
                         const alarmMap = this.deviceInfo.staticList.find((item) => {
                             return item.id == 'DataAlarmInfo';
@@ -622,25 +641,25 @@ export default {
         },
         deviceType: {
             handler(newVal) {
-                if (newVal == 'env') {
-                    this.dataJson = env08ProDataJson;
-                    this.getIcon();
-                    // 获取环控数据
-                    setTimeout(() => {
-                        this.getEnvData();
-                        this.MonitorChart();
-                    }, 1.5 * 1000);
-                    this.getDeviceTypeJson = true;
-                } else {
-                    this.dataJson = alarm06DataJson;
-                    // 获取报警数据
-                    setTimeout(() => {
-                        this.dataJson.data.view.forEach((item, idx) => {
-                            item.value = this.alarmBitArray[idx];
-                        });
-                    }, 1.5 * 1000);
-                    this.getDeviceTypeJson = true;
-                }
+                // if (newVal == 'env') {
+                //     this.dataJson = env08ProDataJson;
+                //     this.getIcon();
+                //     // 获取环控数据
+                //     setTimeout(() => {
+                //         this.getEnvData();
+                //         this.MonitorChart();
+                //     }, 1.5 * 1000);
+                //     this.getDeviceTypeJson = true;
+                // } else {
+                //     this.dataJson = alarm06DataJson;
+                //     // 获取报警数据
+                //     setTimeout(() => {
+                //         this.dataJson.data.view.forEach((item, idx) => {
+                //             item.value = this.alarmBitArray[idx];
+                //         });
+                //     }, 1.5 * 1000);
+                //     this.getDeviceTypeJson = true;
+                // }
             },
         },
     },
@@ -727,17 +746,22 @@ export default {
             this.deviceEnableIcon['light'] = new Array(this.dataJson.data.light).fill(this.iconImages['light_gray']);
         },
         getEnvData() {
+            console.log(this.deviceInfo, 'this.deviceInfo.thingsModels');
             // 设备开关数据 需要展示的是（风机开关、开度一，二、制冷、加热、光照....）以实际情况而定
-            const enable = this.deviceInfo.thingsModels.find((item) => {
+            const enable = JSON.parse(this.deviceInfo.thingsModelValue).find((item) => {
                 return item.id === 'DataAllDeviceStatus';
             });
+            console.log(enable, 'enable');
             // PrefixZero
             // enable.value
-            const _item = PrefixZero(parseInt(enable.value).toString(2), 32).split('');
+            const _item = PrefixZero(parseInt(enable.value).toString(2), 25).split('');
+
+            console.log(_item, '_item');
             // 风机
             console.log(this.dataJson.data.enableMap.fans, 'this.dataJson.data');
             this.dataJson.data.enableMap.fans.forEach((item, idx) => {
-                if (_item[item] == '1') {
+                console.log(_item[parseInt(item)], item, '内容值');
+                if (_item[parseInt(item)] == '1') {
                     // 开启状态
                     this.deviceEnableIcon['fans'][idx] = this.iconImages['fan_active'];
                 } else {
@@ -747,7 +771,7 @@ export default {
             });
             // 加热
             this.dataJson.data.enableMap.hot.forEach((item, idx) => {
-                if (_item[item] == '1') {
+                if (_item[parseInt(item)] == '1') {
                     // 开启状态
                     this.deviceEnableIcon['hot'][idx] = this.iconImages['fire_active'];
                 } else {
@@ -757,7 +781,7 @@ export default {
             });
             // 制冷
             this.dataJson.data.enableMap.cold.forEach((item, idx) => {
-                if (_item[item] == '1') {
+                if (_item[parseInt(item)] == '1') {
                     // 开启状态
                     this.deviceEnableIcon['cold'][idx] = this.iconImages['cold_active'];
                 } else {
@@ -767,7 +791,7 @@ export default {
             });
             // 光照
             this.dataJson.data.enableMap.light.forEach((item, idx) => {
-                if (_item[item] == '1') {
+                if (_item[parseInt(item)] == '1') {
                     // 开启状态
                     this.deviceEnableIcon['light'][idx] = this.iconImages['light_active'];
                 } else {

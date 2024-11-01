@@ -419,6 +419,7 @@
                                             "span": 24,
                                             "id": "comment9",
                                             "componentName": "deviceSetting",
+                                            "isShowFanMode": true,
                                             "titleList": [
                                                 {
                                                     "type": "span",
@@ -739,6 +740,7 @@
                                             "span": 24,
                                             "id": "comment11",
                                             "componentName": "deviceSetting",
+                                            "isShowFanMode": true,
                                             "titleList": [
                                                 {
                                                     "type": "span",

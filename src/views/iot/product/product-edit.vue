@@ -122,6 +122,9 @@
                             <el-form-item :label="$t('product.product-edit.473153-32')" prop="remark">
                                 <el-input v-model="form.remark" :placeholder="$t('product.product-edit.473153-33')" rows="3" :readonly="form.status == 2 || form.isOwner == 0" />
                             </el-form-item>
+                            <el-form-item :label="JSON配置" prop="remark">
+                                <el-input type="textarea" placeholder="请输入内容" v-model="form.productThingsModelsJson"></el-input>
+                            </el-form-item>
                         </el-col>
                         <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="8">
                             <el-form-item :label="$t('product.product-edit.473153-34')">
@@ -467,6 +470,7 @@ export default {
             this.$refs['form'].validate((valid) => {
                 if (valid) {
                     if (this.form.productId != null && this.form.productId != 0) {
+                        // this.form.productThingsModelsJson = JSON.stringify(this.form.productThingsModelsJson);
                         updateProduct(this.form).then((response) => {
                             this.changeProductCode(this.form.protocolCode);
                             this.$modal.alertSuccess(this.$t('product.product-edit.473153-62'));

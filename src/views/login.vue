@@ -3,16 +3,10 @@
         <el-row>
             <el-col :xs="24">
                 <div style="color: #fff; background-color: #0f73ee; width: 100%; height: 200px; text-align: center; padding: 15px; font-family: '微软雅黑'">
-                    <div class="logo-bg-box" style="font-size: 42px; padding-top: 40px; margin: 0 auto">
-                        <!-- <img :src="logo" alt="logo" style="width: 100px; height: 100px; float: left; margin-right: 20px" />
-                        <div style="float: left; margin-top: 13px; width: 200px; text-align: left">
-                            <div>SunSeen</div>
-                            <div style="letter-spacing: 1.5px; font-size: 20px; font-weight: 600; margin-top: -8px; margin-left: 3px">设备远程管理物联网</div>
-                        </div> -->
-                    </div>
+                    <div class="logo-bg-box" style="font-size: 42px; padding-top: 40px; margin: 0 auto"></div>
                 </div>
                 <div class="tabs-login">
-                    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
+                    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" @keyup.enter.native="bindAccount ? handleBind : handleLogin">
                         <el-form-item v-if="loginForm.bindId != null">
                             <div class="alert-box-wrap">
                                 <div v-if="loginForm.bindId != null" class="alert-message-wrap">
@@ -65,14 +59,6 @@
                                     <span v-else>{{ $t('login.989807-16') }}</span>
                                 </el-button>
                             </div>
-                        </el-form-item>
-                    </el-form>
-
-                    <el-form class="login-form">
-                        <el-form-item style="margin: -30px 0">
-                            <!-- <el-row>
-                                <langSelect style="float: right"></langSelect>
-                            </el-row> -->
                         </el-form-item>
                     </el-form>
                 </div>

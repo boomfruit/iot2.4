@@ -85,11 +85,11 @@
                         <dict-tag :options="dict.type.iot_data_type" :value="scope.row.datatype" />
                     </template>
                 </el-table-column>
-                <el-table-column :label="$t('template.index.891112-15')" align="left" header-align="center" prop="specs" min-width="150" class-name="specsColor">
+                <!-- <el-table-column :label="$t('template.index.891112-15')" align="left" header-align="center" prop="specs" min-width="150" class-name="specsColor">
                     <template slot-scope="scope">
                         <div v-html="formatSpecsDisplay(scope.row.specs)"></div>
                     </template>
-                </el-table-column>
+                </el-table-column> -->
                 <el-table-column :label="$t('template.index.891112-16')" align="center" prop="modelOrder" width="80" />
                 <el-table-column :label="$t('template.index.891112-17')" align="center" prop="createTime" width="100">
                     <template slot-scope="scope">

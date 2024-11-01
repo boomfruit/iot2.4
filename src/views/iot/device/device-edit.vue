@@ -162,6 +162,9 @@
                                                         :selectIcon="level4Row.selectIcon"
                                                         :isBit="level4Row.isBit"
                                                         :inside="level4Row.inside"
+                                                        :isShowFanMode="level4Row.isShowFanMode"
+                                                        :isScroll="level4Row.isScroll"
+                                                        :domWidth="level4Row.domWidth"
                                                         @change="updateData"
                                                         @changeDeviceInsideValue="updateDataInside"
                                                     ></component>
@@ -172,7 +175,7 @@
                                 </el-col>
                             </el-row>
                         </envCard>
-                        <div style="width: 100%; height: 1000px" id="ID_DIV_3"></div>
+                        <div style="width: 100%; height: 1500px" id="ID_DIV_3"></div>
                     </div>
                     <div class="Nav flex1">
                         <el-tree
@@ -230,8 +233,9 @@
             </el-tab-pane>
 
             <el-tab-pane name="deviceLog" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3" lazy>
-                <span slot="label">{{ $t('device.device-edit.148398-49') }}</span>
-                <device-log ref="deviceLog" :device="form" />
+                <BreedingSettings></BreedingSettings>
+                <!-- <span slot="label">{{ $t('device.device-edit.148398-49') }}</span>
+                <device-log ref="deviceLog" :device="form" /> -->
             </el-tab-pane>
 
             <el-tab-pane name="alertUser" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3">
@@ -396,13 +400,16 @@ import inputBox from './env/components/inputBox.vue';
 import switchBox from './env/components/switchBox.vue';
 import pureText from './env/components/pureText.vue';
 import deviceSetting from './env/components/deviceSetting.vue';
-
+// import BreedingSettings from './env/BreedingSettings.vue';
+import BreedingSettings from './env/BreedingUseData.vue';
 import { divideArrayIntoParts } from '@/utils/index';
 import { getProductMOdelJson } from '@/api/iot/model';
 export default {
     name: 'DeviceEdit',
     dicts: ['iot_device_status', 'iot_location_way'],
     components: {
+        BreedingSettings,
+
         RealTimeStatus,
         DeviceFunc,
         deviceLog,
@@ -620,8 +627,8 @@ export default {
                     const str = decoder.decode(message);
                     message = str; //转换后的字符串
                 }
-                console.log('🚀 ~ this.$mqttTool.client.on ~ message:', message);
-                console.log('🚀 ~ this.$mqttTool.client.on ~ topics:', topic);
+                //  console.log('🚀 ~ this.$mqttTool.client.on ~ message:', message);
+                // console.log('🚀 ~ this.$mqttTool.client.on ~ topics:', topic);
                 message = JSON.parse(message.toString());
 
                 if (!message) {
@@ -787,9 +794,7 @@ export default {
             deviceSynchronization(this.form.serialNumber).then(async (response) => {
                 // 获取缓存物模型
                 response.data.cacheThingsModel = await this.getCacheThingsModdel(response.data.productId);
-
-                // 152 环控-EC08PRO
-                // 153 报警器-D06
+                console.log(response.data, 'response');
                 // 获取设备运行状态
                 response.data.thingsModels = await this.getDeviceStatus(this.form);
                 // 格式化物模型，拆分出监测值,数组添加前缀
@@ -805,6 +810,7 @@ export default {
         getDevice(deviceId) {
             getDevice(deviceId).then(async (response) => {
                 // 获取设备状态和物模型
+                console.log(response, '获取数量');
                 this.getDeviceStatusWitchThingsModel(response);
             });
         },
@@ -830,6 +836,9 @@ export default {
                 getDeviceRunningStatus(params)
                     // 获取数据配对JSON
                     .then((response) => {
+                        // console.log('runningState:', response.data);
+                        this.$set(this.form, 'thingsModelsValue', JSON.parse(response.data.thingsModelValue));
+                        // this.form.thingsModels = [...response.data.thingsModels];
                         let _obj = {};
                         response.data.thingsModels.forEach((item) => {
                             if (item.datatype.arrayParams !== null) {
@@ -838,9 +847,11 @@ export default {
                                     if (arr[0] === 'array') {
                                         _obj[itm[0].id] = itm[0].value;
                                     } else {
+                                        // let _iid = parseInt(idx);
                                         let _iid = parseInt(idx) < 10 ? '0' + idx : idx;
                                         let iid = 'array_' + _iid + '_' + itm[0].id;
                                         _obj[iid] = itm[0].value;
+                                        console.log(_obj);
                                     }
                                 });
                             } else {
@@ -1099,7 +1110,10 @@ export default {
             response.data.cacheThingsModel = await this.getCacheThingsModdel(response.data.productId);
             // 获取配置JSON
             getProductMOdelJson(response.data.productId).then((res) => {
-                if (response.data.productId == 152) {
+                // EC08 152
+                // EC12 154
+                // EC22 155
+                if (response.data.productId == 152 || response.data.productId == 154 || response.data.productId == 155) {
                     this.dataJson = JSON.parse(res.data);
                     this.deviceType = 'env';
                 } else {
@@ -1113,6 +1127,7 @@ export default {
             // 格式化物模型，拆分出监测值,数组添加前缀
             this.formatThingsModel(response.data);
             this.form = response.data;
+            console.log('this.form =', response.data);
             // 解析设备摘要
             if (this.form.summary != null && this.form.summary != '') {
                 this.summary = JSON.parse(this.form.summary);
@@ -1336,6 +1351,7 @@ export default {
         findLevelFourObjects(jsonData, data) {
             let result = [];
             let that = this;
+            const { SystemSettingVentilationLevel, SystemSettingInitialLevelOfTunnel } = data;
             function traverse(obj) {
                 for (let key in obj) {
                     if (obj.hasOwnProperty(key)) {
@@ -1388,8 +1404,11 @@ export default {
                         value: data[item] || '',
                     });
                 });
-
-                console.log(divideArrayIntoParts(idList, _length), 'divideArrayIntoParts(idList, _length)');
+                // 特殊处理 风机模式
+                if (obj.isShowFanMode) {
+                    that.$refs[obj.id][0].getModeType([SystemSettingInitialLevelOfTunnel, SystemSettingVentilationLevel]);
+                }
+                // 传输数据
                 that.$refs[obj.id][0].getData(divideArrayIntoParts(idList, _length));
                 obj.valueID = idList;
             }

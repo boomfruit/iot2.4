@@ -31,7 +31,7 @@ $backcolor: #192434; //背景颜色
 }
 ::v-deep.el-table th.el-table__cell.is-leaf,
 .el-table td.el-table__cell {
-    background-color: #0d1827;
+    background-color: #2b3858;
     color: #fff;
 }
 ::v-deep .el-table__fixed-right::before,
@@ -76,7 +76,7 @@ $backcolor: #192434; //背景颜色
 }
 
 ::v-deep.el-table .el-table__cell {
-    background-color: #0d1827 !important;
+    // background-color: #0d1827 !important;
 }
 
 //  分页
@@ -362,4 +362,32 @@ $backcolor: #192434; //背景颜色
 
 ::v-deep .el-select-dropdown__list {
     background-color: #000000 !important;
+}
+
+// Descriptions 描述列表
+::v-deep .el-descriptions {
+    .el-descriptions-item__label {
+        background-color: #1d2632;
+        color: #a8aec9;
+    }
+
+    .el-descriptions-item__content {
+        background-color: #0d1827;
+        color: #ffffff;
+    }
+
+    // 可选：调整边框颜色以匹配深色主题
+    &.is-bordered {
+        .el-descriptions-item__label,
+        .el-descriptions-item__content {
+            border-color: #1f3950;
+        }
+    }
+
+    &.el-descriptions--border {
+        border: 1px solid #1f3950;
+    }
+}
+::v-deep .el-descriptions .is-bordered .el-descriptions-item__cell {
+    border: 1px solid #1f3950;
 }

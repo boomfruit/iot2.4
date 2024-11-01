@@ -1,7 +1,7 @@
 <template>
     <div :class="{ 'has-logo': showLogo }" class="menu-bg">
         <div class="menu-box-smartAquaculture">
-            <el-menu default-active="2" class="el-menu-vertical-demo">
+            <el-menu default-active="2" class="el-menu-vertical-demo" :default-openeds="defaultOpeneds">
                 <div v-for="item in menuList[menuMap[topBar.currentBarIdx]]" :key="item.key">
                     <el-submenu v-if="item.children" :index="item.key">
                         <template slot="title">
@@ -89,6 +89,10 @@ export default {
             };
         },
     },
+    created() {
+        // 在创建组件时设置默认展开的菜单
+        this.setDefaultOpeneds();
+    },
     data() {
         return {
             menuList: {
@@ -100,11 +104,11 @@ export default {
                         icon: iconList['equipmentGrouping'][1],
                         children: [
                             {
-                                name: '物模型',
+                                name: '设备管理',
                                 key: 1,
-                                icon_key: 'equipmentGrouping',
-                                icon: iconList['equipmentGrouping'][0],
-                                path: 'smartAquaculture/iot/template',
+                                icon_key: 'equipmentManagement',
+                                icon: iconList['equipmentManagement'][1],
+                                path: 'smartAquaculture/iot/device',
                             },
                             {
                                 name: '产品分类',
@@ -128,11 +132,11 @@ export default {
                                 path: 'smartAquaculture/iot/group',
                             },
                             {
-                                name: '设备管理',
+                                name: '物模型',
                                 key: 5,
-                                icon_key: 'equipmentManagement',
-                                icon: iconList['equipmentManagement'][1],
-                                path: 'smartAquaculture/iot/device',
+                                icon_key: 'equipmentGrouping',
+                                icon: iconList['equipmentGrouping'][0],
+                                path: 'smartAquaculture/iot/template',
                             },
                             // {
                             //     name: '设备联动',
@@ -517,9 +521,23 @@ export default {
                 ],
             },
             currentItemIdx: 1,
+            defaultOpeneds: [], // 用于存储需要默认展开的 submenu 的 index
         };
     },
     methods: {
+        setDefaultOpeneds() {
+            const allSubmenus = [];
+            const currentMenuList = this.menuList[this.menuMap[this.topBar.currentBarIdx]];
+
+            // 收集所有有子菜单的项的 key
+            currentMenuList.forEach((item) => {
+                if (item.children) {
+                    allSubmenus.push(item.key.toString());
+                }
+            });
+
+            this.defaultOpeneds = allSubmenus;
+        },
         handleClick(item) {
             const _map = {
                 1: 'smartAquaculture',
