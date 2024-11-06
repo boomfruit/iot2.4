@@ -65,9 +65,6 @@
                         </el-dropdown-menu>
                     </el-dropdown>
                 </el-col>
-                <!-- <el-col :span="1.5">
-                    <el-button type="primary" plain icon="el-icon-s-grid" size="mini" @click="handleChangeShowType">{{ $t('device.index.105953-17') }}</el-button>
-                </el-col> -->
                 <el-col :span="1.5">
                     <el-checkbox v-model="queryParams.showChild" style="margin: 5px 0 0" @change="handleQuery">{{ $t('device.index.105953-18') }}</el-checkbox>
                     <el-tooltip :content="$t('device.index.105953-19')" placement="top"><i class="el-icon-question"></i></el-tooltip>
@@ -719,6 +716,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/tableView.scss';
+@import '@/assets/styles/sunseen-btn.scss';
 
 .card-item {
     border-radius: 15px;

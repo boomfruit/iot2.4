@@ -233,9 +233,9 @@
             </el-tab-pane>
 
             <el-tab-pane name="deviceLog" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3" lazy>
-                <BreedingSettings></BreedingSettings>
-                <!-- <span slot="label">{{ $t('device.device-edit.148398-49') }}</span>
-                <device-log ref="deviceLog" :device="form" /> -->
+                <!-- <BreedingSettings></BreedingSettings> -->
+                <span slot="label">{{ $t('device.device-edit.148398-49') }}</span>
+                <device-log ref="deviceLog" :device="form" />
             </el-tab-pane>
 
             <el-tab-pane name="alertUser" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3">
@@ -592,7 +592,7 @@ export default {
                 isShadow: false,
                 productId: this.form.productId,
                 remoteCommand: {
-                    [data.itemId]: data.itemValue,
+                    [data.itemId]: data.itemValue || data.value,
                 },
                 serialNumber: this.form.serialNumber,
                 type: 2,
@@ -851,7 +851,6 @@ export default {
                                         let _iid = parseInt(idx) < 10 ? '0' + idx : idx;
                                         let iid = 'array_' + _iid + '_' + itm[0].id;
                                         _obj[iid] = itm[0].value;
-                                        console.log(_obj);
                                     }
                                 });
                             } else {

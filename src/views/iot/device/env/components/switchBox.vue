@@ -18,13 +18,14 @@ export default {
     },
     methods: {
         handleChange(event) {
+            console.log('switch改变:', event);
             this.$confirm(`确定要修改该参数`, '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
             }).then(() => {
                 this.$emit('change', {
-                    itemId: itemId,
-                    itemValue: inputValue,
+                    itemId: this.itemId,
+                    itemValue: this.inputValue,
                     value: event,
                 }); //返回输入值
             });

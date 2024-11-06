@@ -207,7 +207,7 @@ export default {
                         });
                     });
                 }
-                console.log('this.composeList', this.composeList);
+
                 this.isGetDataDone = true;
             });
         },

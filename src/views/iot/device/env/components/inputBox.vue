@@ -17,6 +17,7 @@ export default {
     },
     methods: {
         handleChange(event) {
+            console.log(event, 'event');
             this.$confirm(`确定要修改该参数`, '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',

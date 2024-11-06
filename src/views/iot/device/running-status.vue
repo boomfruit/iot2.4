@@ -472,53 +472,113 @@
             <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
                 <el-row v-if="getDeviceTypeJson">
                     <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-                        // 环控器
                         <div v-if="deviceType === 'env'">
-                            // 开关图
-                            <el-card shadow="hover" style="border-radius: 30px; margin-top: -25px">
-                                <div style="display: flex; width: 100%; flex-wrap: wrap">
-                                    <div
-                                        v-for="(item, idx1) in dataJson.data.fansNum"
-                                        :key="idx1"
-                                        style="height: 48px; width: 48px; display: flex; justify-content: center; align-items: center; flex-direction: column; margin: 10px"
-                                    >
-                                        <el-image :src="deviceEnableIcon.fans[idx1]" style="height: 32px; width: 32px; margin: 0 auto"></el-image>
-                                        <div style="color: #fff; text-align: center; font-size: 12px">{{ '风机' + (idx1 + 1) }}</div>
-                                    </div>
-                                    <div
-                                        v-for="(item, idx2) in dataJson.data.hot"
-                                        :key="idx2"
-                                        style="height: 48px; width: 48px; display: flex; justify-content: center; align-items: center; flex-direction: column; margin: 10px"
-                                    >
-                                        <el-image :src="deviceEnableIcon.hot[idx2]" style="height: 32px; width: 32px; margin: 0 auto"></el-image>
-                                        <div style="color: #fff; text-align: center">{{ '加热' + (idx2 + 1) }}</div>
-                                    </div>
-                                    <div
-                                        v-for="(item, idx3) in dataJson.data.cold"
-                                        :key="idx3"
-                                        style="height: 48px; width: 48px; display: flex; justify-content: center; align-items: center; flex-direction: column; margin: 10px"
-                                    >
-                                        <el-image :src="deviceEnableIcon.cold[idx3]" style="height: 32px; width: 32px; margin: 0 auto"></el-image>
-                                        <div style="color: #fff; text-align: center">{{ '制冷' + (idx3 + 1) }}</div>
-                                    </div>
-                                    <div
-                                        v-for="(item, idx4) in dataJson.data.light"
-                                        :key="idx4"
-                                        style="height: 48px; width: 48px; display: flex; justify-content: center; align-items: center; flex-direction: column; margin: 10px"
-                                    >
-                                        <el-image :src="deviceEnableIcon.light[idx4]" style="height: 32px; width: 32px; margin: 0 auto"></el-image>
-                                        <div style="color: #fff; text-align: center">{{ '照明' + (idx4 + 1) }}</div>
+                            <div class="ec22-box">
+                                <div class="day-target-box">
+                                    <div v-for="item in topListData" :key="item.label" class="topListData-item">
+                                        <div
+                                            class="topListData-item-icon"
+                                            :style="{
+                                                background: `url(${item.icon}) no-repeat center center / cover`,
+                                            }"
+                                        />
+                                        <div class="topListData-item-label">
+                                            {{ item.name }}
+                                        </div>
+                                        <div class="topListData-item-value">{{ item.shadow }}{{ item.unit }}</div>
                                     </div>
                                 </div>
-                            </el-card>
-                            <!-- 设备监测图表-->
-                            <el-row :gutter="20" style="padding: 20px 10px 20px 10px; border-radius: 15px; margin-right: 5px">
-                                <el-col :xs="24" :sm="12" :md="12" :lg="4" :xl="4" v-for="(item, index) in deviceInfo.chartList" :key="index">
-                                    <el-card shadow="hover" style="border-radius: 30px; margin-bottom: 12px">
-                                        <div ref="map" style="height: 160px; width: 160px; margin: 0 auto"></div>
-                                    </el-card>
-                                </el-col>
-                            </el-row>
+                                <div class="data-box">
+                                    <div class="temp-sensor-box">
+                                        <div v-for="item in leftListData" :key="item.label" class="temp-sensor-box-item" :style="{}">
+                                            <div
+                                                class="temp-sensor-box-item-icon"
+                                                :style="{
+                                                    background: `url(${item.icon}) no-repeat center center / cover`,
+                                                }"
+                                            />
+                                            <div class="temp-sensor-box-item-label">
+                                                {{ item.name }}
+                                            </div>
+                                            <div class="temp-sensor-box-item-value">{{ item.shadow }}{{ item.unit }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="sensor-open-box">
+                                        <div v-for="item in dataJson.data.enableMap['hot']" :key="item.label" class="sensor-open-box-item">
+                                            <div
+                                                :class="[item.value == 1 ? 'jump-img' : '']"
+                                                class="sensor-open-box-item-icon"
+                                                :style="{
+                                                    background: `url(${item.icon}) no-repeat center center / contain`,
+                                                }"
+                                            />
+
+                                            <div class="sensor-open-box-item-value">
+                                                {{ item.name }}
+                                            </div>
+                                        </div>
+
+                                        <div v-for="item in dataJson.data.enableMap['cold']" :key="item.label" class="sensor-open-box-item">
+                                            <div
+                                                :class="[item.value == 1 ? 'jump-img' : '']"
+                                                class="sensor-open-box-item-icon"
+                                                :style="{
+                                                    background: `url(${item.icon}) no-repeat center center / contain`,
+                                                }"
+                                            />
+
+                                            <div class="sensor-open-box-item-value">
+                                                {{ item.name }}
+                                            </div>
+                                        </div>
+
+                                        <div v-for="item in dataJson.data.enableMap['light']" :key="item.label" class="sensor-open-box-item">
+                                            <div
+                                                :class="[item.value == 1 ? 'jump-img' : '']"
+                                                class="sensor-open-box-item-icon"
+                                                :style="{
+                                                    background: `url(${item.icon}) no-repeat center center / contain`,
+                                                }"
+                                            />
+
+                                            <div class="sensor-open-box-item-value">
+                                                {{ item.name }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="other-sensor-box">
+                                        <div v-for="item in rightListData" :key="item.label" class="other-sensor-box-item">
+                                            <div class="other-sensor-box-item-value">
+                                                <span>{{ item.shadow }}{{ item.unit }}</span>
+                                            </div>
+                                            <div class="other-sensor-box-item-label">
+                                                {{ item.name }}
+                                            </div>
+                                            <div
+                                                class="other-sensor-box-item-icon"
+                                                :style="{
+                                                    background: `url(${item.icon}) no-repeat center center / cover`,
+                                                }"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="fan-open-box">
+                                    <div v-for="item in deviceEnableIcon['fans']" :key="item.label" class="fan-open-box-item">
+                                        <div
+                                            :class="[item.value == 1 ? 'fan-animation' : '']"
+                                            class="fan-open-box-item-icon"
+                                            :style="{
+                                                background: `url(${item.icon}) no-repeat center center / contain`,
+                                            }"
+                                        />
+
+                                        <div class="fan-open-box-item-value">
+                                            {{ item.name }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         // 报警器
@@ -580,8 +640,28 @@ import { PrefixZero, bytesToBitsArray } from '@/utils/index';
 import { serviceInvoke } from '@/api/iot/runstatus';
 import { getProductMOdelJson } from '@/api/iot/model';
 
-import alarm06DataJson from './env/alarm06Temple.json';
-import env08ProDataJson from './env/envTemple-08PRO.json';
+import targetTempIcon from './img/target-temp.png';
+import dayIcon from './img/day.png';
+
+import temp1 from './img/temp1.png';
+import temp2 from './img/temp2.png';
+
+import water from './img/water.png';
+import co2 from './img/co2.png';
+import nh3 from './img/nh3.png';
+import wind from './img/wind.png';
+import presurre from './img/presurre.png';
+
+import fire_active from './img/fire_active.png';
+import fire_gray from './img/fire_gray.png';
+import cold_active from './img/cold_active.png';
+import cold_gray from './img/cold_gray.png';
+import light_active from './img/light_active.png';
+import light_gray from './img/light_gray.png';
+import dust_active from './img/dust_active.png';
+import dust_gray from './img/dust_gray.png';
+import fan_active from './img/fan_active.png';
+import fan_gray from './img/fan_gray.png';
 
 export default {
     name: 'running-status',
@@ -610,10 +690,11 @@ export default {
                             // EC22 155
                             if (this.deviceInfo.productId == 152 || this.deviceInfo.productId == 154 || this.deviceInfo.productId == 155) {
                                 this.dataJson = JSON.parse(res.data);
-                                this.getIcon();
+                                this.fansList.length = this.dataJson.data.enableMap['fans'].length;
+                                this.fansList.fill(0);
+                                // this.getIcon();
                                 setTimeout(() => {
                                     this.getEnvData();
-                                    this.MonitorChart();
                                 }, 1000 * 3);
                                 this.getDeviceTypeJson = true;
                             } else {
@@ -640,27 +721,7 @@ export default {
             },
         },
         deviceType: {
-            handler(newVal) {
-                // if (newVal == 'env') {
-                //     this.dataJson = env08ProDataJson;
-                //     this.getIcon();
-                //     // 获取环控数据
-                //     setTimeout(() => {
-                //         this.getEnvData();
-                //         this.MonitorChart();
-                //     }, 1.5 * 1000);
-                //     this.getDeviceTypeJson = true;
-                // } else {
-                //     this.dataJson = alarm06DataJson;
-                //     // 获取报警数据
-                //     setTimeout(() => {
-                //         this.dataJson.data.view.forEach((item, idx) => {
-                //             item.value = this.alarmBitArray[idx];
-                //         });
-                //     }, 1.5 * 1000);
-                //     this.getDeviceTypeJson = true;
-                // }
-            },
+            handler(newVal) {},
         },
     },
     data() {
@@ -693,112 +754,195 @@ export default {
                 thingsModels: [],
                 chartList: [],
             },
-            // 监测图表
-            monitorChart: [
-                {
-                    chart: {},
-                    data: {
-                        id: '',
-                        name: '',
-                        value: '',
-                    },
-                },
-            ],
             remoteCommand: {},
-            nameFormat: {
-                DataTemperatureSensor01: '温度1',
-                DataTemperatureSensor02: '温度2',
-                DataTemperatureSensor03: '温度3',
-                DataTemperatureSensor04: '温度4',
-                DataTemperatureSensor05: '温度5',
-                DataTemperatureSensor06: '温度6',
-                DataTemperatureSensor07: '温度7',
-                DataTemperatureSensor08: '温度8',
-                DataTemperatureAva01: '室内温度',
-                DataTemperatureAva02: '室外温度',
-                DataHumiditySensor01: '室内湿度',
-                DataHumiditySensor02: '室外湿度',
-                DataCO2Sensor: '二氧化碳',
-                DataNH3Sensor: '氨气',
-                DataDayLive: '日龄',
-                DataTargetTemperature: '目标温度',
-            },
-            iconImages: {},
             deviceEnableIcon: {},
             getDeviceTypeJson: false,
             alarmBitArray: [],
+
+            // 环控图列
+            timer: null,
+            datalist: [],
+            leftList: [],
+            leftListData: [],
+            rightList: [],
+            rightListData: [],
+            bottomList: [],
+            bottomListData: [],
+            topListData: [],
+            swtichData: '',
+            fansList: [],
+            // 当前日龄
+            currentAge: '',
+            // 目标温度
+            targetTemperature: '',
+            fansListT22: [],
+            curtainListT22: [],
+            // 帘、窗、变频
+            curtainList: [],
         };
     },
     created() {},
     methods: {
-        getIcon() {
-            // 获取到图标
-            const imagesPath = require.context('../../../assets/sunseen/env/data', false, /\.png$/);
-            this.iconImages = {};
-            imagesPath.keys().forEach((key) => {
-                const result = key.match(/\/([^/]+)\.png$/);
-                this.iconImages[result[1]] = imagesPath(key);
-            });
-            // 讲对应设备的图标对应上数组,默认是关闭状态
-            this.deviceEnableIcon['fans'] = new Array(this.dataJson.data.fansNum).fill(this.iconImages['fan_gray']);
-            this.deviceEnableIcon['hot'] = new Array(this.dataJson.data.hot).fill(this.iconImages['fire_gray']);
-            this.deviceEnableIcon['cold'] = new Array(this.dataJson.data.cold).fill(this.iconImages['cold_gray']);
-            this.deviceEnableIcon['light'] = new Array(this.dataJson.data.light).fill(this.iconImages['light_gray']);
-        },
         getEnvData() {
-            console.log(this.deviceInfo, 'this.deviceInfo.thingsModels');
             // 设备开关数据 需要展示的是（风机开关、开度一，二、制冷、加热、光照....）以实际情况而定
+
+            // 传感器探头 --- 温度传感器
+            const sensors = JSON.parse(this.deviceInfo.thingsModelValue).filter((item) => {
+                // 温度探头
+                // DataTemperatureSensor
+                // 二氧化碳
+                // DataCO2Sensor
+                // 压力
+                // DataPressureSensor
+                // 氨气
+                // DataNH3Sensor
+                // 风速
+                // DataWindSpeedSensor
+                // 室内外温度
+                // DataTemperatureAva
+                // 室内外湿度
+                // DataHumidityAva
+                const sensorTypes = ['DataTemperatureSensor', 'DataHumiditySensor', 'DataCO2Sensor', 'DataPressureSensor', 'DataNH3Sensor', 'DataWindSpeedSensor', 'DataTemperatureAva', 'DataHumidityAva'];
+                return sensorTypes.some((type) => item.id.includes(type));
+            });
+
+            // 其他 数据
+
+            const otherData = JSON.parse(this.deviceInfo.thingsModelValue).filter((item) => {
+                // 变频
+                // DataFrequencyConversion
+                // 通风等级
+                // DataCurrentWindLevel
+                const sensorTypes = ['DataFrequencyConversion', 'DataCurrentWindLevel'];
+                return sensorTypes.some((type) => item.id.includes(type));
+            });
+
+            const topData = JSON.parse(this.deviceInfo.thingsModelValue).filter((item) => {
+                // 目标温度
+                // DataTargetTemperature
+                // 日龄
+                // DataTargetTemperature
+                const sensorTypes = ['DataTargetTemperature', 'DataDayLive'];
+                return sensorTypes.some((type) => item.id.includes(type));
+            });
+            // 风机开关
             const enable = JSON.parse(this.deviceInfo.thingsModelValue).find((item) => {
                 return item.id === 'DataAllDeviceStatus';
             });
-            console.log(enable, 'enable');
-            // PrefixZero
-            // enable.value
-            const _item = PrefixZero(parseInt(enable.value).toString(2), 25).split('');
 
-            console.log(_item, '_item');
-            // 风机
-            console.log(this.dataJson.data.enableMap.fans, 'this.dataJson.data');
+            const _item = PrefixZero(parseInt(enable.value).toString(2), this.dataJson.data.mapLength).split('');
+            this.deviceEnableIcon = this.dataJson.data.enableMap;
+
+            // 根据数据源制定左边，右边，下边，上边的数据显示
             this.dataJson.data.enableMap.fans.forEach((item, idx) => {
-                console.log(_item[parseInt(item)], item, '内容值');
                 if (_item[parseInt(item)] == '1') {
                     // 开启状态
-                    this.deviceEnableIcon['fans'][idx] = this.iconImages['fan_active'];
+                    this.deviceEnableIcon['fans'][idx] = {
+                        icon: fan_active,
+                        value: 1,
+                        name: '风机' + (idx + 1),
+                    };
                 } else {
                     // 关闭状态
-                    this.deviceEnableIcon['fans'][idx] = this.iconImages['fan_gray'];
+                    this.deviceEnableIcon['fans'][idx] = {
+                        icon: fan_gray,
+                        value: 0,
+                        name: '风机' + (idx + 1),
+                    };
                 }
             });
             // 加热
             this.dataJson.data.enableMap.hot.forEach((item, idx) => {
                 if (_item[parseInt(item)] == '1') {
                     // 开启状态
-                    this.deviceEnableIcon['hot'][idx] = this.iconImages['fire_active'];
+                    this.deviceEnableIcon['hot'][idx] = {
+                        icon: fire_active,
+                        value: 1,
+                        name: '加热' + (idx + 1),
+                    };
                 } else {
                     // 关闭状态
-                    this.deviceEnableIcon['hot'][idx] = this.iconImages['fire_gray'];
+                    this.deviceEnableIcon['hot'][idx] = {
+                        icon: fire_gray,
+                        value: 0,
+                        name: '加热' + (idx + 1),
+                    };
                 }
             });
             // 制冷
             this.dataJson.data.enableMap.cold.forEach((item, idx) => {
                 if (_item[parseInt(item)] == '1') {
                     // 开启状态
-                    this.deviceEnableIcon['cold'][idx] = this.iconImages['cold_active'];
+                    this.deviceEnableIcon['cold'][idx] = {
+                        icon: cold_active,
+                        value: 1,
+                        name: '制冷' + (idx + 1),
+                    };
                 } else {
                     // 关闭状态
-                    this.deviceEnableIcon['cold'][idx] = this.iconImages['cold_gray'];
+                    this.deviceEnableIcon['cold'][idx] = {
+                        icon: cold_gray,
+                        value: 0,
+                        name: '制冷' + (idx + 1),
+                    };
                 }
             });
             // 光照
             this.dataJson.data.enableMap.light.forEach((item, idx) => {
                 if (_item[parseInt(item)] == '1') {
                     // 开启状态
-                    this.deviceEnableIcon['light'][idx] = this.iconImages['light_active'];
+                    this.deviceEnableIcon['light'][idx] = {
+                        icon: light_active,
+                        value: 1,
+                        name: '光照' + (idx + 1),
+                    };
                 } else {
                     // 关闭状态
-                    this.deviceEnableIcon['light'][idx] = this.iconImages['light_gray'];
+                    this.deviceEnableIcon['light'][idx] = {
+                        icon: light_gray,
+                        value: 0,
+                        name: '光照' + (idx + 1),
+                    };
                 }
             });
+            this.topListData = [...topData];
+            this.topListData.forEach((item) => {
+                if (item.id === 'DataTargetTemperature') {
+                    item.icon = targetTempIcon;
+                } else {
+                    item.icon = dayIcon;
+                }
+            });
+            const allDataShowList = [...otherData, ...sensors];
+            allDataShowList.forEach((item) => {
+                if (item.id.includes('DataTemperatureSensor')) {
+                    item.icon = temp1;
+                } else if (item.id.includes('DataCO2Sensor')) {
+                    item.icon = co2;
+                } else if (item.id.includes('DataPressureSensor')) {
+                    item.icon = presurre;
+                } else if (item.id.includes('DataNH3Sensor')) {
+                    item.icon = nh3;
+                } else if (item.id.includes('DataWindSpeedSensor')) {
+                    item.icon = wind;
+                } else if (item.id.includes('DataTemperatureAva')) {
+                    item.icon = temp2;
+                } else if (item.id.includes('DataHumidityAva')) {
+                    item.icon = water;
+                } else if (item.id.includes('DataFrequencyConversion')) {
+                    item.icon = fan_active;
+                } else if (item.id.includes('DataCurrentWindLevel')) {
+                    item.icon = fan_active;
+                }
+            });
+
+            // 拆分数据
+            const half = Math.floor(allDataShowList.length / 2);
+            const firstList = allDataShowList.slice(0, half);
+            this.leftListData = [...firstList];
+            const secondList = allDataShowList.slice(half);
+            this.rightListData = [...secondList];
+            console.log(this.deviceEnableIcon, 'this.deviceEnableIcon');
         },
         /* Mqtt回调处理 */
         mqttCallback() {
@@ -897,69 +1041,11 @@ export default {
                                     }
                                 }
                             }
-                            // 图表数据
-                            for (let k = 0; k < this.deviceInfo.chartList.length; k++) {
-                                if (this.deviceInfo.chartList[k].id.indexOf('array_') == 0) {
-                                    // 数组类型匹配,例如：array_00_gateway_temperature
-                                    if (this.deviceInfo.chartList[k].id == message.message[j].id) {
-                                        // let shadows = message.message[j].value.split(",");
-                                        this.deviceInfo.chartList[k].shadow = message.message[j].value;
-                                        // 更新图表
-                                        for (let m = 0; m < this.monitorChart.length; m++) {
-                                            if (message.message[j].id == this.monitorChart[m].data.id) {
-                                                let data = [
-                                                    {
-                                                        value: message.message[j].value,
-                                                        name: this.monitorChart[m].data.name,
-                                                    },
-                                                ];
-                                                this.monitorChart[m].chart.setOption({
-                                                    series: [
-                                                        {
-                                                            data: data,
-                                                        },
-                                                    ],
-                                                });
-                                                break;
-                                            }
-                                        }
-                                    }
-                                } else {
-                                    // 普通类型匹配
-                                    if (this.deviceInfo.chartList[k].id == message.message[j].id) {
-                                        this.deviceInfo.chartList[k].shadow = message.message[j].value;
-                                        // 更新图表
-                                        for (let m = 0; m < this.monitorChart.length; m++) {
-                                            if (message.message[j].id == this.monitorChart[m].data.id) {
-                                                isComplete = true;
-                                                let data = [
-                                                    {
-                                                        value: message.message[j].value,
-                                                        name: this.monitorChart[m].data.name,
-                                                    },
-                                                ];
-                                                this.monitorChart[m].chart.setOption({
-                                                    series: [
-                                                        {
-                                                            data: data,
-                                                        },
-                                                    ],
-                                                });
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                                if (isComplete) {
-                                    break;
-                                }
-                            }
                         }
                     }
                 }
             });
         },
-
         //发送指令
         mqttPublish(device, model) {
             const command = {};
@@ -1056,95 +1142,279 @@ export default {
         getDownloadUrl(path) {
             return window.location.origin + process.env.VUE_APP_BASE_API + path;
         },
-        /**图表展示*/
-        MonitorChart() {
-            for (let i = 0; i < this.deviceInfo.chartList.length; i++) {
-                this.monitorChart[i] = {
-                    chart: this.$echarts.init(this.$refs.map[i]),
-                    data: {
-                        id: this.deviceInfo.chartList[i].id,
-                        name: this.deviceInfo.chartList[i].name,
-                        value: this.deviceInfo.chartList[i].shadow ? this.deviceInfo.chartList[i].shadow : this.deviceInfo.chartList[i].datatype.min,
-                    },
-                };
-                var option;
-                option = {
-                    tooltip: {
-                        formatter: ' {b} <br/> {c}' + this.deviceInfo.chartList[i].datatype.unit,
-                    },
-                    series: [
-                        {
-                            name: this.deviceInfo.chartList[i].datatype.type,
-                            type: 'gauge',
-                            min: this.deviceInfo.chartList[i].datatype.min,
-                            max: this.deviceInfo.chartList[i].datatype.max,
-                            colorBy: 'data',
-                            splitNumber: 10,
-                            radius: '100%',
-                            // 分割线
-                            splitLine: {
-                                distance: 4,
-                            },
-                            axisLabel: {
-                                fontSize: 10,
-                                distance: 10,
-                            },
-                            // 刻度线
-                            axisTick: {
-                                distance: 4,
-                            },
-                            // 仪表盘轴线
-                            axisLine: {
-                                lineStyle: {
-                                    width: 8,
-                                    color: [
-                                        [0.2, '#409EFF'], // 0~20%
-                                        [0.8, '#12d09f'], // 40~60%
-                                        [1, '#F56C6C'], // 80~100%
-                                    ],
-                                    opacity: 0.9,
-                                },
-                            },
-                            pointer: {
-                                icon: 'triangle',
-                                length: '60%',
-                                width: 7,
-                            },
-                            progress: {
-                                show: true,
-                                width: 8,
-                            },
-                            detail: {
-                                valueAnimation: true,
-                                formatter: this.nameFormat[this.deviceInfo.chartList[i].id] + '-' + '{value}' + ' ' + this.deviceInfo.chartList[i].datatype.unit,
-                                offsetCenter: [0, '80%'],
-                                fontSize: 20,
-                                textStyle: {
-                                    color: '#ffffff', // 设置 detail 文本颜色
-                                },
-                            },
-                            data: [
-                                {
-                                    value: this.deviceInfo.chartList[i].shadow ? this.deviceInfo.chartList[i].shadow : this.deviceInfo.chartList[i].datatype.min,
-                                    name: this.deviceInfo.chartList[i].name,
-                                },
-                            ],
-                            title: {
-                                offsetCenter: [0, '115%'],
-                                fontSize: 16,
-                            },
-                        },
-                    ],
-                };
-                option && this.monitorChart[i].chart.setOption(option);
-            }
-        },
     },
 };
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/styles/tableView.scss';
+
+.ec22-box {
+    height: 657px;
+    background-image: url('./img/shack-bg.png');
+    .data-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        .temp-sensor-box {
+            width: 280px;
+            height: 450px;
+            font-family: PingFang SC, PingFang SC;
+            font-weight: 400;
+            font-size: 14px;
+            color: #ffffff;
+            display: grid;
+            grid-template-columns: 1fr; /* 只有一列 */
+            grid-template-rows: repeat(9, 1fr); /* 八行 */
+            grid-gap: 10px; /* 间距 */
+            padding: 10px; /* 边距 */
+            .temp-sensor-box-item {
+                padding-left: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background-image: url('./img/left-bg.png');
+                background-size: contain;
+                background-repeat: no-repeat;
+                .temp-sensor-box-item-icon {
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 8px;
+                }
+                .temp-sensor-box-item-label {
+                    width: 80px;
+                    font-family: PingFang SC, PingFang SC;
+                    font-weight: 400;
+                    font-size: 14px;
+                    color: #ffffff;
+                }
+                .temp-sensor-box-item-value {
+                    width: 100px;
+                    font-family: PingFang SC, PingFang SC;
+                    font-weight: bold;
+                    font-size: 20px;
+                    color: #00eeff;
+                }
+            }
+        }
+        .sensor-open-box {
+            width: 837px;
+            height: 114px;
+            background-color: rgba(7, 17, 30, 0.61);
+            border-radius: 9px 9px 9px 9px;
+            border: 1px solid #5d92d9;
+            display: flex;
+            font-family: PingFang SC, PingFang SC;
+            font-weight: 400;
+            font-size: 14px;
+            color: #ffffff;
+            .sensor-open-box-item {
+                flex: 1;
+                padding-left: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .sensor-open-box-item-icon {
+                    width: 30px;
+                    height: 30px;
+                }
+                .sensor-open-box-item-label {
+                    font-family: PingFang SC, PingFang SC;
+                    font-weight: 400;
+                    font-size: 14px;
+                    color: #e6ff00;
+                }
+                .sensor-open-box-item-value {
+                    padding-top: 10px;
+                    font-family: PingFang SC, PingFang SC;
+                    font-weight: bold;
+                    font-size: 20px;
+                }
+            }
+        }
+        .other-sensor-box {
+            width: 320px;
+            height: 450px;
+            font-family: PingFang SC, PingFang SC;
+            font-weight: 400;
+            font-size: 14px;
+            color: #ffffff;
+            display: grid;
+            grid-template-columns: 1fr; /* 只有一列 */
+            grid-template-rows: repeat(10, 1fr); /* 八行 */
+            grid-gap: 10px; /* 间距 */
+            padding: 10px; /* 边距 */
+            .other-sensor-box-item {
+                padding-left: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background-image: url('./img/right-bg.png');
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position-x: 40px;
+                .other-sensor-box-item-icon {
+                    width: 30px;
+                    height: 30px;
+                    position: relative;
+                    right: 65px;
+                    // margin-right: 20px;
+                }
+                .other-sensor-box-item-label {
+                    width: 100px;
+                    font-family: PingFang SC, PingFang SC;
+                    font-weight: 400;
+                    font-size: 14px;
+                    color: #ffffff;
+                    text-align: end;
+                    margin-right: 10px;
+                    position: absolute;
+                    right: 115px;
+                }
+                .other-sensor-box-item-value {
+                    width: 80px;
+                    font-family: PingFang SC, PingFang SC;
+                    font-weight: bold;
+                    font-size: 20px;
+                    color: #00eeff;
+                }
+            }
+        }
+    }
+    .day-target-box {
+        margin: 0 auto;
+        width: 580px;
+        height: 80px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 20px;
+        .topListData-item {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 25px 21px;
+            background: #07111e;
+            border-radius: 9px 9px 9px 9px;
+            border: 1px solid #1b2a40;
+            .topListData-item-icon {
+                width: 30px;
+                height: 30px;
+                margin-right: 8px;
+            }
+            .topListData-item-label {
+                width: 100px;
+                font-family: PingFang SC, PingFang SC;
+                font-weight: 400;
+                font-size: 14px;
+                color: #ffffff;
+            }
+            .topListData-item-value {
+                width: 60px;
+                font-family: PingFang SC, PingFang SC;
+                font-weight: bold;
+                font-size: 20px;
+                color: #00ff3c;
+            }
+        }
+    }
+    .fan-open-box {
+        margin-top: 10px;
+        margin-left: 20px;
+        margin-right: 20px;
+        height: 114px;
+        background-color: rgba(7, 17, 30, 0.61);
+        border-radius: 9px 9px 9px 9px;
+        border: 1px solid #5d92d9;
+        display: flex;
+        font-family: PingFang SC, PingFang SC;
+        font-weight: 400;
+        font-size: 14px;
+        color: #ffffff;
+        .fan-open-box-item {
+            flex: 1;
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            .fan-open-box-item-icon {
+                width: 30px;
+                height: 30px;
+            }
+            .fan-open-box-item-value {
+                margin-top: 10px;
+                font-family: PingFang SC, PingFang SC;
+                font-weight: 400;
+                font-size: 14px;
+                color: #fff;
+            }
+        }
+    }
+}
+
+.fan-animation {
+    animation: rotateBackground 5s infinite linear;
+}
+
+@keyframes rotateBackground {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.jump-img {
+    /* 设置图片跳动动画 */
+    animation: jump 3s ease infinite;
+}
+@keyframes jump {
+    0% {
+        transform: translateY(0) scale(1, 1);
+    }
+    /* 中间状态图片位移并且拉伸 */
+    50% {
+        transform: translateY(-5px) scale(0.97, 1.03);
+    }
+    100% {
+        transform: translateY(0) scale(1, 1);
+    }
+}
+.jump-img:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    left: 0;
+    bottom: -30px;
+    z-index: -1;
+    background: rgba(0, 0, 0, 0.7);
+    filter: blur(10px);
+    border-radius: 50%;
+    /* 设置投影动画 */
+    animation: shadow 3s ease infinite;
+}
+@keyframes shadow {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+        filter: blur(10px);
+    }
+    /* 投影缩放+虚化 */
+    50% {
+        transform: scale(0.8);
+        opacity: 0.7;
+        filter: blur(20px);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+        filter: blur(10px);
+    }
+}
 
 /* 重写滑动块样式 */
 .el-slider__bar {
