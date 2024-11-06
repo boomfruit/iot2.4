@@ -1,0 +1,9 @@
+{
+    "editor.formatOnSave": true, //保存自动格式化
+    "editor.defaultFormatter": "esbenp.prettier-vscode", // 设置默认格式工具为prettier
+    "eslint.enable": true, // 开启eslint检查
+    "eslint.probe": ["javascript", "javascriptreact", "vue", "html"],
+    "vue-i18n.i18nPaths": "src\\lang",
+    "i18n-ally.localesPaths": ["src/i18n", "src/lang"],
+    "npm-scripts.showStartNotification": false // 打开对vue的lint,并自动fix
+}
