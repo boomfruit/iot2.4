@@ -192,6 +192,13 @@ export default {
                         icon: iconList['notificationTemplate'][1],
                         path: 'alarmCenter/alertLog',
                     },
+                    {
+                        name: '告警分组',
+                        key: 3,
+                        icon_key: 'notificationTemplate',
+                        icon: iconList['notificationTemplate'][1],
+                        path: 'alarmCenter/alarmGroup',
+                    },
                 ],
                 resourceManagement: [
                     {

@@ -400,6 +400,7 @@ export default {
         getFarmBindDeviceList() {
             getFarmsDevice(this.farmId).then((res) => {
                 this.bindDeviceList = chunkArray(res.data, 8);
+                console.log(this.bindDeviceList, 'this.bindDeviceList');
                 this.bindDeviceListFlat = res.data;
             });
         },
