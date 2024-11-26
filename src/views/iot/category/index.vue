@@ -18,7 +18,7 @@
         </el-card>
 
         <el-card style="padding-bottom: 100px">
-            <el-table v-loading="loading" :data="categoryList" @selection-change="handleSelectionChange" border>
+            <el-table style="height: 680px; background-color: #0d1827" v-loading="loading" :data="categoryList" @selection-change="handleSelectionChange" border>
                 <el-table-column :label="$t('product.category.142342-0')" align="center" prop="categoryName" />
                 <el-table-column :label="$t('template.index.891112-12')" align="center" prop="isSys" width="150">
                     <template slot-scope="scope">

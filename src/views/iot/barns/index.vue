@@ -63,7 +63,8 @@
                         <el-col :span="10">
                             <div class="shack-item-header-alarm" v-if="item.exceptionInfo">
                                 <div class="shack-item-header-alarm-icon"></div>
-                                <div class="shack-item-header-alarm-value">{{ item.exceptionInfo }}</div>
+                                <div class="shack-item-header-alarm-value">{{ item.exceptionInfo.length > 7 ? item.exceptionInfo.substring(0, 7) + '...' : item.exceptionInfo }}</div>
+                                <!-- <div class="shack-item-header-alarm-value">{{ item.exceptionInfo }}</div> -->
                             </div>
                         </el-col>
                         <el-col :span="5">
@@ -102,7 +103,12 @@
                             }"
                         ></div>
                         <div class="shack-item-value-name">{{ itm.name }}</div>
-                        <div class="shack-item-value-value">{{ itm.value }}</div>
+                        <el-tooltip class="item" effect="dark" :content="itm.value" placement="top">
+                            <div class="shack-item-value-value" v-if="itm.value && itm.value.length > 7">
+                                {{ itm.value.substring(0, 5) + '...' }}
+                            </div>
+                            <div class="shack-item-value-value" v-else>{{ itm.value }}</div>
+                        </el-tooltip>
                     </div>
                 </div>
                 <div class="shack-item-value-noFeed" v-else></div>

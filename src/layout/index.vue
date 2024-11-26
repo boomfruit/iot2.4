@@ -68,6 +68,16 @@ export default {
         currentBarIdx(newIdx, oldIdx) {
             // 在这里执行当`currentBarIdx`变化时需要做的任何操作
         },
+        $route(newRoute, oldRoute) {
+            console.log(newRoute, oldRoute);
+            if (newRoute.fullPath === '/resourceManagement/enterprise/menu') {
+                const appWrapper = document.querySelector('.app-wrapper');
+                appWrapper.classList.add('scrollable'); // 添加可滚动类
+            } else {
+                const appWrapper = document.querySelector('.app-wrapper');
+                appWrapper.classList.remove('scrollable'); // 移除可滚动类
+            }
+        },
     },
     methods: {
         handleClickOutside() {
@@ -80,6 +90,10 @@ export default {
 <style lang="scss" scoped>
 @import '~@/assets/styles/mixin.scss';
 @import '~@/assets/styles/variables.scss';
+
+.scrollable {
+    overflow: scroll !important;
+}
 
 .app-wrapper {
     @include clearfix;

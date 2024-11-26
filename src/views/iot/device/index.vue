@@ -74,7 +74,7 @@
         </el-card>
 
         <el-card style="padding-bottom: 100px" v-if="showType == 'list'">
-            <el-table v-loading="loading" :data="deviceList" border>
+            <el-table style="height: 680px; background-color: #0d1827" v-loading="loading" :data="deviceList" border>
                 <el-table-column :label="$t('device.index.105953-20')" align="center" header-align="center" prop="deviceId" width="50" />
                 <el-table-column :label="$t('device.index.105953-0')" align="center" header-align="center" prop="deviceName" min-width="120" />
                 <el-table-column :label="$t('device.index.105953-2')" align="center" prop="serialNumber" min-width="130" />
@@ -139,6 +139,7 @@
                     </template>
                 </el-table-column>
             </el-table>
+
             <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNum" :limit.sync="queryParams.pageSize" :pageSizes="[12, 24, 36, 60]" @pagination="getList" />
         </el-card>
 
@@ -685,19 +686,18 @@ export default {
         /** 删除按钮操作 */
         handleDelete(row) {
             const deviceIds = row.deviceId || this.ids;
-            this.$modal
-                .confirm(this.$t('device.index.105953-45', [deviceIds]))
-                .then(function () {
-                    if (row.deviceType === 3) {
-                        delSipDeviceBySipId(row.serialNumber);
-                    }
-                    return delDevice(deviceIds);
-                })
-                .then(() => {
-                    this.getList();
-                    this.$modal.msgSuccess(this.$t('device.index.105953-47'));
-                })
-                .catch(() => {});
+            console.log(deviceIds, 'deviceIds');
+            this.$modal.confirm(this.$t('device.index.105953-45', [deviceIds])).then(function () {
+                if (row.deviceType === 3) {
+                    // delSipDeviceBySipId(row.serialNumber);
+                }
+                // return delDevice(deviceIds);
+            });
+            // .then(() => {
+            //     this.getList();
+            //     this.$modal.msgSuccess(this.$t('device.index.105953-47'));
+            // })
+            // .catch(() => {});
         },
         /** 未启用设备影子*/
         shadowUnEnable(device, thingsModel) {

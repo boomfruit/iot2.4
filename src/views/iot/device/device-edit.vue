@@ -5,7 +5,7 @@
                 <span slot="label">{{ $t('device.device-edit.148398-0') }}</span>
                 <el-form ref="form" :model="form" :rules="rules" label-width="100px">
                     <el-row :gutter="100">
-                        <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="8">
+                        <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="6">
                             <el-form-item :label="$t('device.device-edit.148398-1')" prop="deviceName">
                                 <el-input v-model="form.deviceName" :placeholder="$t('device.device-edit.148398-2')">
                                     <el-button slot="append" @click="openSummaryDialog" v-if="form.deviceId != 0">{{ $t('device.device-edit.148398-3') }}</el-button>
@@ -69,7 +69,7 @@
                                 <el-input v-model="form.remark" type="textarea" :placeholder="$t('device.device-edit.148398-18')" rows="1" />
                             </el-form-item>
                         </el-col>
-                        <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="8">
+                        <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="6">
                             <el-form-item :label="$t('device.device-edit.148398-19')" prop="locationWay">
                                 <el-select v-model="form.locationWay" :placeholder="$t('device.device-edit.148398-20')" clearable size="small" style="width: 100%" :disabled="form.deviceType === 3">
                                     <el-option v-for="dict in dict.type.iot_location_way" :key="dict.value" :label="dict.label" :value="Number(dict.value)" />
@@ -107,14 +107,45 @@
                                 <el-button size="small" @click="openCodeDialog()">{{ $t('device.device-edit.148398-36') }}</el-button>
                             </el-form-item>
                         </el-col>
-                        <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="8" v-if="form.deviceId != 0">
+                        <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="5">
+                            <el-form-item label="外部1名称" prop="external1">
+                                <el-input v-model="form.external1" placeholder="请输入外部1名称" />
+                            </el-form-item>
+                            <el-form-item label="外部2名称" prop="external2">
+                                <el-input v-model="form.external2" placeholder="请输入外部2名称" />
+                            </el-form-item>
+                            <el-form-item label="外部3名称" prop="external3">
+                                <el-input v-model="form.external3" placeholder="请输入外部3名称" />
+                            </el-form-item>
+                            <el-form-item label="外部4名称" prop="external4">
+                                <el-input v-model="form.external4" placeholder="请输入外部4名称" />
+                            </el-form-item>
+                            <el-form-item label="外部5名称" prop="external5">
+                                <el-input v-model="form.external5" placeholder="请输入外部5名称" />
+                            </el-form-item>
+                            <el-form-item label="外部6名称" prop="external6">
+                                <el-input v-model="form.external6" placeholder="请输入外部6名称" />
+                            </el-form-item>
+                            <el-form-item label="外部7名称" prop="external7">
+                                <el-input v-model="form.external7" placeholder="请输入外部7名称" />
+                            </el-form-item>
+                            <el-form-item label="外部8名称" prop="external8">
+                                <el-input v-model="form.external8" placeholder="请输入外部8名称" />
+                            </el-form-item>
+                            <el-form-item label="外部9名称" prop="external9">
+                                <el-input v-model="form.external9" placeholder="请输入外部9名称" />
+                            </el-form-item>
+                            <el-form-item label="外部10名称" prop="external10">
+                                <el-input v-model="form.external10" placeholder="请输入外部10名称" />
+                            </el-form-item>
+                        </el-col>
+                        <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="5" v-if="form.deviceId != 0">
                             <div style="border: 1px solid #dfe4ed; border-radius: 5px; padding: 5px; text-align: center; line-height: 400px">
                                 <div id="map" style="height: 435px; width: 100%">{{ $t('device.device-edit.148398-37') }}</div>
                             </div>
                         </el-col>
                     </el-row>
                 </el-form>
-
                 <el-form label-width="100px" style="margin-top: 50px">
                     <el-form-item style="text-align: center; margin-left: -100px; margin-top: 10px">
                         <el-button type="primary" @click="submitForm" v-hasPermi="['iot:device:edit']" v-show="form.deviceId != 0">
@@ -504,6 +535,16 @@ export default {
                 serialNumber: '',
                 deviceType: 1,
                 isSimulate: 0,
+                external1: null,
+                external2: null,
+                external3: null,
+                external4: null,
+                external5: null,
+                external6: null,
+                external7: null,
+                external8: null,
+                external9: null,
+                external10: null,
             },
             //mqtt参数查看
             listQuery: {
@@ -1022,6 +1063,16 @@ export default {
                 remark: null,
                 locationWay: 1,
                 clientId: 0,
+                external1: null,
+                external2: null,
+                external3: null,
+                external4: null,
+                external5: null,
+                external6: null,
+                external7: null,
+                external8: null,
+                external9: null,
+                external10: null,
             };
             this.deviceStatus = 0;
             this.resetForm('form');

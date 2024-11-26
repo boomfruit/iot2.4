@@ -4,10 +4,10 @@
             <el-col :span="8">
                 <el-card style="height: calc(100vh - 125px)">
                     <div slot="header">
-                        <span>{{ $t('system.cache.list.093478-0') }}</span>
+                        <span style="color: #fff">{{ $t('system.cache.list.093478-0') }}</span>
                         <el-button style="float: right; padding: 3px 0" type="text" icon="el-icon-refresh-right" @click="refreshCacheNames()"></el-button>
                     </div>
-                    <el-table v-loading="loading" :data="cacheNames" :height="tableHeight" highlight-current-row @row-click="getCacheKeys" style="width: 100%">
+                    <el-table v-loading="loading" :data="cacheNames" :height="tableHeight" highlight-current-row @row-click="getCacheKeys" style="width: 100%; background-color: #0d1827">
                         <el-table-column :label="$t('system.cache.list.093478-1')" width="60" type="index"></el-table-column>
 
                         <el-table-column :label="$t('system.cache.list.093478-2')" align="center" prop="cacheName" :show-overflow-tooltip="true" :formatter="nameFormatter"></el-table-column>
@@ -25,7 +25,7 @@
             <el-col :span="8">
                 <el-card style="height: calc(100vh - 125px)">
                     <div slot="header">
-                        <span>{{ $t('system.cache.list.093478-3') }}</span>
+                        <span style="color: #fff">{{ $t('system.cache.list.093478-3') }}</span>
                         <el-button style="float: right; padding: 3px 0" type="text" icon="el-icon-refresh-right" @click="refreshCacheKeys()"></el-button>
                     </div>
                     <el-table v-loading="subLoading" :data="cacheKeys" :height="tableHeight" highlight-current-row @row-click="handleCacheValue" style="width: 100%">
@@ -43,7 +43,7 @@
             <el-col :span="8">
                 <el-card :bordered="false" style="height: calc(100vh - 125px)">
                     <div slot="header">
-                        <span>{{ $t('system.cache.list.093478-5') }}</span>
+                        <span style="color: #fff">{{ $t('system.cache.list.093478-5') }}</span>
                         <el-button style="float: right; padding: 3px 0" type="text" icon="el-icon-refresh-right" @click="handleClearCacheAll()" v-hasPermi="['monitor:cache:remove']">
                             {{ $t('system.cache.list.093478-6') }}
                         </el-button>

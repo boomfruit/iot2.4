@@ -2,7 +2,7 @@
     <el-row style="display: flex; align-items: center" :gutter="gutter">
         <el-col :span="childrenSpan[0]" :style="{ textAlign: textDirection }">{{ title }}</el-col>
         <el-col :span="childrenSpan[1]">
-            <el-switch v-model="itemValue" @change="handleChange" inactive-value="0" active-value="1"></el-switch>
+            <el-switch v-model="itemValue" @change="handleChange" :inactive-value="selectOption[0].value" :active-value="selectOption[1].value"></el-switch>
         </el-col>
     </el-row>
 </template>
@@ -61,6 +61,19 @@ export default {
         valueIDs: {
             type: Array,
             default: [],
+        },
+        selectOption: {
+            type: Array,
+            default: () => [
+                {
+                    label: '关闭',
+                    value: '0',
+                },
+                {
+                    label: '开启',
+                    value: '1',
+                },
+            ],
         },
     },
     computed: {},

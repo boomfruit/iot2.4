@@ -19,7 +19,7 @@
         </el-card>
 
         <el-card style="padding-bottom: 100px">
-            <el-table v-loading="loading" :data="groupList" border @selection-change="handleSelectionChange">
+            <el-table style="height: 680px; background-color: #0d1827" v-loading="loading" :data="groupList" border @selection-change="handleSelectionChange">
                 <el-table-column :label="$t('iot.group.index.637432-0')" align="center" prop="groupName" width="200" />
                 <el-table-column :label="$t('iot.group.index.637432-6')" align="center" prop="groupOrder" width="100" />
                 <el-table-column :label="$t('iot.group.index.637432-7')" align="center" prop="createTime" width="180">
@@ -151,7 +151,7 @@ export default {
         /** 查看设备按钮操作 */
         handleViewDevice(groupId) {
             this.$router.push({
-                path: '/iot/device',
+                path: '/smartAquaculture/iot/device',
                 query: {
                     t: Date.now(),
                     groupId: groupId,

@@ -580,11 +580,9 @@
                                 </div>
                             </div>
                         </div>
-
-                        // 报警器
                         <div v-if="deviceType === 'alarm'">
                             <el-row class="out-box" :gutter="8">
-                                <el-col v-for="item in dataJson.data.view" :span="8" class="box-item">
+                                <el-col v-for="(item, idx) in dataJson.data.view" :span="8" class="box-item" :key="item.title">
                                     <el-row>
                                         <el-col :span="4">
                                             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 83px">
@@ -594,7 +592,7 @@
                                         </el-col>
                                         <el-col :span="6" :offset="14">
                                             <div style="display: flex; flex-direction: column; justify-content: end; align-items: center; height: 83px">
-                                                <span class="box-item-value">{{ item.value ? '报警' : '正常' }}</span>
+                                                <span class="box-item-value" :style="{ color: alarmBitArray[idx] ? '#FF0000' : '#67C23A' }">{{ alarmBitArray[idx] ? '报警' : '正常' }}</span>
                                             </div>
                                         </el-col>
                                     </el-row>
@@ -692,13 +690,16 @@ export default {
                                 this.dataJson = JSON.parse(res.data);
                                 this.fansList.length = this.dataJson.data.enableMap['fans'].length;
                                 this.fansList.fill(0);
-                                // this.getIcon();
                                 setTimeout(() => {
                                     this.getEnvData();
                                 }, 1000 * 3);
                                 this.getDeviceTypeJson = true;
                             } else {
-                                this.dataJson = JSON.parse(res.data);
+                                setTimeout(() => {
+                                    this.dataJson = JSON.parse(res.data);
+                                    console.log(this.dataJson, 'this.dataJson');
+                                    this.getDeviceTypeJson = true;
+                                }, 1000 * 3);
                             }
                         });
                         // 获取到DataAlarmInfo
@@ -711,6 +712,7 @@ export default {
                                 return item.reverse();
                             });
                             this.alarmBitArray = [..._bitArray[0]];
+                            console.log(this.alarmBitArray, 'this.alarmBitArray');
                         }
                         this.updateDeviceStatus(this.deviceInfo);
                         this.$nextTick(function () {});

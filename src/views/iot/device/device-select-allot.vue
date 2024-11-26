@@ -36,7 +36,7 @@
             </div>
             <div class="general">
                 <div class="topLeft">
-                    <div style="padding: 10px 10px; background-color: #f8f8f9">
+                    <div style="padding: 10px 10px; background-color: #0d1827 !important; color: #f8f8f9">
                         <span style="font-size: 15px; font-weight: bold">{{ $t('device.device-select-allot.903153-6') }}</span>
                         <span style="font-size: 15px; font-weight: bold; float: right">{{ selectedCount }}/{{ this.count }}</span>
                     </div>
@@ -45,11 +45,11 @@
                             <template slot="empty">
                                 <el-empty :image-size="100" :description="$t('device.device-select-allot.903153-7')"></el-empty>
                             </template>
-                            <el-table-column type="selection" width="55" :selectable="checkSelectable"></el-table-column>
-                            <el-table-column prop="deviceId" label="DeviceKey" fixed show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="productName" :label="$t('device.allot-record.155854-2')" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="serialNumber" :label="$t('device.device-edit.148398-7')" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="deviceName" :label="$t('device.device-edit.148398-1')" show-overflow-tooltip></el-table-column>
+                            <el-table-column type="selection" width="55"></el-table-column>
+                            <el-table-column prop="deviceId" label="DeviceKey"></el-table-column>
+                            <el-table-column prop="productName" :label="$t('device.allot-record.155854-2')"></el-table-column>
+                            <el-table-column prop="serialNumber" :label="$t('device.device-edit.148398-7')"></el-table-column>
+                            <el-table-column prop="deviceName" :label="$t('device.device-edit.148398-1')"></el-table-column>
                         </el-table>
                     </el-row>
                 </div>
@@ -58,7 +58,7 @@
                     <el-button type="primary" :disabled="del" @click="leftDelete"><i class="el-icon-arrow-left el-icon--left"></i></el-button>
                 </div>
                 <div class="topRight">
-                    <div style="padding: 10px 10px; background-color: #f8f8f9">
+                    <div style="padding: 10px 10px; background-color: #0d1827 !important; color: #f8f8f9">
                         <span style="font-size: 15px; font-weight: bold">{{ $t('device.device-select-allot.903153-11') }}</span>
                         <span style="font-size: 15px; font-weight: bold; float: right">{{ selectedCount1 }}/500</span>
                     </div>
@@ -68,10 +68,10 @@
                                 <el-empty :image-size="100" :description="$t('device.device-select-allot.903153-7')"></el-empty>
                             </template>
                             <el-table-column type="selection" width="55"></el-table-column>
-                            <el-table-column prop="deviceId" label="DeviceKey" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="productName" :label="$t('device.allot-record.155854-2')" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="serialNumber" :label="$t('device.device-edit.148398-7')" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="deviceName" :label="$t('device.device-edit.148398-1')" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="deviceId" label="DeviceKey"></el-table-column>
+                            <el-table-column prop="productName" :label="$t('device.allot-record.155854-2')"></el-table-column>
+                            <el-table-column prop="serialNumber" :label="$t('device.device-edit.148398-7')"></el-table-column>
+                            <el-table-column prop="deviceName" :label="$t('device.device-edit.148398-1')"></el-table-column>
                         </el-table>
                     </el-row>
                 </div>

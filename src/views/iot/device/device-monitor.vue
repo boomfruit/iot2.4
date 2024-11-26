@@ -3,27 +3,22 @@
         <el-form :inline="true" label-width="100px">
             <el-form-item :label="$t('device.device-monitor.817489-0')">
                 <el-tooltip class="item" effect="light" :content="$t('device.device-monitor.817489-1')" placement="top">
-                    <el-input v-model="monitorInterval" :placeholder="$t('device.device-monitor.817489-2')"
-                        type="number" clearable size="small" style="width: 180px" />
+                    <el-input v-model="monitorInterval" :placeholder="$t('device.device-monitor.817489-2')" type="number" clearable size="small" style="width: 180px" />
                 </el-tooltip>
             </el-form-item>
             <el-form-item :label="$t('device.device-monitor.817489-3')">
                 <el-tooltip class="item" effect="light" :content="$t('device.device-monitor.817489-4')" placement="top">
-                    <el-input v-model="monitorNumber" :placeholder="$t('device.device-monitor.817489-5')" type="number"
-                        clearable size="small" style="width: 180px" />
+                    <el-input v-model="monitorNumber" :placeholder="$t('device.device-monitor.817489-5')" type="number" clearable size="small" style="width: 180px" />
                 </el-tooltip>
             </el-form-item>
             <el-form-item>
-                <el-button type="success" icon="el-icon-video-play" size="mini" @click="beginMonitor()"
-                    style="margin-left: 30px" v-hasPermi="['iot:service:invoke']">
+                <el-button type="success" icon="el-icon-video-play" size="mini" @click="beginMonitor()" style="margin-left: 30px" v-hasPermi="['iot:service:invoke']">
                     {{ $t('device.device-monitor.817489-6') }}
                 </el-button>
-                <el-button type="danger" icon="el-icon-video-pause" size="mini" @click="stopMonitor()"
-                    v-hasPermi="['iot:service:invoke']">{{ $t('device.device-monitor.817489-7') }}</el-button>
+                <el-button type="danger" icon="el-icon-video-pause" size="mini" @click="stopMonitor()" v-hasPermi="['iot:service:invoke']">{{ $t('device.device-monitor.817489-7') }}</el-button>
             </el-form-item>
         </el-form>
-        <el-row :gutter="20" v-loading="chartLoading" :element-loading-text="$t('device.device-monitor.817489-8')"
-            element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
+        <el-row :gutter="20" v-loading="chartLoading" :element-loading-text="$t('device.device-monitor.817489-8')" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
             <el-col :span="12" v-for="(item, index) in monitorThings" :key="index" style="margin-bottom: 20px">
                 <el-card shadow="hover" :body-style="{ paddingTop: '10px', marginBottom: '-20px' }">
                     <div ref="monitor" style="height: 210px; padding: 0"></div>
@@ -46,29 +41,29 @@ export default {
     },
     watch: {
         // 获取到父组件传递的device后，刷新列表
-        device: function (newVal, oldVal) {
-            this.deviceInfo = newVal;
-            if (this.deviceInfo && this.deviceInfo.deviceId != 0) {
-                // 监测数据
-                this.monitorThings = this.deviceInfo.monitorList;
-                // 监测数据集合初始化
-                this.dataList = [];
-                for (let i = 0; i < this.monitorThings.length; i++) {
-                    this.dataList.push({
-                        id: this.monitorThings[i].id,
-                        name: this.monitorThings[i].name,
-                        data: [],
-                    });
-                    // this.dataList[i].data.push(["2022-03-14 23:32:09", "30"]);
-                }
-                // 绘制监测图表
-                this.$nextTick(function () {
-                    this.getMonitorChart();
-                });
-                // 添加message事件监听器
-                this.mqttCallback();
-            }
-        },
+        // device: function (newVal, oldVal) {
+        //     this.deviceInfo = newVal;
+        //     if (this.deviceInfo && this.deviceInfo.deviceId != 0) {
+        //         // 监测数据
+        //         this.monitorThings = this.deviceInfo.monitorList;
+        //         // 监测数据集合初始化
+        //         this.dataList = [];
+        //         for (let i = 0; i < this.monitorThings.length; i++) {
+        //             this.dataList.push({
+        //                 id: this.monitorThings[i].id,
+        //                 name: this.monitorThings[i].name,
+        //                 data: [],
+        //             });
+        //             // this.dataList[i].data.push(["2022-03-14 23:32:09", "30"]);
+        //         }
+        //         // 绘制监测图表
+        //         this.$nextTick(function () {
+        //             this.getMonitorChart();
+        //         });
+        //         // 添加message事件监听器
+        //         this.mqttCallback();
+        //     }
+        // },
     },
     data() {
         return {
@@ -88,7 +83,7 @@ export default {
             deviceInfo: {},
         };
     },
-    created() { },
+    created() {},
     methods: {
         /**
          * Mqtt发布消息

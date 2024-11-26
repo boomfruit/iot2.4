@@ -50,7 +50,7 @@ $backcolor: #192434; //背景颜色
 }
 
 ::v-deep .el-table__cell {
-    border: 0 !important;
+    border: 1px solid #1f3950 !important;
 }
 
 ::v-deep .el-table__inner-wrapper {
@@ -77,6 +77,10 @@ $backcolor: #192434; //背景颜色
 
 ::v-deep.el-table .el-table__cell {
     // background-color: #0d1827 !important;
+}
+
+::v-deep .el-table__body tr.hover-row > td {
+    background-color: transparent;
 }
 
 //  分页
@@ -390,4 +394,12 @@ $backcolor: #192434; //背景颜色
 }
 ::v-deep .el-descriptions .is-bordered .el-descriptions-item__cell {
     border: 1px solid #1f3950;
+}
+
+::v-deep .el-upload-dragger {
+    background-color: #0d1827 !important;
+}
+
+::v-deep .el-divider {
+    background-color: #4f6273;
 }

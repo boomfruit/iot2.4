@@ -47,7 +47,7 @@
         </el-card>
 
         <el-card style="padding-bottom: 100px">
-            <el-table v-loading="loading" :data="templateList" border size="mini" highlight-current-row @selection-change="handleSelectionChange">
+            <el-table v-loading="loading" :data="templateList" border size="mini" @selection-change="handleSelectionChange">
                 <el-table-column :label="$t('template.index.891112-0')" align="center" prop="templateName" />
                 <el-table-column :label="$t('template.index.891112-7')" align="center" prop="identifier" />
                 <el-table-column :label="$t('template.index.891112-8')" align="center" prop="isMonitor" width="75">
@@ -383,12 +383,6 @@
         </el-card>
     </div>
 </template>
-
-<style>
-.specsColor {
-    background-color: #fcfcfc;
-}
-</style>
 
 <script>
 import { listTemplate, getTemplate, delTemplate, addTemplate, updateTemplate, getSelectTemplate } from '@/api/iot/template';

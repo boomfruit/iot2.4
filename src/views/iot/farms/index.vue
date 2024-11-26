@@ -47,7 +47,7 @@
             <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
         </el-row>
 
-        <el-table v-loading="loading" :data="farmsList" @selection-change="handleSelectionChange">
+        <el-table style="height: 680px; background-color: #0d1827" v-loading="loading" :data="farmsList" @selection-change="handleSelectionChange">
             <el-table-column type="selection" width="55" align="center" />
             <el-table-column label="农场ID" align="center" prop="id" />
             <el-table-column label="农场名" align="center" prop="farmsName" />

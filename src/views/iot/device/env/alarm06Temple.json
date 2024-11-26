@@ -226,7 +226,7 @@
                                             "gutter": 20,
                                             "id": "comment10",
                                             "componentName": "switchBox",
-                                            "title": "报警器开关:",
+                                            "title": "温度报警开关:",
                                             "valueID": ["DataTemperatureAlarm"],
                                             "childrenSpan": [12, 12],
                                             "textDirection": "right",
@@ -234,7 +234,17 @@
                                                 "width": "100%",
                                                 "margin-top": "10px",
                                                 "padding-right": "5px"
-                                            }
+                                            },
+                                            "Option": [
+                                                {
+                                                    "label": "关闭",
+                                                    "value": "2"
+                                                },
+                                                {
+                                                    "label": "开启",
+                                                    "value": "1"
+                                                }
+                                            ]
                                         },
                                         {
                                             "level": 4,
