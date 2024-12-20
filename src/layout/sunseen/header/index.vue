@@ -68,7 +68,6 @@ export default {
     mounted() {
         this.getName();
     },
-
     methods: {
         getName() {
             getUserProfile().then((res) => {
@@ -78,16 +77,9 @@ export default {
         changeCurrentIdx(idx) {
             this.currentIdx = idx;
             this.$store.dispatch('changeCurrentIdx', idx);
-            const _routerMap = {
-                1: 'index',
-                2: 'smartAquaculture/iot/device',
-                3: 'farmManagement',
-                4: 'alarmCenter/alert',
-                5: 'resourceManagement/template/protocol',
-                6: 'systemManagement/monitor/cacheList',
-                7: 'barnsManagement',
-            };
-            this.$router.push('/' + _routerMap[idx]);
+            const routerMap = this.$store.state.topBar.routerMap;
+            console.log(routerMap, 'routerMap');
+            this.$router.push('/' + routerMap[idx]);
         },
     },
 

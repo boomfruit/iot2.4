@@ -472,6 +472,7 @@
             <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
                 <el-row v-if="getDeviceTypeJson">
                     <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+                        <!-- 报警器 -->
                         <div v-if="deviceType === 'env'">
                             <div class="ec22-box">
                                 <div class="day-target-box">
@@ -580,6 +581,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- 4G报警器 -->
                         <div v-if="deviceType === 'alarm'">
                             <el-row class="out-box" :gutter="8">
                                 <el-col v-for="(item, idx) in dataJson.data.view" :span="8" class="box-item" :key="item.title">
@@ -598,6 +600,10 @@
                                     </el-row>
                                 </el-col>
                             </el-row>
+                        </div>
+                        <!-- 集中报警器 -->
+                        <div v-if="deviceType === 'ccAlarm'">
+                            <alarmData :CC01AlarmInfo="CC01AlarmInfo" />
                         </div>
                     </el-col>
                     <el-col :xs="24" :sm="24" :md="24" :lg="16" :xl="6"></el-col>
@@ -661,6 +667,9 @@ import dust_gray from './img/dust_gray.png';
 import fan_active from './img/fan_active.png';
 import fan_gray from './img/fan_gray.png';
 
+import alarmData from './alarm/data.vue';
+import alarmSetting from './alarm/setting.vue';
+
 export default {
     name: 'running-status',
     props: {
@@ -673,6 +682,10 @@ export default {
             default: '',
         },
     },
+    components: {
+        alarmData,
+        alarmSetting,
+    },
     watch: {
         // 获取到父组件传递的device后，刷新列表
         device: {
@@ -680,7 +693,6 @@ export default {
                 if (newVal && newVal.deviceId != 0) {
                     if (newVal && newVal.deviceId != 0) {
                         this.deviceInfo = newVal;
-                        console.log(this.deviceInfo, 'this.deviceInfo');
                         // 获取JSON配置
                         getProductMOdelJson(this.deviceInfo.productId).then((res) => {
                             // EC08 152
@@ -694,28 +706,37 @@ export default {
                                     this.getEnvData();
                                 }, 1000 * 3);
                                 this.getDeviceTypeJson = true;
-                            } else {
+                            } else if (this.deviceInfo.productId == 153) {
+                                // D06
                                 setTimeout(() => {
                                     this.dataJson = JSON.parse(res.data);
                                     console.log(this.dataJson, 'this.dataJson');
                                     this.getDeviceTypeJson = true;
                                 }, 1000 * 3);
+                            } else if (this.deviceInfo.productId == 168) {
+                                //  cc01
+                                setTimeout(() => {
+                                    console.log(newVal, 'newVal');
+                                    this.CC01AlarmInfo = newVal;
+                                    this.getDeviceTypeJson = true;
+                                }, 1000 * 3);
                             }
                         });
                         // 获取到DataAlarmInfo
-                        const alarmMap = this.deviceInfo.staticList.find((item) => {
-                            return item.id == 'DataAlarmInfo';
-                        });
-                        if (alarmMap) {
-                            let _value = alarmMap.value;
-                            const _bitArray = bytesToBitsArray([_value]).map((item) => {
-                                return item.reverse();
+                        if (this.deviceInfo.staticList) {
+                            const alarmMap = this.deviceInfo.staticList.find((item) => {
+                                return item.id == 'DataAlarmInfo';
                             });
-                            this.alarmBitArray = [..._bitArray[0]];
-                            console.log(this.alarmBitArray, 'this.alarmBitArray');
+                            if (alarmMap) {
+                                let _value = alarmMap.value;
+                                const _bitArray = bytesToBitsArray([_value]).map((item) => {
+                                    return item.reverse();
+                                });
+                                this.alarmBitArray = [..._bitArray[0]];
+                                console.log(this.alarmBitArray, 'this.alarmBitArray');
+                            }
+                            this.updateDeviceStatus(this.deviceInfo);
                         }
-                        this.updateDeviceStatus(this.deviceInfo);
-                        this.$nextTick(function () {});
                         // 添加message事件监听器
                         this.mqttCallback();
                     }
@@ -760,7 +781,6 @@ export default {
             deviceEnableIcon: {},
             getDeviceTypeJson: false,
             alarmBitArray: [],
-
             // 环控图列
             timer: null,
             datalist: [],
@@ -781,13 +801,15 @@ export default {
             curtainListT22: [],
             // 帘、窗、变频
             curtainList: [],
+
+            // CC01集中报警器\
+            CC01AlarmInfo: {},
         };
     },
     created() {},
     methods: {
         getEnvData() {
             // 设备开关数据 需要展示的是（风机开关、开度一，二、制冷、加热、光照....）以实际情况而定
-
             // 传感器探头 --- 温度传感器
             const sensors = JSON.parse(this.deviceInfo.thingsModelValue).filter((item) => {
                 // 温度探头

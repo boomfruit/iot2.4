@@ -261,13 +261,13 @@ export default {
                                 {
                                     name: '日龄',
                                     key: 'day',
-                                    value: 30,
+                                    value: '',
                                     icon: calendar,
                                 },
                                 {
                                     name: '存栏量',
                                     key: 'saveNumber',
-                                    value: 2500,
+                                    value: '',
                                     icon: save,
                                 },
                                 {
@@ -279,7 +279,7 @@ export default {
                                 {
                                     name: '通风等级',
                                     key: 'windLevel',
-                                    value: 6,
+                                    value: '',
                                     icon: wind,
                                 },
                                 {

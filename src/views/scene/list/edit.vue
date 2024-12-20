@@ -11,29 +11,24 @@
                             <el-row>
                                 <el-col :span="12">
                                     <el-form-item :label="$t('scene.edit.202832-1')" prop="sceneModelName">
-                                        <el-input style="width: 310px" v-model="form.sceneModelName"
-                                            :placeholder="$t('scene.edit.202832-5')" clearable></el-input>
+                                        <el-input style="width: 310px" v-model="form.sceneModelName" :placeholder="$t('scene.edit.202832-5')" clearable></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="12">
                                     <el-form-item :label="$t('scene.edit.202832-2')" prop="deptId">
-                                        <treeselect style="width: 310px" v-model="form.deptId" :options="deptOptions"
-                                            :clearable="true" :searchable="true"
-                                            :placeholder="$t('scene.edit.202832-6')" @input="handleTreeselectInput" />
+                                        <treeselect v-model="form.deptId" :options="deptOptions" :clearable="true" :searchable="true" :placeholder="$t('scene.edit.202832-6')" @input="handleTreeselectInput" />
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-row>
                                 <el-col :span="12">
                                     <el-form-item :label="$t('scene.edit.202832-3')">
-                                        <image-upload v-model="form.imgUrl" :multiple="false"
-                                            :file-list="[baseUrl + form.imgUrl]" :class="{ disable: uploadDisabled }" />
+                                        <image-upload v-model="form.imgUrl" :multiple="false" :file-list="[baseUrl + form.imgUrl]" :class="{ disable: uploadDisabled }" />
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="12">
                                     <el-form-item :label="$t('scene.edit.202832-4')">
-                                        <el-input style="width: 310px" v-model="form.desc"
-                                            :placeholder="$t('scene.edit.202832-7')" clearable></el-input>
+                                        <el-input style="width: 310px" v-model="form.desc" :placeholder="$t('scene.edit.202832-7')" clearable></el-input>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -59,39 +54,33 @@
                                     <div slot="header">
                                         <span>{{ $t('scene.edit.202832-12') }}</span>
                                     </div>
-                                    <div class="el-table--enable-row-hover el-table--medium device-select"
-                                        style="height: 581px">
-                                        <el-table ref="deviceTable" :data="selectDeviceList" style="width: 100%"
-                                            :border="false" max-height="529" highlight-current-row
-                                            @current-change="handleCurrentDeviceItemChange">
-                                            <el-table-column type="index" :label="$t('scene.edit.202832-13')"
-                                                width="50"></el-table-column>
-                                            <el-table-column prop="cusDeviceId" :label="$t('scene.edit.202832-14')"
-                                                width="220">
+                                    <div class="el-table--enable-row-hover el-table--medium device-select" style="height: 581px">
+                                        <el-table ref="deviceTable" :data="selectDeviceList" style="width: 100%" :border="false" max-height="529" highlight-current-row @current-change="handleCurrentDeviceItemChange">
+                                            <el-table-column type="index" :label="$t('scene.edit.202832-13')" width="50"></el-table-column>
+                                            <el-table-column prop="cusDeviceId" :label="$t('scene.edit.202832-14')" width="220">
                                                 <template slot-scope="scope">
-                                                    <el-select style="width: 210px" v-model="scope.row.cusDeviceId"
-                                                        size="small" :placeholder="$t('scene.edit.202832-15')"
-                                                        filterable @change="handleUpdateDeviceItem(scope.row, $event)">
-                                                        <el-option v-for="(item, index) in deviceList" :key="index"
-                                                            :label="item.deviceName" :value="item.deviceId"
-                                                            :disabled="!isSelectDevice"></el-option>
+                                                    <el-select
+                                                        style="width: 210px"
+                                                        v-model="scope.row.cusDeviceId"
+                                                        size="small"
+                                                        :placeholder="$t('scene.edit.202832-15')"
+                                                        filterable
+                                                        @change="handleUpdateDeviceItem(scope.row, $event)"
+                                                    >
+                                                        <el-option v-for="(item, index) in deviceList" :key="index" :label="item.deviceName" :value="item.deviceId" :disabled="!isSelectDevice"></el-option>
                                                     </el-select>
                                                 </template>
                                             </el-table-column>
-                                            <el-table-column :label="$t('opation')" align="center"
-                                                class-name="small-padding fixed-width" width="80">
+                                            <el-table-column :label="$t('opation')" align="center" class-name="small-padding fixed-width" width="80">
                                                 <template slot-scope="scope">
-                                                    <el-button style="color: #f56c6c" size="mini" type="text"
-                                                        @click="handleDeleteDeviceItem(scope.row)"
-                                                        v-hasPermi="['scene:modelDevice:remove']">{{ $t('del')
-                                                        }}</el-button>
+                                                    <el-button style="color: #f56c6c" size="mini" type="text" @click="handleDeleteDeviceItem(scope.row)" v-hasPermi="['scene:modelDevice:remove']">
+                                                        {{ $t('del') }}
+                                                    </el-button>
                                                 </template>
                                             </el-table-column>
                                         </el-table>
                                         <div class="tools-wrap">
-                                            <el-button style="width: 100px" size="small" type="primary"
-                                                @click="handleAddDeviceItem" v-hasPermi="['scene:modelDevice:add']">{{
-                                                    $t('add') }}</el-button>
+                                            <el-button style="width: 100px" size="small" type="primary" @click="handleAddDeviceItem" v-hasPermi="['scene:modelDevice:add']">{{ $t('add') }}</el-button>
                                         </div>
                                     </div>
                                 </el-card>
@@ -103,47 +92,36 @@
                                     </div>
                                     <div class="el-table--enable-row-hover el-table--medium">
                                         <div class="variable-list">
-                                            <el-form :model="devConfigQueryParams" ref="devConfigQueryForm" size="small"
-                                                :inline="true" label-width="68px">
+                                            <el-form :model="devConfigQueryParams" ref="devConfigQueryForm" size="small" :inline="true" label-width="68px">
                                                 <el-form-item :label="$t('scene.overview.324354-11')" prop="sourceName">
-                                                    <el-input v-model="devConfigQueryParams.sourceName"
-                                                        :placeholder="$t('scene.overview.324354-12')" clearable />
+                                                    <el-input v-model="devConfigQueryParams.sourceName" :placeholder="$t('scene.overview.324354-12')" clearable />
                                                 </el-form-item>
                                                 <el-form-item>
-                                                    <el-button type="primary" icon="el-icon-search" size="mini"
-                                                        @click="handleDevConfigQuery">{{
-                                                            $t('search') }}</el-button>
+                                                    <el-button type="primary" icon="el-icon-search" size="mini" @click="handleDevConfigQuery">{{ $t('search') }}</el-button>
                                                 </el-form-item>
                                             </el-form>
                                             <div class="switch-wrap">
                                                 {{ $t('scene.edit.202832-17') }}
-                                                <el-switch v-model="devConfigEnable" :active-value="1"
-                                                    :inactive-value="0" @change="devConfigEnableChange"
-                                                    v-hasPermi="['scene:modelData:editEnable']"></el-switch>
+                                                <el-switch v-model="devConfigEnable" :active-value="1" :inactive-value="0" @change="devConfigEnableChange" v-hasPermi="['scene:modelData:editEnable']"></el-switch>
                                             </div>
                                         </div>
-                                        <el-table v-loading="devConfigLoading" :data="devConfigList"
-                                            style="width: 100%; margin-top: 15px" :border="false" height="484">
-                                            <el-table-column type="index" :label="$t('scene.edit.202832-13')"
-                                                width="80"></el-table-column>
-                                            <el-table-column prop="slaveName"
-                                                :label="$t('scene.overview.324354-9')"></el-table-column>
-                                            <el-table-column prop="sourceName"
-                                                :label="$t('scene.overview.324354-11')"></el-table-column>
-                                            <el-table-column prop="name" :label="$t('scene.edit.202832-18')"
-                                                width="100">
+                                        <el-table v-loading="devConfigLoading" :data="devConfigList" style="width: 100%; margin-top: 15px" :border="false" height="484">
+                                            <el-table-column type="index" :label="$t('scene.edit.202832-13')" width="80"></el-table-column>
+                                            <el-table-column prop="slaveName" :label="$t('scene.overview.324354-9')"></el-table-column>
+                                            <el-table-column prop="sourceName" :label="$t('scene.overview.324354-11')"></el-table-column>
+                                            <el-table-column prop="name" :label="$t('scene.edit.202832-18')" width="100">
                                                 <template slot-scope="scope">
-                                                    <el-switch v-model="scope.row.enable" :active-value="1"
-                                                        :inactive-value="0"
-                                                        @change="devConfigItemEnableChange(scope.row)"
-                                                        :disabled="!isEnableSwitch"></el-switch>
+                                                    <el-switch v-model="scope.row.enable" :active-value="1" :inactive-value="0" @change="devConfigItemEnableChange(scope.row)" :disabled="!isEnableSwitch"></el-switch>
                                                 </template>
                                             </el-table-column>
                                         </el-table>
-                                        <pagination v-show="devConfigTotal > 0" :total="devConfigTotal"
+                                        <pagination
+                                            v-show="devConfigTotal > 0"
+                                            :total="devConfigTotal"
                                             :page.sync="devConfigQueryParams.pageNum"
                                             :limit.sync="devConfigQueryParams.pageSize"
-                                            @pagination="getDevConfigVariableList" />
+                                            @pagination="getDevConfigVariableList"
+                                        />
                                     </div>
                                 </el-card>
                             </el-col>
@@ -157,73 +135,56 @@
                                     </div>
                                     <div class="el-table--enable-row-hover el-table--medium">
                                         <div class="variable-list">
-                                            <el-form :model="inputVariableQueryParams" ref="inputVariableQueryForm"
-                                                size="small" :inline="true" label-width="68px">
+                                            <el-form :model="inputVariableQueryParams" ref="inputVariableQueryForm" size="small" :inline="true" label-width="68px">
                                                 <el-form-item :label="$t('scene.overview.324354-11')" prop="name">
-                                                    <el-input v-model="inputVariableQueryParams.name"
-                                                        :placeholder="$t('scene.overview.324354-12')" clearable />
+                                                    <el-input v-model="inputVariableQueryParams.name" :placeholder="$t('scene.overview.324354-12')" clearable />
                                                 </el-form-item>
                                                 <el-form-item>
-                                                    <el-button type="primary" icon="el-icon-search" size="mini"
-                                                        @click="handleInputVariableQuery">{{ $t('search') }}</el-button>
+                                                    <el-button type="primary" icon="el-icon-search" size="mini" @click="handleInputVariableQuery">{{ $t('search') }}</el-button>
                                                 </el-form-item>
                                             </el-form>
                                             <div class="switch-wrap">
-                                                <el-button size="mini" icon="el-icon-plus" type="primary"
-                                                    style="margin-right: 10px" @click="handleAddInputVariable"
-                                                    v-hasPermi="['scene:modelTag:add']">{{
-                                                        $t('add') }}</el-button>
+                                                <el-button size="mini" icon="el-icon-plus" type="primary" style="margin-right: 10px" @click="handleAddInputVariable" v-hasPermi="['scene:modelTag:add']">
+                                                    {{ $t('add') }}
+                                                </el-button>
                                                 {{ $t('scene.edit.202832-17') }}
-                                                <el-switch v-model="inputVariableEnable" :active-value="1"
-                                                    :inactive-value="0" @change="inputVariableEnableChange"
-                                                    v-hasPermi="['scene:modelData:editEnable']"></el-switch>
+                                                <el-switch v-model="inputVariableEnable" :active-value="1" :inactive-value="0" @change="inputVariableEnableChange" v-hasPermi="['scene:modelData:editEnable']"></el-switch>
                                             </div>
                                         </div>
-                                        <el-table v-loading="inputVariableLoading" :data="inputVariableList"
-                                            style="width: 100%; margin-top: 15px" :border="false" max-height="539">
-                                            <el-table-column type="index" :label="$t('scene.edit.202832-13')"
-                                                width="50"></el-table-column>
-                                            <el-table-column prop="name"
-                                                :label="$t('scene.overview.324354-11')"></el-table-column>
-                                            <el-table-column prop="unit" :label="$t('scene.edit.202832-19')"
-                                                width="100"></el-table-column>
-                                            <el-table-column prop="dataType" :label="$t('scene.edit.202832-20')"
-                                                width="100">
+                                        <el-table v-loading="inputVariableLoading" :data="inputVariableList" style="width: 100%; margin-top: 15px" :border="false" max-height="539">
+                                            <el-table-column type="index" :label="$t('scene.edit.202832-13')" width="50"></el-table-column>
+                                            <el-table-column prop="name" :label="$t('scene.overview.324354-11')"></el-table-column>
+                                            <el-table-column prop="unit" :label="$t('scene.edit.202832-19')" width="100"></el-table-column>
+                                            <el-table-column prop="dataType" :label="$t('scene.edit.202832-20')" width="100">
                                                 <template slot-scope="scope">
-                                                    <span v-if="scope.row.dataType === '0'">{{
-                                                        $t('scene.edit.202832-21') }}</span>
-                                                    <span v-if="scope.row.dataType === '1'">{{
-                                                        $t('scene.edit.202832-22') }}</span>
+                                                    <span v-if="scope.row.dataType === '0'">{{ $t('scene.edit.202832-21') }}</span>
+                                                    <span v-if="scope.row.dataType === '1'">{{ $t('scene.edit.202832-22') }}</span>
                                                 </template>
                                             </el-table-column>
-                                            <el-table-column prop="defaultValue" :label="$t('scene.edit.202832-32')"
-                                                width="120"></el-table-column>
-                                            <el-table-column prop="enable" :label="$t('scene.edit.202832-18')"
-                                                width="100">
+                                            <el-table-column prop="defaultValue" :label="$t('scene.edit.202832-32')" width="120"></el-table-column>
+                                            <el-table-column prop="enable" :label="$t('scene.edit.202832-18')" width="100">
                                                 <template slot-scope="scope">
-                                                    <el-switch v-model="scope.row.enable" :active-value="1"
-                                                        :inactive-value="0" :disabled="!isEnableSwitch"
-                                                        @change="inputVariableItemEnableChange(scope.row)"></el-switch>
+                                                    <el-switch v-model="scope.row.enable" :active-value="1" :inactive-value="0" :disabled="!isEnableSwitch" @change="inputVariableItemEnableChange(scope.row)"></el-switch>
                                                 </template>
                                             </el-table-column>
-                                            <el-table-column :label="$t('opation')" align="center"
-                                                class-name="small-padding fixed-width" width="150">
+                                            <el-table-column :label="$t('opation')" align="center" class-name="small-padding fixed-width" width="150">
                                                 <template slot-scope="scope">
-                                                    <el-button size="mini" type="text" icon="el-icon-edit-outline"
-                                                        @click="handleEditInputVariable(scope.row)"
-                                                        v-hasPermi="['scene:modelTag:query']">{{ $t('look')
-                                                        }}</el-button>
-                                                    <el-button style="color: #f56c6c" size="mini" type="text"
-                                                        v-hasPermi="['scene:modelTag:remove']" icon="el-icon-delete"
-                                                        @click="handleDeleteInputVariable(scope.row)">{{ $t('del')
-                                                        }}</el-button>
+                                                    <el-button size="mini" type="text" icon="el-icon-edit-outline" @click="handleEditInputVariable(scope.row)" v-hasPermi="['scene:modelTag:query']">
+                                                        {{ $t('look') }}
+                                                    </el-button>
+                                                    <el-button style="color: #f56c6c" size="mini" type="text" v-hasPermi="['scene:modelTag:remove']" icon="el-icon-delete" @click="handleDeleteInputVariable(scope.row)">
+                                                        {{ $t('del') }}
+                                                    </el-button>
                                                 </template>
                                             </el-table-column>
                                         </el-table>
-                                        <pagination v-show="inputVariableTotal > 0" :total="inputVariableTotal"
+                                        <pagination
+                                            v-show="inputVariableTotal > 0"
+                                            :total="inputVariableTotal"
                                             :page.sync="inputVariableQueryParams.pageNum"
                                             :limit.sync="inputVariableQueryParams.pageSize"
-                                            @pagination="getInputVariableList" />
+                                            @pagination="getInputVariableList"
+                                        />
                                     </div>
                                 </el-card>
                             </el-col>
@@ -237,84 +198,80 @@
                                     </div>
                                     <div class="el-table--enable-row-hover el-table--medium">
                                         <div class="variable-list">
-                                            <el-form :model="operationVariableQueryParams"
-                                                ref="operationVariableQueryForm" size="small" :inline="true"
-                                                label-width="68px">
+                                            <el-form :model="operationVariableQueryParams" ref="operationVariableQueryForm" size="small" :inline="true" label-width="68px">
                                                 <el-form-item :label="$t('scene.overview.324354-11')" prop="modelName">
-                                                    <el-input v-model="operationVariableQueryParams.name"
-                                                        :placeholder="$t('scene.overview.324354-12')" clearable />
+                                                    <el-input v-model="operationVariableQueryParams.name" :placeholder="$t('scene.overview.324354-12')" clearable />
                                                 </el-form-item>
                                                 <el-form-item>
-                                                    <el-button type="primary" icon="el-icon-search" size="mini"
-                                                        @click="handleOperationVariableQuery">{{ $t('search')
-                                                        }}</el-button>
+                                                    <el-button type="primary" icon="el-icon-search" size="mini" @click="handleOperationVariableQuery">{{ $t('search') }}</el-button>
                                                 </el-form-item>
                                             </el-form>
                                             <div class="switch-wrap">
-                                                <el-button size="mini" icon="el-icon-plus" type="primary"
-                                                    style="margin-right: 10px" @click="handleAddOperationVariable"
-                                                    v-hasPermi="['scene:modelTag:add']">{{
-                                                        $t('add') }}</el-button>
+                                                <el-button size="mini" icon="el-icon-plus" type="primary" style="margin-right: 10px" @click="handleAddOperationVariable" v-hasPermi="['scene:modelTag:add']">
+                                                    {{ $t('add') }}
+                                                </el-button>
                                                 {{ $t('scene.edit.202832-17') }}
-                                                <el-switch v-model="operationVariableEnable" :active-value="1"
-                                                    v-hasPermi="['scene:modelData:editEnable']" :inactive-value="0"
-                                                    @change="operationVariableEnableChange"></el-switch>
+                                                <el-switch
+                                                    v-model="operationVariableEnable"
+                                                    :active-value="1"
+                                                    v-hasPermi="['scene:modelData:editEnable']"
+                                                    :inactive-value="0"
+                                                    @change="operationVariableEnableChange"
+                                                ></el-switch>
                                             </div>
                                         </div>
-                                        <el-table v-loading="inputVariableLoading" :data="operationVariableList"
-                                            style="width: 100%; margin-top: 15px" :border="false" max-height="539">
-                                            <el-table-column type="index" :label="$t('scene.edit.202832-13')"
-                                                width="50"></el-table-column>
-                                            <el-table-column prop="name"
-                                                :label="$t('scene.overview.324354-11')"></el-table-column>
-                                            <el-table-column prop="unit" :label="$t('scene.edit.202832-19')"
-                                                width="100"></el-table-column>
-                                            <el-table-column prop="storage" :label="$t('scene.edit.202832-23')"
-                                                width="100">
+                                        <el-table v-loading="inputVariableLoading" :data="operationVariableList" style="width: 100%; margin-top: 15px" :border="false" max-height="539">
+                                            <el-table-column type="index" :label="$t('scene.edit.202832-13')" width="50"></el-table-column>
+                                            <el-table-column prop="name" :label="$t('scene.overview.324354-11')"></el-table-column>
+                                            <el-table-column prop="unit" :label="$t('scene.edit.202832-19')" width="100"></el-table-column>
+                                            <el-table-column prop="storage" :label="$t('scene.edit.202832-23')" width="100">
                                                 <template slot-scope="scope">
-                                                    <span v-if="scope.row.storage === 0">{{ $t('scene.edit.202832-24')
-                                                        }}</span>
-                                                    <span v-if="scope.row.storage === 1">{{ $t('scene.edit.202832-25')
-                                                        }}</span>
+                                                    <span v-if="scope.row.storage === 0">{{ $t('scene.edit.202832-24') }}</span>
+                                                    <span v-if="scope.row.storage === 1">{{ $t('scene.edit.202832-25') }}</span>
                                                 </template>
                                             </el-table-column>
-                                            <el-table-column prop="isReadonly" :label="$t('scene.edit.202832-26')"
-                                                width="120">
+                                            <el-table-column prop="isReadonly" :label="$t('scene.edit.202832-26')" width="120">
                                                 <template slot-scope="scope">
-                                                    <span v-if="scope.row.isReadonly === 0">{{
-                                                        $t('scene.edit.202832-27') }}</span>
-                                                    <span v-if="scope.row.isReadonly === 1">{{
-                                                        $t('scene.edit.202832-28') }}</span>
+                                                    <span v-if="scope.row.isReadonly === 0">{{ $t('scene.edit.202832-27') }}</span>
+                                                    <span v-if="scope.row.isReadonly === 1">{{ $t('scene.edit.202832-28') }}</span>
                                                 </template>
                                             </el-table-column>
-                                            <el-table-column prop="enable" :label="$t('scene.edit.202832-18')"
-                                                width="100">
+                                            <el-table-column prop="enable" :label="$t('scene.edit.202832-18')" width="100">
                                                 <template slot-scope="scope">
-                                                    <el-switch v-model="scope.row.enable" :active-value="1"
+                                                    <el-switch
+                                                        v-model="scope.row.enable"
+                                                        :active-value="1"
                                                         :inactive-value="0"
                                                         @change="operationVariableItemEnableChange(scope.row)"
-                                                        :disabled="!isEnableSwitch"></el-switch>
+                                                        :disabled="!isEnableSwitch"
+                                                    ></el-switch>
                                                 </template>
                                             </el-table-column>
-                                            <el-table-column :label="$t('opation')" align="center"
-                                                class-name="small-padding fixed-width" width="150">
+                                            <el-table-column :label="$t('opation')" align="center" class-name="small-padding fixed-width" width="150">
                                                 <template slot-scope="scope">
-                                                    <el-button size="mini" type="text" icon="el-icon-edit-outline"
-                                                        @click="handleEditOperationVariable(scope.row)"
-                                                        v-hasPermi="['scene:modelTag:query']">{{ $t('look')
-                                                        }}</el-button>
-                                                    <el-button style="color: #f56c6c" size="mini" type="text"
+                                                    <el-button size="mini" type="text" icon="el-icon-edit-outline" @click="handleEditOperationVariable(scope.row)" v-hasPermi="['scene:modelTag:query']">
+                                                        {{ $t('look') }}
+                                                    </el-button>
+                                                    <el-button
+                                                        style="color: #f56c6c"
+                                                        size="mini"
+                                                        type="text"
                                                         icon="el-icon-delete"
                                                         @click="handleDeleteOperationVariable(scope.row)"
-                                                        v-hasPermi="['scene:modelTag:remove']">{{ $t('del')
-                                                        }}</el-button>
+                                                        v-hasPermi="['scene:modelTag:remove']"
+                                                    >
+                                                        {{ $t('del') }}
+                                                    </el-button>
                                                 </template>
                                             </el-table-column>
                                         </el-table>
-                                        <pagination v-show="operationVariableTotal > 0" :total="operationVariableTotal"
+                                        <pagination
+                                            v-show="operationVariableTotal > 0"
+                                            :total="operationVariableTotal"
                                             :page.sync="operationVariableQueryParams.pageNum"
                                             :limit.sync="operationVariableQueryParams.pageSize"
-                                            @pagination="getOperationVariableList" />
+                                            @pagination="getOperationVariableList"
+                                        />
                                     </div>
                                 </el-card>
                             </el-col>
@@ -324,10 +281,7 @@
             </el-col>
 
             <el-col :span="24" class="l-card-box save-wrap">
-                <el-button style="width: 200px" size="small" type="primary" @click="handleSave"
-                    v-hasPermi="['scene:model:edit']">{{
-                        $t('save')
-                    }}</el-button>
+                <el-button style="width: 200px" size="small" type="primary" @click="handleSave" v-hasPermi="['scene:model:edit']">{{ $t('save') }}</el-button>
             </el-col>
         </el-row>
 
@@ -336,47 +290,37 @@
             <div class="el-divider el-divider--horizontal" style="margin-top: -25px"></div>
             <el-form ref="inputVariableForm" :model="inputVariableForm" :rules="inputVariableRules" label-width="120px">
                 <el-form-item :label="$t('scene.overview.324354-11')" prop="name">
-                    <el-input style="width: 400px" v-model="inputVariableForm.name"
-                        :placeholder="$t('scene.overview.324354-12')" clearable />
+                    <el-input style="width: 400px" v-model="inputVariableForm.name" :placeholder="$t('scene.overview.324354-12')" clearable />
                 </el-form-item>
                 <el-form-item :label="$t('scene.edit.202832-19')">
-                    <el-input style="width: 400px" v-model="inputVariableForm.unit"
-                        :placeholder="$t('scene.edit.202832-29')" clearable />
+                    <el-input style="width: 400px" v-model="inputVariableForm.unit" :placeholder="$t('scene.edit.202832-29')" clearable />
                 </el-form-item>
                 <el-form-item :label="$t('scene.edit.202832-30')" prop="dataType">
-                    <el-select style="width: 400px" v-model="inputVariableForm.dataType"
-                        :placeholder="$t('scene.edit.202832-31')" clearable>
+                    <el-select style="width: 400px" v-model="inputVariableForm.dataType" :placeholder="$t('scene.edit.202832-31')" clearable>
                         <el-option :label="$t('scene.edit.202832-21')" value="0"></el-option>
                         <el-option :label="$t('scene.edit.202832-22')" value="1"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item :label="$t('scene.edit.202832-32')" prop="defaultValue">
-                    <el-input style="width: 400px" v-model="inputVariableForm.defaultValue"
-                        :placeholder="$t('scene.edit.202832-33')" clearable />
+                    <el-input style="width: 400px" v-model="inputVariableForm.defaultValue" :placeholder="$t('scene.edit.202832-33')" clearable />
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="handleInputVariableSubmit" v-hasPermi="['scene:modelTag:edit']"
-                    v-show="inputVariableForm.id">{{ $t('update') }}</el-button>
-                <el-button type="primary" @click="handleInputVariableSubmit" v-hasPermi="['scene:modelTag:add']"
-                    v-show="!inputVariableForm.id">{{ $t('add') }}</el-button>
+                <el-button type="primary" @click="handleInputVariableSubmit" v-hasPermi="['scene:modelTag:edit']" v-show="inputVariableForm.id">{{ $t('update') }}</el-button>
+                <el-button type="primary" @click="handleInputVariableSubmit" v-hasPermi="['scene:modelTag:add']" v-show="!inputVariableForm.id">{{ $t('add') }}</el-button>
                 <el-button @click="isInputVariable = false">{{ $t('cancel') }}</el-button>
             </div>
         </el-dialog>
 
         <!-- 添加或修改运算型型变量对话框 -->
-        <el-dialog class="operation-variable-dialog" :title="operationVariableTitle" :visible.sync="isOperationVariable"
-            width="948px" append-to-body>
+        <el-dialog class="operation-variable-dialog" :title="operationVariableTitle" :visible.sync="isOperationVariable" width="948px" append-to-body>
             <div class="el-divider el-divider--horizontal" style="margin-top: -25px"></div>
-            <el-form ref="operationVariableForm" :model="operationVariableForm" :rules="operationVariableRules"
-                label-width="146px">
+            <el-form ref="operationVariableForm" :model="operationVariableForm" :rules="operationVariableRules" label-width="146px">
                 <el-form-item :label="$t('scene.overview.324354-11')" prop="name">
-                    <el-input style="width: 763px" v-model="operationVariableForm.name"
-                        :placeholder="$t('scene.overview.324354-12')" clearable />
+                    <el-input style="width: 763px" v-model="operationVariableForm.name" :placeholder="$t('scene.overview.324354-12')" clearable />
                 </el-form-item>
                 <el-form-item :label="$t('scene.edit.202832-19')">
-                    <el-input style="width: 763px" v-model="operationVariableForm.unit"
-                        :placeholder="$t('scene.edit.202832-29')" clearable />
+                    <el-input style="width: 763px" v-model="operationVariableForm.unit" :placeholder="$t('scene.edit.202832-29')" clearable />
                 </el-form-item>
                 <el-form-item :label="$t('scene.edit.202832-34')" prop="cycleType">
                     <div class="timer-wrap">
@@ -393,30 +337,24 @@
                                 </el-tooltip>
                                 <div class="timer-period">
                                     <span>{{ $t('scene.edit.202832-38') }}</span>
-                                    <el-select style="width: 100px; margin-left: 10px" v-model="cycles1[0].interval"
-                                        size="mini" :disabled="operationVariableForm.cycleType === 2"
-                                        @change="handleCycleInterval">
-                                        <el-option v-for="dict in dict.type.variable_operation_interval"
-                                            :key="dict.value" :label="dict.label" :value="dict.value"></el-option>
+                                    <el-select style="width: 100px; margin-left: 10px" v-model="cycles1[0].interval" size="mini" :disabled="operationVariableForm.cycleType === 2" @change="handleCycleInterval">
+                                        <el-option v-for="dict in dict.type.variable_operation_interval" :key="dict.value" :label="dict.label" :value="dict.value"></el-option>
                                     </el-select>
-                                    <el-select v-if="cycles1[0].interval === 'week'"
-                                        style="width: 100px; margin-left: 5px" v-model="cycles1[0].week" size="mini"
-                                        :disabled="operationVariableForm.cycleType === 2">
-                                        <el-option v-for="dict in dict.type.variable_operation_week" :key="dict.value"
-                                            :label="dict.label" :value="dict.value"></el-option>
+                                    <el-select v-if="cycles1[0].interval === 'week'" style="width: 100px; margin-left: 5px" v-model="cycles1[0].week" size="mini" :disabled="operationVariableForm.cycleType === 2">
+                                        <el-option v-for="dict in dict.type.variable_operation_week" :key="dict.value" :label="dict.label" :value="dict.value"></el-option>
                                     </el-select>
-                                    <el-select v-if="cycles1[0].interval === 'month'"
-                                        style="width: 100px; margin-left: 5px" v-model="cycles1[0].day" size="mini"
-                                        :disabled="operationVariableForm.cycleType === 2">
-                                        <el-option v-for="dict in dict.type.variable_operation_day" :key="dict.value"
-                                            :label="dict.label" :value="dict.value"></el-option>
+                                    <el-select v-if="cycles1[0].interval === 'month'" style="width: 100px; margin-left: 5px" v-model="cycles1[0].day" size="mini" :disabled="operationVariableForm.cycleType === 2">
+                                        <el-option v-for="dict in dict.type.variable_operation_day" :key="dict.value" :label="dict.label" :value="dict.value"></el-option>
                                     </el-select>
                                     <el-select
                                         v-if="cycles1[0].interval === 'day' || cycles1[0].interval === 'week' || cycles1[0].interval === 'month'"
-                                        style="width: 100px; margin-left: 5px" v-model="cycles1[0].time" size="mini"
-                                        :disabled="operationVariableForm.cycleType === 2" @change="handleCycleTime">
-                                        <el-option v-for="dict in dict.type.variable_operation_time" :key="dict.value"
-                                            :label="dict.label" :value="dict.value"></el-option>
+                                        style="width: 100px; margin-left: 5px"
+                                        v-model="cycles1[0].time"
+                                        size="mini"
+                                        :disabled="operationVariableForm.cycleType === 2"
+                                        @change="handleCycleTime"
+                                    >
+                                        <el-option v-for="dict in dict.type.variable_operation_time" :key="dict.value" :label="dict.label" :value="dict.value"></el-option>
                                     </el-select>
                                     <span style="margin-left: 10px">{{ $t('scene.edit.202832-39') }}</span>
                                 </div>
@@ -433,78 +371,64 @@
                                 </el-tooltip>
                                 <div class="timer-custom" v-for="(item, index) in cycles2" :key="index">
                                     <span>{{ $t('scene.edit.202832-38') }}</span>
-                                    <el-select style="width: 100px; margin-left: 10px" v-model="cycles2[index].type"
-                                        size="mini" :disabled="operationVariableForm.cycleType === 1"
-                                        @change="handleCustomInterval(index, $event)">
+                                    <el-select
+                                        style="width: 100px; margin-left: 10px"
+                                        v-model="cycles2[index].type"
+                                        size="mini"
+                                        :disabled="operationVariableForm.cycleType === 1"
+                                        @change="handleCustomInterval(index, $event)"
+                                    >
                                         <el-option :label="$t('scene.edit.202832-43')" value="day"></el-option>
                                         <el-option :label="$t('scene.edit.202832-44')" value="week"></el-option>
                                         <el-option :label="$t('scene.edit.202832-45')" value="month"></el-option>
                                     </el-select>
-                                    <el-select v-if="cycles2[index].type === 'week'"
-                                        style="width: 100px; margin-left: 5px" v-model="cycles2[index].week" size="mini"
-                                        :disabled="operationVariableForm.cycleType === 1">
-                                        <el-option v-for="dict in dict.type.variable_operation_week" :key="dict.value"
-                                            :label="dict.label" :value="dict.value"></el-option>
+                                    <el-select v-if="cycles2[index].type === 'week'" style="width: 100px; margin-left: 5px" v-model="cycles2[index].week" size="mini" :disabled="operationVariableForm.cycleType === 1">
+                                        <el-option v-for="dict in dict.type.variable_operation_week" :key="dict.value" :label="dict.label" :value="dict.value"></el-option>
                                     </el-select>
-                                    <el-select v-if="cycles2[index].type === 'month'"
-                                        style="width: 100px; margin-left: 5px" v-model="cycles2[index].day" size="mini"
-                                        :disabled="operationVariableForm.cycleType === 1">
-                                        <el-option v-for="dict in dict.type.variable_operation_day" :key="dict.value"
-                                            :label="dict.label" :value="dict.value"></el-option>
+                                    <el-select v-if="cycles2[index].type === 'month'" style="width: 100px; margin-left: 5px" v-model="cycles2[index].day" size="mini" :disabled="operationVariableForm.cycleType === 1">
+                                        <el-option v-for="dict in dict.type.variable_operation_day" :key="dict.value" :label="dict.label" :value="dict.value"></el-option>
                                     </el-select>
                                     <el-select
                                         v-if="cycles2[index].type === 'day' || cycles2[index].type === 'week' || cycles2[index].type === 'month'"
-                                        style="width: 100px; margin-left: 5px" v-model="cycles2[index].time" size="mini"
-                                        :disabled="operationVariableForm.cycleType === 1">
-                                        <el-option v-for="dict in dict.type.variable_operation_time" :key="dict.value"
-                                            :label="dict.label" :value="dict.value"></el-option>
+                                        style="width: 100px; margin-left: 5px"
+                                        v-model="cycles2[index].time"
+                                        size="mini"
+                                        :disabled="operationVariableForm.cycleType === 1"
+                                    >
+                                        <el-option v-for="dict in dict.type.variable_operation_time" :key="dict.value" :label="dict.label" :value="dict.value"></el-option>
                                     </el-select>
                                     <span style="margin-left: 5px">{{ $t('scene.edit.202832-46') }}</span>
-                                    <el-select v-if="cycles2[index].type === 'day'"
-                                        style="width: 100px; margin-left: 5px" v-model="cycles2[index].toType"
-                                        size="mini" :disabled="operationVariableForm.cycleType === 1">
+                                    <el-select v-if="cycles2[index].type === 'day'" style="width: 100px; margin-left: 5px" v-model="cycles2[index].toType" size="mini" :disabled="operationVariableForm.cycleType === 1">
                                         <el-option :label="$t('scene.edit.202832-47')" value="1"></el-option>
                                         <el-option :label="$t('scene.edit.202832-48')" value="2"></el-option>
                                     </el-select>
-                                    <el-select v-if="cycles2[index].type === 'week'"
-                                        style="width: 100px; margin-left: 5px" v-model="cycles2[index].toType"
-                                        size="mini" :disabled="operationVariableForm.cycleType === 1">
+                                    <el-select v-if="cycles2[index].type === 'week'" style="width: 100px; margin-left: 5px" v-model="cycles2[index].toType" size="mini" :disabled="operationVariableForm.cycleType === 1">
                                         <el-option :label="$t('scene.edit.202832-49')" value="3"></el-option>
                                     </el-select>
-                                    <el-select v-if="cycles2[index].type === 'month'"
-                                        style="width: 100px; margin-left: 5px" v-model="cycles2[index].toType"
-                                        size="mini" :disabled="operationVariableForm.cycleType === 1">
+                                    <el-select v-if="cycles2[index].type === 'month'" style="width: 100px; margin-left: 5px" v-model="cycles2[index].toType" size="mini" :disabled="operationVariableForm.cycleType === 1">
                                         <el-option :label="$t('scene.edit.202832-50')" value="4"></el-option>
                                     </el-select>
-                                    <el-select v-if="cycles2[index].type === 'week'"
-                                        style="width: 100px; margin-left: 5px" v-model="cycles2[index].toWeek"
-                                        size="mini" :disabled="operationVariableForm.cycleType === 1">
-                                        <el-option v-for="dict in dict.type.variable_operation_week" :key="dict.value"
-                                            :label="dict.label" :value="dict.value"></el-option>
+                                    <el-select v-if="cycles2[index].type === 'week'" style="width: 100px; margin-left: 5px" v-model="cycles2[index].toWeek" size="mini" :disabled="operationVariableForm.cycleType === 1">
+                                        <el-option v-for="dict in dict.type.variable_operation_week" :key="dict.value" :label="dict.label" :value="dict.value"></el-option>
                                     </el-select>
-                                    <el-select v-if="cycles2[index].type === 'month'"
-                                        style="width: 100px; margin-left: 5px" v-model="cycles2[index].toDay"
-                                        size="mini">
-                                        <el-option v-for="dict in dict.type.variable_operation_day" :key="dict.value"
-                                            :label="dict.label" :value="dict.value"></el-option>
+                                    <el-select v-if="cycles2[index].type === 'month'" style="width: 100px; margin-left: 5px" v-model="cycles2[index].toDay" size="mini">
+                                        <el-option v-for="dict in dict.type.variable_operation_day" :key="dict.value" :label="dict.label" :value="dict.value"></el-option>
                                     </el-select>
                                     <el-select
                                         v-if="cycles2[index].type === 'day' || cycles2[index].type === 'week' || cycles2[index].type === 'month'"
-                                        style="width: 100px; margin-left: 5px" v-model="cycles2[index].toTime"
-                                        size="mini" :disabled="operationVariableForm.cycleType === 1">
-                                        <el-option v-for="dict in dict.type.variable_operation_time" :key="dict.value"
-                                            :label="dict.label" :value="dict.value"></el-option>
+                                        style="width: 100px; margin-left: 5px"
+                                        v-model="cycles2[index].toTime"
+                                        size="mini"
+                                        :disabled="operationVariableForm.cycleType === 1"
+                                    >
+                                        <el-option v-for="dict in dict.type.variable_operation_time" :key="dict.value" :label="dict.label" :value="dict.value"></el-option>
                                     </el-select>
                                     <span style="margin-left: 10px">{{ $t('scene.edit.202832-51') }}</span>
-                                    <el-button style="color: #f56c6c; margin-left: 15px" size="mini" type="text"
-                                        :disabled="operationVariableForm.cycleType === 1"
-                                        @click="handleCustomIntervalDelete(index)">
+                                    <el-button style="color: #f56c6c; margin-left: 15px" size="mini" type="text" :disabled="operationVariableForm.cycleType === 1" @click="handleCustomIntervalDelete(index)">
                                         {{ $t('del') }}
                                     </el-button>
                                 </div>
-                                <el-button style="margin-top: 10px" size="mini" type="text"
-                                    icon="el-icon-circle-plus-outline" :disabled="operationVariableForm.cycleType === 1"
-                                    @click="handleCustomIntervalAdd">
+                                <el-button style="margin-top: 10px" size="mini" type="text" icon="el-icon-circle-plus-outline" :disabled="operationVariableForm.cycleType === 1" @click="handleCustomIntervalAdd">
                                     {{ $t('scene.edit.202832-52') }}
                                 </el-button>
                             </el-radio>
@@ -545,13 +469,10 @@
                         <div class="title">{{ $t('scene.edit.202832-65') }}</div>
                         <div class="content">
                             <el-form-item prop="aliasFormule">
-                                <el-input style="width: 733px !important" v-model="operationVariableForm.aliasFormule"
-                                    :placeholder="$t('scene.edit.202832-76')" type="textarea" :rows="1" clearable />
+                                <el-input style="width: 733px !important" v-model="operationVariableForm.aliasFormule" :placeholder="$t('scene.edit.202832-76')" type="textarea" :rows="1" clearable />
                             </el-form-item>
                             <el-form-item>
-                                <el-table v-if="operationVariableForm.tagPointsList.length > 0"
-                                    :data="operationVariableForm.tagPointsList" style="width: 100%; margin-top: 15px"
-                                    :border="false">
+                                <el-table v-if="operationVariableForm.tagPointsList.length > 0" :data="operationVariableForm.tagPointsList" style="width: 100%; margin-top: 15px" :border="false">
                                     <el-table-column prop="alias" :label="$t('scene.edit.202832-13')" width="80">
                                         <template slot-scope="scope">
                                             <div class="alias-wrap">
@@ -561,47 +482,32 @@
                                     </el-table-column>
                                     <el-table-column prop="sceneModelDeviceId" :label="$t('scene.overview.324354-7')">
                                         <template slot-scope="scope">
-                                            <el-select v-model="scope.row.sceneModelDeviceId"
-                                                :placeholder="$t('scene.overview.324354-8')" size="small"
-                                                @change="handleFormulaDataSourcesChange(scope, $event)">
-                                                <el-option v-for="item in formulaDataSourcesList" :key="item.id"
-                                                    :label="item.name" :value="item.id"></el-option>
+                                            <el-select v-model="scope.row.sceneModelDeviceId" :placeholder="$t('scene.overview.324354-8')" size="small" @change="handleFormulaDataSourcesChange(scope, $event)">
+                                                <el-option v-for="item in formulaDataSourcesList" :key="item.id" :label="item.name" :value="item.id"></el-option>
                                             </el-select>
                                         </template>
                                     </el-table-column>
                                     <el-table-column prop="sceneModelDataId" :label="$t('scene.edit.202832-66')">
                                         <template slot-scope="scope">
-                                            <el-select v-model="scope.row.sceneModelDataId"
-                                                :placeholder="$t('scene.edit.202832-67')" size="small"
-                                                @change="handleFormulaVariableChange(scope, $event)">
-                                                <el-option v-for="item in formulaVariableLists[scope.$index]"
-                                                    :key="item.id" :label="item.sourceName"
-                                                    :value="item.id"></el-option>
+                                            <el-select v-model="scope.row.sceneModelDataId" :placeholder="$t('scene.edit.202832-67')" size="small" @change="handleFormulaVariableChange(scope, $event)">
+                                                <el-option v-for="item in formulaVariableLists[scope.$index]" :key="item.id" :label="item.sourceName" :value="item.id"></el-option>
                                             </el-select>
                                         </template>
                                     </el-table-column>
                                     <el-table-column prop="operation" :label="$t('scene.edit.202832-68')">
                                         <template slot-scope="scope">
-                                            <el-select v-model="scope.row.operation"
-                                                :placeholder="$t('scene.edit.202832-69')" size="small">
-                                                <el-option v-for="dict in dict.type.variable_operation_type"
-                                                    :key="dict.value" :label="dict.label"
-                                                    :value="parseInt(dict.value)"></el-option>
+                                            <el-select v-model="scope.row.operation" :placeholder="$t('scene.edit.202832-69')" size="small">
+                                                <el-option v-for="dict in dict.type.variable_operation_type" :key="dict.value" :label="dict.label" :value="parseInt(dict.value)"></el-option>
                                             </el-select>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label="$t('opation')" align="center"
-                                        class-name="small-padding fixed-width" width="100">
+                                    <el-table-column :label="$t('opation')" align="center" class-name="small-padding fixed-width" width="100">
                                         <template slot-scope="scope">
-                                            <el-button style="color: #f56c6c" size="mini" type="text"
-                                                icon="el-icon-delete" @click="handleDeleteFormula(scope.$index)">{{
-                                                    $t('del') }}</el-button>
+                                            <el-button style="color: #f56c6c" size="mini" type="text" icon="el-icon-delete" @click="handleDeleteFormula(scope.$index)">{{ $t('del') }}</el-button>
                                         </template>
                                     </el-table-column>
                                 </el-table>
-                                <el-button style="margin-top: 20px" size="mini" type="text"
-                                    icon="el-icon-circle-plus-outline" @click="handleAddFormula">{{
-                                        $t('scene.edit.202832-70') }}</el-button>
+                                <el-button style="margin-top: 20px" size="mini" type="text" icon="el-icon-circle-plus-outline" @click="handleAddFormula">{{ $t('scene.edit.202832-70') }}</el-button>
                             </el-form-item>
                         </div>
                     </div>
@@ -614,10 +520,8 @@
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="handleOperationVariableSubmit" v-hasPermi="['scene:modelTag:edit']"
-                    v-show="operationVariableForm.id">{{ $t('update') }}</el-button>
-                <el-button type="primary" @click="handleOperationVariableSubmit" v-hasPermi="['scene:modelTag:add']"
-                    v-show="!operationVariableForm.id">{{ $t('add') }}</el-button>
+                <el-button type="primary" @click="handleOperationVariableSubmit" v-hasPermi="['scene:modelTag:edit']" v-show="operationVariableForm.id">{{ $t('update') }}</el-button>
+                <el-button type="primary" @click="handleOperationVariableSubmit" v-hasPermi="['scene:modelTag:add']" v-show="!operationVariableForm.id">{{ $t('add') }}</el-button>
                 <el-button @click="isOperationVariable = false">{{ $t('cancel') }}</el-button>
             </div>
         </el-dialog>
@@ -772,7 +676,7 @@ export default {
         if (hasPermission) {
             this.isEnableSwitch = true;
         }
-        let userPermissions = checkPermi(['scene:modelDevice:edit'])
+        let userPermissions = checkPermi(['scene:modelDevice:edit']);
         if (userPermissions) {
             this.isSelectDevice = true;
         }
@@ -1449,7 +1353,8 @@ export default {
         margin: 15px 0 0;
     }
 
-    .v-card-box {}
+    .v-card-box {
+    }
 
     ::v-deep label {
         font-weight: normal;

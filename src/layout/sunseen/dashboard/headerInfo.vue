@@ -23,7 +23,7 @@
                     <el-row>
                         <el-col class="font2">{{ item.value }}</el-col>
                     </el-row>
-                    <el-row>
+                    <!-- <el-row>
                         <el-col
                             :span="8"
                             class="font1"
@@ -60,7 +60,7 @@
                         >
                             {{ item.container[1].value }}
                         </el-col>
-                    </el-row>
+                    </el-row> -->
                 </div>
             </div>
         </div>
@@ -75,13 +75,17 @@ const motior = require('./img/motior.png');
 const phone = require('./img/phone.png');
 const device = require('./img/device.png');
 
+import { listBarns } from '@/api/iot/barns';
+import { listDeviceShort } from '@/api/iot/device';
+import { listAlarm } from '@/api/iot/alarm';
+
 export default {
     data() {
         return {
             boxInfo: [
                 {
                     name: '栏舍总数',
-                    value: 18,
+                    value: 0,
                     container: [
                         {
                             name: '在养栏舍',
@@ -97,7 +101,7 @@ export default {
                 },
                 {
                     name: '设备总数',
-                    value: 217,
+                    value: 0,
                     container: [
                         {
                             name: '在线设备',
@@ -113,7 +117,7 @@ export default {
                 },
                 {
                     name: '报警总数',
-                    value: 171,
+                    value: 0,
                     container: [
                         {
                             name: '今日报警',
@@ -129,7 +133,7 @@ export default {
                 },
                 {
                     name: '监控总数',
-                    value: 18,
+                    value: 0,
                     container: [
                         {
                             name: '在线监控',
@@ -143,51 +147,69 @@ export default {
                     bg: motior,
                     color: '#A1FFE9',
                 },
-                {
-                    name: '短信通知次数',
-                    value: 108,
-                    container: [
-                        {
-                            name: '今日通知',
-                            value: 0,
-                        },
-                        {
-                            name: '昨日通知',
-                            value: 108,
-                        },
-                    ],
-                    bg: mail,
-                    color: '#FFC8E9',
-                },
-                {
-                    name: '电话通知次数',
-                    value: 18,
-                    container: [
-                        {
-                            name: '今日通知',
-                            value: 15,
-                        },
-                        {
-                            name: '昨日通知',
-                            value: 3,
-                        },
-                    ],
-                    bg: phone,
-                    color: '#FFE3F5',
-                },
+                // {
+                //     name: '短信通知次数',
+                //     value: 108,
+                //     container: [
+                //         {
+                //             name: '今日通知',
+                //             value: 0,
+                //         },
+                //         {
+                //             name: '昨日通知',
+                //             value: 108,
+                //         },
+                //     ],
+                //     bg: mail,
+                //     color: '#FFC8E9',
+                // },
+                // {
+                //     name: '电话通知次数',
+                //     value: 18,
+                //     container: [
+                //         {
+                //             name: '今日通知',
+                //             value: 15,
+                //         },
+                //         {
+                //             name: '昨日通知',
+                //             value: 3,
+                //         },
+                //     ],
+                //     bg: phone,
+                //     color: '#FFE3F5',
+                // },
             ],
         };
     },
-
     components: {},
+    watch: {},
 
     filters: {},
 
     computed: {},
 
-    mounted() {},
+    mounted() {
+        this.getData();
+    },
 
-    methods: {},
+    methods: {
+        getData() {
+            Promise.all([
+                listBarns().then((result) => {
+                    this.$set(this.boxInfo[0], 'value', result.total);
+                }),
+                listDeviceShort().then((result) => {
+                    this.$set(this.boxInfo[1], 'value', result.total);
+                }),
+                listAlarm().then((result) => {
+                    this.$set(this.boxInfo[2], 'value', result.total);
+                }),
+            ])
+                .then(() => {})
+                .catch((err) => {});
+        },
+    },
 
     watch: {},
 };
@@ -213,7 +235,7 @@ export default {
     padding: 13px 22px;
     .dashboard-box-info {
         display: grid;
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         grid-gap: 20px;
         .dashboard-box-info-item {
             height: 147px;

@@ -2,17 +2,17 @@
     <div :class="classObj" class="app-wrapper" :style="{ '--current-color': theme }">
         <!-- <div v-if="device === 'mobile' && sidebar.opened" class="drawer-bg" @click="handleClickOutside" /> -->
         <!-- 菜单栏 -->
-        <sidebar v-if="!sidebar.hide && currentBarIdx !== 1 && currentBarIdx !== 3 && currentBarIdx !== 7" />
+        <sidebar v-show="$route.path !== '/index' && currentBarIdx !== 3 && currentBarIdx !== 7" />
         <!-- 菜单栏 -->
         <!-- 新首页菜单 -->
         <headerNav></headerNav>
         <!-- 新首页内容 -->
-        <sunseenMain style="margin-top: 60px" v-if="currentBarIdx === 1"></sunseenMain>
+        <sunseenMain style="margin-top: 60px" v-if="currentBarIdx === 1 && $route.path === '/index'"></sunseenMain>
         <div :class="{ hasTagsView: needTagsView, sidebarHide: sidebar.hide, noneMarginLeft: currentBarIdx === 3 || currentBarIdx === 7 }" class="main-container">
             <div :class="{ 'fixed-header': fixedHeader }">
                 <tags-view v-if="needTagsView" />
             </div>
-            <app-main style="margin-top: 60px" v-if="!sidebar.hide && currentBarIdx !== 1" />
+            <app-main style="margin-top: 60px" v-if="!sidebar.hide || currentPath !== '/index'" />
             <right-panel>
                 <settings />
             </right-panel>
@@ -41,6 +41,9 @@ export default {
         headerNav,
         sunseenMain,
     },
+    data: {
+        currentPath: '',
+    },
     mixins: [ResizeMixin],
     computed: {
         ...mapState({
@@ -64,19 +67,30 @@ export default {
             return variables;
         },
     },
+    created() {},
     watch: {
-        currentBarIdx(newIdx, oldIdx) {
-            // 在这里执行当`currentBarIdx`变化时需要做的任何操作
+        'topBar.currentBarIdx': {
+            handler(newVal) {
+                this.$store.dispatch('changeRouter', {
+                    idx: this.currentBarIdx,
+                    path: newRoute.path.slice(1),
+                });
+                if (newRoute.fullPath === '/resourceManagement/enterprise/menu') {
+                    const appWrapper = document.querySelector('.app-wrapper');
+                    appWrapper.classList.add('scrollable'); // 添加可滚动类
+                } else {
+                    const appWrapper = document.querySelector('.app-wrapper');
+                    appWrapper.classList.remove('scrollable'); // 移除可滚动类
+                }
+            },
+            deep: true,
         },
-        $route(newRoute, oldRoute) {
-            console.log(newRoute, oldRoute);
-            if (newRoute.fullPath === '/resourceManagement/enterprise/menu') {
-                const appWrapper = document.querySelector('.app-wrapper');
-                appWrapper.classList.add('scrollable'); // 添加可滚动类
-            } else {
-                const appWrapper = document.querySelector('.app-wrapper');
-                appWrapper.classList.remove('scrollable'); // 移除可滚动类
-            }
+        currentPath: {
+            // 添加对 currentPath 的监视
+            handler(newVal) {
+                // 这里可以添加任何需要在 currentPath 变化时执行的逻辑
+                console.log('currentPath updated:', newVal);
+            },
         },
     },
     methods: {

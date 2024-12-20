@@ -26,7 +26,7 @@
                         </div>
                         <div class="line-box"></div>
                         <div class="shack-info-box">
-                            <div v-for="item in shackInfoList" :key="item.name" style="margin-left: 24px; display: flex; width: 160px; align-items: center; height: 57px">
+                            <!-- <div v-for="item in shackInfoList" :key="item.name" style="margin-left: 24px; display: flex; width: 160px; align-items: center; height: 57px">
                                 <div
                                     class="shack-info-box-icon"
                                     :style="{
@@ -35,7 +35,7 @@
                                 ></div>
                                 <div class="shack-info-box-title">{{ item.name }}</div>
                                 <div class="shack-info-box-value">{{ item.value }}</div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </el-col>
@@ -286,13 +286,13 @@ export default {
                                 {
                                     name: '日龄',
                                     key: 'day',
-                                    value: 30,
+                                    value: '',
                                     icon: calendar,
                                 },
                                 {
                                     name: '存栏量',
                                     key: 'saveNumber',
-                                    value: 2500,
+                                    value: '',
                                     icon: save,
                                 },
                                 {
@@ -304,15 +304,15 @@ export default {
                                 {
                                     name: '通风等级',
                                     key: 'windLevel',
-                                    value: 6,
+                                    value: '',
                                     icon: wind,
                                 },
-                                {
-                                    name: '位置',
-                                    key: 'location',
-                                    value: item.location,
-                                    icon: location,
-                                },
+                                // {
+                                //     name: '位置',
+                                //     key: 'location',
+                                //     value: item.location,
+                                //     icon: location,
+                                // },
                             ],
                         };
                     });

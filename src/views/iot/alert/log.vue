@@ -1,7 +1,7 @@
 <template>
     <div style="padding: 6px">
         <el-card v-show="showSearch" style="margin-bottom: 6px">
-            <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px" style="margin-bottom: -20px">
+            <!-- <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px" style="margin-bottom: -20px">
                 <el-form-item :label="$t('alert.index.236501-0')" prop="alertName">
                     <el-input v-model="queryParams.alertName" :placeholder="$t('alert.log.491272-1')" clearable size="small" @keyup.enter.native="handleQuery" />
                 </el-form-item>
@@ -19,37 +19,22 @@
                     <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">{{ $t('search') }}</el-button>
                     <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">{{ $t('reset') }}</el-button>
                 </el-form-item>
-            </el-form>
+            </el-form> -->
         </el-card>
 
         <el-card style="padding-bottom: 100px">
             <el-table v-loading="loading" :data="alertLogList" @selection-change="handleSelectionChange" border>
-                <el-table-column :label="$t('alert.index.236501-0')" align="center" prop="alertName" />
-                <el-table-column :label="$t('alert.log.491272-8')" align="center" prop="serialNumber" />
-                <el-table-column :label="$t('alert.log.491272-9')" align="center" prop="deviceName" />
-                <el-table-column :label="$t('alert.index.236501-2')" align="center" prop="alertLevel" width="120">
+                <el-table-column label="设备编号" align="center" prop="deviceNo" />
+                <el-table-column label="报警信息" align="center" prop="alarmInfo" />
+                <el-table-column label="创建时间" align="center" prop="createAt" width="170">
                     <template slot-scope="scope">
-                        <dict-tag :options="dict.type.iot_alert_level" :value="scope.row.alertLevel" />
+                        <span>{{ parseTime(scope.row.createAt, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column :label="$t('alert.log.491272-10')" align="center" prop="createTime" width="170">
+                <el-table-column label="状态" align="center" prop="isRead">
                     <template slot-scope="scope">
-                        <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
-                    </template>
-                </el-table-column>
-                <el-table-column :label="$t('alert.log.491272-24')" align="left" header-align="center" prop="detail">
-                    <template slot-scope="scope">
-                        <div v-html="formatDetail(scope.row.detail)"></div>
-                    </template>
-                </el-table-column>
-                <el-table-column :label="$t('alert.log.491272-4')" align="center" prop="status">
-                    <template slot-scope="scope">
-                        <dict-tag :options="dict.type.iot_process_status" :value="scope.row.status" />
-                    </template>
-                </el-table-column>
-                <el-table-column :label="$t('opation')" align="center" width="100">
-                    <template slot-scope="scope">
-                        <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)" v-hasPermi="['iot:alertLog:edit']">{{ $t('alert.log.491272-25') }}</el-button>
+                        <el-tag type="warning" size="small" v-if="scope.row.isRead == 0">{{ '未读' }}</el-tag>
+                        <el-tag type="success" size="small" v-if="scope.row.isRead == 1">{{ '已读' }}</el-tag>
                     </template>
                 </el-table-column>
             </el-table>
@@ -73,7 +58,8 @@
 </template>
 
 <script>
-import { listAlertLog, getAlertLog, delAlertLog, addAlertLog, updateAlertLog } from '@/api/iot/alertLog';
+// import { listAlertLog, getAlertLog, delAlertLog, addAlertLog, updateAlertLog } from '@/api/iot/alertLog';
+import { listAlarm } from '@/api/iot/alarm';
 
 export default {
     name: 'AlertLog',
@@ -131,7 +117,7 @@ export default {
         /** 查询设备告警列表 */
         getList() {
             this.loading = true;
-            listAlertLog(this.queryParams).then((response) => {
+            listAlarm(this.queryParams).then((response) => {
                 this.alertLogList = response.rows;
                 this.total = response.total;
                 this.loading = false;

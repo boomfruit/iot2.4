@@ -113,15 +113,15 @@ export default {
                             {
                                 name: '产品分类',
                                 key: 2,
-                                icon_key: 'equipmentManagement',
-                                icon: iconList['equipmentManagement'][1],
+                                icon_key: 'productsInfo',
+                                icon: iconList['productsInfo'][1],
                                 path: 'smartAquaculture/iot/category',
                             },
                             {
                                 name: '产品管理',
                                 key: 3,
-                                icon_key: 'equipmentManagement',
-                                icon: iconList['equipmentManagement'][1],
+                                icon_key: 'productsClassification',
+                                icon: iconList['productsClassification'][1],
                                 path: 'smartAquaculture/iot/product',
                             },
                             {
@@ -195,8 +195,8 @@ export default {
                     {
                         name: '告警分组',
                         key: 3,
-                        icon_key: 'notificationTemplate',
-                        icon: iconList['notificationTemplate'][1],
+                        icon_key: 'notificationLog',
+                        icon: iconList['notificationLog'][1],
                         path: 'alarmCenter/alarmGroup',
                     },
                 ],
@@ -217,15 +217,15 @@ export default {
                             {
                                 name: '协议管理',
                                 key: 2,
-                                icon_key: 'equipmentManagement',
-                                icon: iconList['equipmentManagement'][1],
+                                icon_key: 'netty_management',
+                                icon: iconList['netty_management'][1],
                                 path: 'resourceManagement/template/protocol',
                             },
                             {
                                 name: '产品固件',
                                 key: 3,
-                                icon_key: 'equipmentManagement',
-                                icon: iconList['equipmentManagement'][1],
+                                icon_key: 'client',
+                                icon: iconList['client'][1],
                                 path: 'resourceManagement/template/firmware',
                             },
                             {
@@ -238,15 +238,15 @@ export default {
                             {
                                 name: '通知模板',
                                 key: 5,
-                                icon_key: 'equipmentManagement',
-                                icon: iconList['equipmentManagement'][1],
+                                icon_key: 'mqtt_statistics',
+                                icon: iconList['mqtt_statistics'][1],
                                 path: 'resourceManagement/template/notifyTemplate',
                             },
                             {
                                 name: '通知渠道',
                                 key: 6,
-                                icon_key: 'equipmentManagement',
-                                icon: iconList['equipmentManagement'][1],
+                                icon_key: 'emq_management',
+                                icon: iconList['emq_management'][1],
                                 path: 'resourceManagement/template/channel',
                             },
                         ],
@@ -268,14 +268,14 @@ export default {
                                 name: '通道管理',
                                 key: 8,
                                 icon_key: 'videoManagement',
-                                icon: iconList['videoManagement'][1],
+                                icon: iconList['thoroughfareManagement'][1],
                                 path: 'resourceManagement/video/sip',
                             },
                             {
                                 name: '视频配置',
                                 key: 9,
-                                icon_key: 'thoroughfareManagement',
-                                icon: iconList['thoroughfareManagement'][1],
+                                icon_key: 'configurationManagement',
+                                icon: iconList['configurationManagement'][1],
                                 path: 'resourceManagement/video/mediaServer',
                             },
                             {
@@ -288,8 +288,8 @@ export default {
                             {
                                 name: '文件记录',
                                 key: 11,
-                                icon_key: 'configurationManagement',
-                                icon: iconList['configurationManagement'][1],
+                                icon_key: 'system_settings',
+                                icon: iconList['system_settings'][1],
                                 path: 'resourceManagement/video/detail',
                             },
                         ],
@@ -303,22 +303,22 @@ export default {
                             {
                                 name: '数据桥接',
                                 key: 12,
-                                icon_key: 'monitoringScreen',
-                                icon: iconList['monitoringScreen'][1],
+                                icon_key: 'news_information',
+                                icon: iconList['news_information'][1],
                                 path: 'resourceManagement/ruleengine/bridge',
                             },
                             {
                                 name: '规则脚本',
                                 key: 13,
-                                icon_key: 'videoManagement',
-                                icon: iconList['videoManagement'][1],
+                                icon_key: 'third_party_login',
+                                icon: iconList['third_party_login'][1],
                                 path: 'resourceManagement/ruleengine/script',
                             },
                             {
                                 name: '场景联动',
                                 key: 14,
-                                icon_key: 'thoroughfareManagement',
-                                icon: iconList['thoroughfareManagement'][1],
+                                icon_key: 'operation_log',
+                                icon: iconList['operation_log'][1],
                                 path: 'resourceManagement/ruleengine/scene',
                             },
                         ],
@@ -332,15 +332,15 @@ export default {
                             {
                                 name: '用户管理',
                                 key: 15,
-                                icon_key: 'monitoringScreen',
-                                icon: iconList['monitoringScreen'][1],
+                                icon_key: 'enterprise_management',
+                                icon: iconList['enterprise_management'][1],
                                 path: 'resourceManagement/enterprise/user',
                             },
                             {
                                 name: '角色管理',
                                 key: 16,
-                                icon_key: 'videoManagement',
-                                icon: iconList['videoManagement'][1],
+                                icon_key: 'user_management',
+                                icon: iconList['user_management'][1],
                                 path: 'resourceManagement/enterprise/role',
                             },
                             {
@@ -353,15 +353,15 @@ export default {
                             {
                                 name: '机构管理',
                                 key: 18,
-                                icon_key: 'videoManagement',
-                                icon: iconList['videoManagement'][1],
+                                icon_key: 'role_management',
+                                icon: iconList['role_management'][1],
                                 path: 'resourceManagement/enterprise/dept',
                             },
                             {
                                 name: '终端用户',
                                 key: 19,
-                                icon_key: 'thoroughfareManagement',
-                                icon: iconList['thoroughfareManagement'][1],
+                                icon_key: 'organizational_management',
+                                icon: iconList['organizational_management'][1],
                                 path: 'resourceManagement/enterprise/terminal',
                             },
                         ],
@@ -433,15 +433,15 @@ export default {
                             {
                                 name: '通知公告',
                                 key: 9,
-                                icon_key: 'entry_log',
-                                icon: iconList['entry_log'][1],
+                                icon_key: 'post_management',
+                                icon: iconList['post_management'][1],
                                 path: 'systemManagement/system/notice',
                             },
                             {
                                 name: '国际化配置',
                                 key: 10,
-                                icon_key: 'entry_log',
-                                icon: iconList['entry_log'][1],
+                                icon_key: 'firmware_management',
+                                icon: iconList['firmware_management'][1],
                                 path: 'systemManagement/system/appLang',
                             },
                         ],
@@ -531,6 +531,45 @@ export default {
             defaultOpeneds: [], // 用于存储需要默认展开的 submenu 的 index
         };
     },
+    watch: {
+        'topBar.currentBarIdx': {
+            handler(newVal) {
+                let list = [2, 4, 5, 6];
+                if (list.includes(newVal)) {
+                    let _path = this.topBar.routerMap[newVal];
+                    const _map = {
+                        1: 'smartAquaculture',
+                        2: 'smartAquaculture',
+                        3: 'smartAquaculture',
+                        4: 'alarmCenter',
+                        5: 'resourceManagement',
+                        6: 'systemManagement',
+                    };
+
+                    this.menuList[_map[this.topBar.currentBarIdx]].forEach((element) => {
+                        if (element.children) {
+                            element.children.forEach((child) => {
+                                if (_path === child.path) {
+                                    child.icon = iconList[child.icon_key][0];
+                                    this.currentItemIdx = child.key;
+                                } else {
+                                    child.icon = iconList[child.icon_key][1];
+                                }
+                            });
+                        } else {
+                            if (_path === element.path) {
+                                element.icon = iconList[element.icon_key][0];
+                                this.currentItemIdx = element.key;
+                            } else {
+                                element.icon = iconList[element.icon_key][1];
+                            }
+                        }
+                    });
+                }
+            },
+            deep: true,
+        },
+    },
     methods: {
         setDefaultOpeneds() {
             const allSubmenus = [];
@@ -545,6 +584,7 @@ export default {
 
             this.defaultOpeneds = allSubmenus;
         },
+
         handleClick(item) {
             const _map = {
                 1: 'smartAquaculture',
@@ -572,8 +612,14 @@ export default {
                 }
             });
             if (item.path) {
+                this.$store.dispatch('changeRouter', {
+                    idx: this.topBar.currentBarIdx,
+                    path: item.path,
+                });
+                // alert(item.path);
                 this.$router.push('/' + item.path);
             }
+
             this.currentItemIdx = item.key;
         },
         showMenu(idx) {

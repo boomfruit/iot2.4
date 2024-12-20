@@ -3,7 +3,7 @@
         <headerInfo></headerInfo>
         <div class="content">
             <el-row :gutter="20">
-                <el-col :span="6">
+                <!-- <el-col :span="6">
                     <div class="content-card">
                         <div style="display: flex">
                             <div class="content-card-img"></div>
@@ -26,13 +26,13 @@
                         </div>
                         <leftBottom :leftBottomData="leftBottomData"></leftBottom>
                     </div>
-                </el-col>
-                <el-col :span="12">
+                </el-col> -->
+                <el-col :span="24">
                     <div class="content-card-big">
                         <centerMap></centerMap>
                     </div>
                 </el-col>
-                <el-col :span="6">
+                <!-- <el-col :span="6">
                     <div class="content-card">
                         <div style="display: flex">
                             <div class="content-card-img"></div>
@@ -55,7 +55,7 @@
                         </div>
                         <rightBottom></rightBottom>
                     </div>
-                </el-col>
+                </el-col> -->
             </el-row>
         </div>
     </div>
@@ -70,10 +70,16 @@ import rightTop from './components/right-top.vue';
 import rightBottom from './components/right-bottom.vue';
 
 import { getBashBoardMetrics, getBashBoardStats } from '@/api/sunseen/screen.js';
+
 export default {
     data() {
         return {
             leftBottomData: {},
+            headerInfoData: {
+                barnsTotal: 0,
+                devicesTotal: 0,
+                alarmsTotal: 0,
+            },
         };
     },
 
@@ -90,27 +96,7 @@ export default {
 
     computed: {},
 
-    mounted() {
-        this.getData();
-    },
-
-    methods: {
-        getData() {
-            getBashBoardMetrics()
-                .then((result) => {
-                    this.leftBottomData = { ...result.data };
-                    console.log('this.leftBottomData', this.leftBottomData);
-                })
-                .catch((err) => {});
-
-            getBashBoardStats()
-                .then((result) => {
-                    console.log(result, 'result2');
-                })
-                .catch((err) => {});
-        },
-    },
-
+    methods: {},
     watch: {},
 };
 </script>

@@ -5,7 +5,7 @@
                 <span slot="label">{{ $t('device.device-edit.148398-0') }}</span>
                 <el-form ref="form" :model="form" :rules="rules" label-width="100px">
                     <el-row :gutter="100">
-                        <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="6">
+                        <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6">
                             <el-form-item :label="$t('device.device-edit.148398-1')" prop="deviceName">
                                 <el-input v-model="form.deviceName" :placeholder="$t('device.device-edit.148398-2')">
                                     <el-button slot="append" @click="openSummaryDialog" v-if="form.deviceId != 0">{{ $t('device.device-edit.148398-3') }}</el-button>
@@ -69,7 +69,7 @@
                                 <el-input v-model="form.remark" type="textarea" :placeholder="$t('device.device-edit.148398-18')" rows="1" />
                             </el-form-item>
                         </el-col>
-                        <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="6">
+                        <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6">
                             <el-form-item :label="$t('device.device-edit.148398-19')" prop="locationWay">
                                 <el-select v-model="form.locationWay" :placeholder="$t('device.device-edit.148398-20')" clearable size="small" style="width: 100%" :disabled="form.deviceType === 3">
                                     <el-option v-for="dict in dict.type.iot_location_way" :key="dict.value" :label="dict.label" :value="Number(dict.value)" />
@@ -107,7 +107,7 @@
                                 <el-button size="small" @click="openCodeDialog()">{{ $t('device.device-edit.148398-36') }}</el-button>
                             </el-form-item>
                         </el-col>
-                        <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="5">
+                        <el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
                             <el-form-item label="外部1名称" prop="external1">
                                 <el-input v-model="form.external1" placeholder="请输入外部1名称" />
                             </el-form-item>
@@ -139,7 +139,7 @@
                                 <el-input v-model="form.external10" placeholder="请输入外部10名称" />
                             </el-form-item>
                         </el-col>
-                        <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="5" v-if="form.deviceId != 0">
+                        <el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5" v-if="form.deviceId != 0">
                             <div style="border: 1px solid #dfe4ed; border-radius: 5px; padding: 5px; text-align: center; line-height: 400px">
                                 <div id="map" style="height: 435px; width: 100%">{{ $t('device.device-edit.148398-37') }}</div>
                             </div>
@@ -225,6 +225,14 @@
                                 <span style="margin-left: 5px">{{ data.configname }}</span>
                             </span>
                         </el-tree>
+                    </div>
+                </div>
+                <div v-else>
+                    <div class="con" v-if="deviceType === 'ccAlarm'">
+                        <div class="pdf flex5" ref="scrollDiv">
+                            <alarmSetting :device="form"></alarmSetting>
+                            <div style="width: 100%; height: 1000px" id="ID_DIV_3"></div>
+                        </div>
                     </div>
                 </div>
             </el-tab-pane>
@@ -435,6 +443,8 @@ import deviceSetting from './env/components/deviceSetting.vue';
 import BreedingSettings from './env/BreedingUseData.vue';
 import { divideArrayIntoParts } from '@/utils/index';
 import { getProductMOdelJson } from '@/api/iot/model';
+
+import alarmSetting from './alarm/setting.vue';
 export default {
     name: 'DeviceEdit',
     dicts: ['iot_device_status', 'iot_location_way'],
@@ -475,6 +485,7 @@ export default {
         inputBox,
         switchBox,
         pureText,
+        alarmSetting,
     },
     watch: {
         activeName(val) {
@@ -1033,7 +1044,7 @@ export default {
             //     path: '/smartAquaculture/iot/device',
             // };
             this.$router.go(-1);
-            this.$tab.closeOpenPage(obj);
+            // this.$tab.closeOpenPage(obj);
             this.reset();
         },
         // 表单重置
@@ -1160,18 +1171,28 @@ export default {
             response.data.cacheThingsModel = await this.getCacheThingsModdel(response.data.productId);
             // 获取配置JSON
             getProductMOdelJson(response.data.productId).then((res) => {
+                // 环控器
                 // EC08 152
                 // EC12 154
                 // EC22 155
                 if (response.data.productId == 152 || response.data.productId == 154 || response.data.productId == 155) {
                     this.dataJson = JSON.parse(res.data);
                     this.deviceType = 'env';
-                } else {
+                    this.getDeviceTypeJson = true;
+                } else if (response.data.productId == 153) {
+                    // 4G报警器
+                    // D06 153
                     this.dataJson = JSON.parse(res.data);
                     this.deviceType = 'alarm';
+                    this.getDeviceTypeJson = true;
+                } else if (response.data.productId == 168) {
+                    // 集中报警器
+                    // CC01 168
+                    this.dataJson = JSON.parse(res.data);
+                    this.deviceType = 'ccAlarm';
+                    this.getDeviceTypeJson = false;
                 }
             });
-            this.getDeviceTypeJson = true;
             // 获取设备运行状态
             response.data.thingsModels = await this.getDeviceStatus(response.data);
             // 格式化物模型，拆分出监测值,数组添加前缀

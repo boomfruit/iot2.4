@@ -74,7 +74,7 @@
                         <div class="bottom-line1"></div>
                         <div class="bottom-line2"></div>
                     </div>
-                    <div style="width: 440px; height: 230px; display: flex; padding-top: 5px; position: absolute">
+                    <div style="width: 360px; height: 230px; display: flex; padding-top: 5px; position: absolute">
                         <player></player>
                     </div>
                 </div>
@@ -173,17 +173,29 @@
             </el-col>
         </el-row>
 
-        <el-dialog :title="'选择设备'" :visible.sync="open" width="400px" append-to-body>
-            <el-table :data="unBindDeviceList" style="width: 100%">
-                <el-table-column v-for="column in tableColumns" :key="column.prop" :prop="column.prop" :label="column.label" :width="column.width"></el-table-column>
-                <el-table-column :label="'操作'" :width="120">
+        <el-dialog :title="'选择设备'" :visible.sync="open" width="600px" append-to-body>
+            <el-table :data="pagedUnBindDeviceList" style="width: 100%">
+                <el-table-column v-for="column in tableColumns" :key="column.prop" :prop="column.prop" :label="column.label"></el-table-column>
+                <el-table-column :width="120" :label="'操作'">
                     <template slot-scope="scope">
                         <el-popconfirm title="是否要添加此设备？" @confirm="bindDeviceBarn(scope.row)">
-                            <el-button slot="reference">添加</el-button>
+                            <el-button type="primary" size="small" slot="reference">添加</el-button>
                         </el-popconfirm>
                     </template>
                 </el-table-column>
             </el-table>
+            <div class="pagination-container">
+                <el-pagination
+                    background
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="unBindDeviceList.length"
+                    :page-sizes="[5, 10, 15, 20]"
+                    :page-size="pageSize"
+                    :current-page.sync="currentPage"
+                    @size-change="handleSizeChange"
+                    @current-change="handlePageChange"
+                ></el-pagination>
+            </div>
         </el-dialog>
 
         <el-dialog :title="'移除设备'" :visible.sync="removeOpen" width="400px" append-to-body>
@@ -192,7 +204,7 @@
                 <el-table-column :label="'操作'" :width="120">
                     <template slot-scope="scope">
                         <el-popconfirm title="是否要移除此设备？" @confirm="unBindDevice(scope.row.devicesId)">
-                            <el-button slot="reference">移除</el-button>
+                            <el-button type="primary" size="small" slot="reference">移除</el-button>
                         </el-popconfirm>
                     </template>
                 </el-table-column>
@@ -266,13 +278,35 @@ export default {
             deviceEnableIcon: {},
             getDeviceTypeJson: false,
             chartDataList: [],
+            // 分页相关数据
+            currentPage: 1,
+            pageSize: 10,
         };
     },
     components: {
         lineCharts,
         player,
     },
+    watch: {
+        // 监听对话框打开状态，重置分页
+        open(newVal) {
+            if (newVal) {
+                this.currentPage = 1;
+                this.pageSize = 10;
+                this.searchKeyword = ''; // 重置搜索关键词
+                this.getUnBoundDevicesList();
+            }
+        },
+    },
     created() {},
+    computed: {
+        // 计算属性：处理分页后的数据
+        pagedUnBindDeviceList() {
+            const start = (this.currentPage - 1) * this.pageSize;
+            const end = start + this.pageSize;
+            return this.unBindDeviceList.slice(start, end);
+        },
+    },
     mounted() {
         this.farmId = this.$route.query.id;
         this.getDeviceList();
@@ -405,10 +439,19 @@ export default {
             });
         },
         getUnBoundDevicesList() {
-            unBoundDevicesList({}).then((unBindRes) => {
+            unBoundDevicesList({
+                barnId: this.farmId,
+            }).then((unBindRes) => {
                 this.unBindDeviceList = unBindRes.rows;
+                // 重置分页
+                this.currentPage = 1;
+                this.pageSize = 10;
                 console.log(unBindRes, 'unBindRes');
             });
+        },
+        handleSearch() {
+            // 搜索时重置到第一页
+            this.currentPage = 1;
         },
         showUnBindDeviceList() {
             this.open = true;
@@ -436,6 +479,22 @@ export default {
                 this.getFarmBindDeviceList();
             });
         },
+        // 处理每页显示数量变化
+        handleSizeChange(newSize) {
+            this.pageSize = newSize;
+            this.currentPage = 1; // 重置到第一页
+        },
+
+        // 处理页码变化
+        handlePageChange(newPage) {
+            this.currentPage = newPage;
+        },
+
+        // 处理当前选中行
+        handleCurrentChange(currentRow) {
+            console.log('当前选中行:', currentRow);
+        },
+
         showDeviceItem(item) {
             if (item.status === 3) {
                 this.$router.push({
@@ -467,6 +526,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/tableView.scss';
+
 $bg-color: #0d1827;
 ::v-deep .el-button--mini.is-circle {
     padding: 3px;

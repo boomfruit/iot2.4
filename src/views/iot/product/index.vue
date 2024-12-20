@@ -25,7 +25,7 @@
             </el-form>
         </el-card>
         <el-card style="padding-bottom: 50px">
-            <el-row style="height: 680px" :gutter="16" v-loading="loading">
+            <el-row style="height: 750px" :gutter="16" v-loading="loading">
                 <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="6" v-for="(item, index) in productList" :key="index" style="margin-bottom: 15px; text-align: center">
                     <el-card :body-style="{ padding: '20px' }" shadow="always" class="card-item">
                         <el-row type="flex" :gutter="10" justify="space-between">

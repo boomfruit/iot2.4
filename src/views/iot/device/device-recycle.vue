@@ -381,24 +381,25 @@ export default {
     margin: 20px 0 100px 200px;
 }
 
-// treeselect
 //tree
-::v-deep.treeSelect {
+.treeSelect {
     width: 212px;
     border-radius: 0;
     height: 50px;
+    background-color: #0d1827 !important;
 }
 
 ::v-deep .vue-treeselect__control {
     height: 100%;
-    border: 1px solid rgba(2, 189, 253, 0.35);
+    border: 1px solid #23344a;
+    background-color: #0d1827 !important;
 }
 ::v-deep .vue-treeselect__placeholder {
-    color: #606266;
+    color: #c0c4cc;
 }
 //foucs时的placeholder
 ::v-deep.vue-treeselect--focus .vue-treeselect__input {
-    color: #606266 !important;
+    color: #c0c4cc !important;
 }
 //foucs时有值的input
 ::v-deep.vue-treeselect--has-value .vue-treeselect__single-value {
@@ -412,15 +413,7 @@ export default {
 ::v-deep.vue-treeselect:not(.vue-treeselect--disabled):not(.vue-treeselect--focused) .vue-treeselect__control:hover {
     border-color: rgba(8, 160, 255, 0.827);
 }
-// ::v-deep .vue-treeselect__list:hover > .vue-treeselect__list-item {
-//   background: #202a60;
-// }
-//选中的
-// ::v-deep .vue-treeselect__single-value {
-//   color: #fff;
-//   line-height: 47px;
-//   font-size: 20px;
-// }
+
 //input箭头
 ::v-deep .vue-treeselect__control-arrow-container .vue-treeselect__control-arrow {
     color: #c0c4cc !important;
@@ -437,18 +430,6 @@ export default {
 ::v-deep .vue-treeselect__option--selected {
     background: none;
 }
-// /deep/ .vue-treeselect__option--selected
-// :hover{
-// background: #202a60;
-// }
-// /deep/ .vue-treeselect__option--selected
-// :hover{
-// background: #202a60;
-// }
-// /deep/ .vue-treeselect__option--selected
-// :hover .vue-treeselect__option-arrow-placeholder{
-// background: #202a60;
-// }
 //menu文字
 ::v-deep .vue-treeselect__label {
     color: #fff;

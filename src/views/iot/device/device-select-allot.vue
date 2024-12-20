@@ -83,7 +83,15 @@
                 <el-form label-position="top" :model="allotForm" ref="allotForm" :rules="allotRules">
                     <div style="width: 45%; margin: 60px 0">
                         <el-form-item :label="$t('device.allot-import-dialog.060657-2')" prop="deptId">
-                            <treeselect v-model="allotForm.deptId" :options="deptOptions" :show-count="true" :placeholder="$t('device.allot-import-dialog.060657-3')" :appendToBody="true" z-index="9000" />
+                            <treeselect
+                                style="background-color: black !important; color: #f8f8f9"
+                                v-model="allotForm.deptId"
+                                :options="deptOptions"
+                                :show-count="true"
+                                :placeholder="$t('device.allot-import-dialog.060657-3')"
+                                :appendToBody="true"
+                                z-index="9000"
+                            />
                         </el-form-item>
                     </div>
                 </el-form>
@@ -380,5 +388,63 @@ export default {
     width: 45%;
     margin-left: 200px;
     margin-top: 20px;
+}
+
+//tree
+.treeSelect {
+    width: 212px;
+    border-radius: 0;
+    height: 50px;
+    background-color: #0d1827 !important;
+}
+
+::v-deep .vue-treeselect__control {
+    height: 100%;
+    border: 1px solid #23344a;
+    background-color: #0d1827 !important;
+}
+::v-deep .vue-treeselect__placeholder {
+    color: #c0c4cc;
+}
+//foucs时的placeholder
+::v-deep.vue-treeselect--focus .vue-treeselect__input {
+    color: #c0c4cc !important;
+}
+//foucs时有值的input
+::v-deep.vue-treeselect--has-value .vue-treeselect__single-value {
+    color: #606266 !important;
+}
+::v-deep .vue-treeselect__menu {
+    background: #024b8a;
+    // border: none;
+    border: rgba(8, 160, 255, 0.827) 1px solid;
+}
+::v-deep.vue-treeselect:not(.vue-treeselect--disabled):not(.vue-treeselect--focused) .vue-treeselect__control:hover {
+    border-color: rgba(8, 160, 255, 0.827);
+}
+
+//input箭头
+::v-deep .vue-treeselect__control-arrow-container .vue-treeselect__control-arrow {
+    color: #c0c4cc !important;
+}
+//清空icon
+::v-deep .vue-treeselect__x-container .vue-treeselect__x {
+    color: #c0c4cc !important;
+}
+//hover
+::v-deep .vue-treeselect__option--highlight {
+    background-color: #4a8bec !important;
+}
+//选中的menu
+::v-deep .vue-treeselect__option--selected {
+    background: none;
+}
+//menu文字
+::v-deep .vue-treeselect__label {
+    color: #fff;
+}
+//menu-icon
+::v-deep .vue-treeselect__option-arrow-container .vue-treeselect__option-arrow {
+    color: #2aebff !important;
 }
 </style>
