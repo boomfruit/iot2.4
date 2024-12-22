@@ -1015,9 +1015,9 @@ export default {
                         return sensorTypes.some((type) => item.id.includes(type));
                     })
                     .filter((sensor) => {
-                        const validSensorNames = ['目标温度', '日龄'];
-                        return validSensorNames.includes(sensor.name);
+                        return sensor.name === 't_target_temp1' || sensor.name === '日龄';
                     });
+                console.log(topData, 'topData');
                 // 风机开关
                 const enable = JSON.parse(this.deviceInfo.thingsModelValue).find((item) => {
                     return item.id === 'fan_status1';
