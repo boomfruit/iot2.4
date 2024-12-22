@@ -128,6 +128,10 @@ export default {
             type: Boolean,
             default: false,
         },
+        BigInt: {
+            type: Number,
+            default: 4,
+        },
         // 是否显示通风模式
         isShowFanMode: {
             type: Boolean,
@@ -165,10 +169,6 @@ export default {
             }
 
             // 添加调试日志
-            console.log('Container:', container);
-            console.log('ScrollWidth:', container.scrollWidth);
-            console.log('OffsetWidth:', container.offsetWidth);
-
             const scrollWidth = container.scrollWidth;
             const clientWidth = container.clientWidth;
 
@@ -186,27 +186,28 @@ export default {
         },
         // 是环控器且是风机控制或开度控制时
         getModeType(data) {
-            this.SystemSettingInitialLevelOfTunnel = parseInt(data[0]);
-            this.SystemSettingVentilationLevel = parseInt(data[1]);
+            // this.SystemSettingInitialLevelOfTunnel = parseInt(data[0]);
+            // this.SystemSettingVentilationLevel = parseInt(data[1]);
         },
         getData(data) {
             this.$nextTick(() => {
                 this.composeList = this.transformData(data);
-                if (this.isShowFanMode) {
-                    this.composeList.forEach((arr, index) => {
-                        arr.forEach((item, idx) => {
-                            if (idx === 1 && item.Id === 'text') {
-                                if (index < this.SystemSettingInitialLevelOfTunnel - 1) {
-                                    item.value = '最小通风';
-                                } else if (index >= this.SystemSettingInitialLevelOfTunnel - 1 && index < this.SystemSettingVentilationLevel) {
-                                    item.value = '隧道通风';
-                                } else {
-                                    item.value = '无';
-                                }
-                            }
-                        });
-                    });
-                }
+                console.log(this.composeList, 'this.composeList');
+                // if (this.isShowFanMode) {
+                //     this.composeList.forEach((arr, index) => {
+                //         arr.forEach((item, idx) => {
+                //             if (idx === 1 && item.Id === 'text') {
+                //                 if (index < this.SystemSettingInitialLevelOfTunnel - 1) {
+                //                     item.value = '最小通风';
+                //                 } else if (index >= this.SystemSettingInitialLevelOfTunnel - 1 && index < this.SystemSettingVentilationLevel) {
+                //                     item.value = '隧道通风';
+                //                 } else {
+                //                     item.value = '无';
+                //                 }
+                //             }
+                //         });
+                //     });
+                // }
 
                 this.isGetDataDone = true;
             });

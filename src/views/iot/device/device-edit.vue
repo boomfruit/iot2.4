@@ -1175,7 +1175,8 @@ export default {
                 // EC08 152
                 // EC12 154
                 // EC22 155
-                if (response.data.productId == 152 || response.data.productId == 154 || response.data.productId == 155) {
+                // EC16 169
+                if (response.data.productId == 152 || response.data.productId == 154 || response.data.productId == 155 || response.data.productId == 169) {
                     this.dataJson = JSON.parse(res.data);
                     this.deviceType = 'env';
                     this.getDeviceTypeJson = true;

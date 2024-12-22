@@ -698,7 +698,8 @@ export default {
                             // EC08 152
                             // EC12 154
                             // EC22 155
-                            if (this.deviceInfo.productId == 152 || this.deviceInfo.productId == 154 || this.deviceInfo.productId == 155) {
+                            // EC16 169
+                            if (this.deviceInfo.productId == 152 || this.deviceInfo.productId == 154 || this.deviceInfo.productId == 155 || this.deviceInfo.productId == 169) {
                                 this.dataJson = JSON.parse(res.data);
                                 this.fansList.length = this.dataJson.data.enableMap['fans'].length;
                                 this.fansList.fill(0);
@@ -809,164 +810,332 @@ export default {
     created() {},
     methods: {
         getEnvData() {
-            // 设备开关数据 需要展示的是（风机开关、开度一，二、制冷、加热、光照....）以实际情况而定
-            // 传感器探头 --- 温度传感器
-            const sensors = JSON.parse(this.deviceInfo.thingsModelValue).filter((item) => {
-                // 温度探头
-                // DataTemperatureSensor
-                // 二氧化碳
-                // DataCO2Sensor
-                // 压力
-                // DataPressureSensor
-                // 氨气
-                // DataNH3Sensor
-                // 风速
-                // DataWindSpeedSensor
-                // 室内外温度
-                // DataTemperatureAva
-                // 室内外湿度
-                // DataHumidityAva
-                const sensorTypes = ['DataTemperatureSensor', 'DataHumiditySensor', 'DataCO2Sensor', 'DataPressureSensor', 'DataNH3Sensor', 'DataWindSpeedSensor', 'DataTemperatureAva', 'DataHumidityAva'];
-                return sensorTypes.some((type) => item.id.includes(type));
-            });
+            if (this.deviceInfo.productId != 169) {
+                // 非EC16
+                // 设备开关数据 需要展示的是（风机开关、开度一，二、制冷、加热、光照....）以实际情况而定
+                // 传感器探头 --- 温度传感器
+                const sensors = JSON.parse(this.deviceInfo.thingsModelValue).filter((item) => {
+                    // 温度探头
+                    // DataTemperatureSensor
+                    // 二氧化碳
+                    // DataCO2Sensor
+                    // 压力
+                    // DataPressureSensor
+                    // 氨气
+                    // DataNH3Sensor
+                    // 风速
+                    // DataWindSpeedSensor
+                    // 室内外温度
+                    // DataTemperatureAva
+                    // 室内外湿度
+                    // DataHumidityAva
+                    const sensorTypes = ['DataTemperatureSensor', 'DataHumiditySensor', 'DataCO2Sensor', 'DataPressureSensor', 'DataNH3Sensor', 'DataWindSpeedSensor', 'DataTemperatureAva', 'DataHumidityAva'];
+                    return sensorTypes.some((type) => item.id.includes(type));
+                });
 
-            // 其他 数据
+                // 其他 数据
 
-            const otherData = JSON.parse(this.deviceInfo.thingsModelValue).filter((item) => {
-                // 变频
-                // DataFrequencyConversion
-                // 通风等级
-                // DataCurrentWindLevel
-                const sensorTypes = ['DataFrequencyConversion', 'DataCurrentWindLevel'];
-                return sensorTypes.some((type) => item.id.includes(type));
-            });
+                const otherData = JSON.parse(this.deviceInfo.thingsModelValue).filter((item) => {
+                    // 变频
+                    // DataFrequencyConversion
+                    // 通风等级
+                    // DataCurrentWindLevel
+                    const sensorTypes = ['DataFrequencyConversion', 'DataCurrentWindLevel'];
+                    return sensorTypes.some((type) => item.id.includes(type));
+                });
 
-            const topData = JSON.parse(this.deviceInfo.thingsModelValue).filter((item) => {
-                // 目标温度
-                // DataTargetTemperature
-                // 日龄
-                // DataTargetTemperature
-                const sensorTypes = ['DataTargetTemperature', 'DataDayLive'];
-                return sensorTypes.some((type) => item.id.includes(type));
-            });
-            // 风机开关
-            const enable = JSON.parse(this.deviceInfo.thingsModelValue).find((item) => {
-                return item.id === 'DataAllDeviceStatus';
-            });
+                const topData = JSON.parse(this.deviceInfo.thingsModelValue).filter((item) => {
+                    // 目标温度
+                    // DataTargetTemperature
+                    // 日龄
+                    const sensorTypes = ['DataTargetTemperature', 'DataDayLive'];
+                    return sensorTypes.some((type) => item.id.includes(type));
+                });
+                // 风机开关
+                const enable = JSON.parse(this.deviceInfo.thingsModelValue).find((item) => {
+                    return item.id === 'DataAllDeviceStatus';
+                });
 
-            const _item = PrefixZero(parseInt(enable.value).toString(2), this.dataJson.data.mapLength).split('');
-            this.deviceEnableIcon = this.dataJson.data.enableMap;
+                const _item = PrefixZero(parseInt(enable.value).toString(2), this.dataJson.data.mapLength).split('');
+                this.deviceEnableIcon = this.dataJson.data.enableMap;
 
-            // 根据数据源制定左边，右边，下边，上边的数据显示
-            this.dataJson.data.enableMap.fans.forEach((item, idx) => {
-                if (_item[parseInt(item)] == '1') {
-                    // 开启状态
-                    this.deviceEnableIcon['fans'][idx] = {
-                        icon: fan_active,
-                        value: 1,
-                        name: '风机' + (idx + 1),
-                    };
-                } else {
-                    // 关闭状态
-                    this.deviceEnableIcon['fans'][idx] = {
-                        icon: fan_gray,
-                        value: 0,
-                        name: '风机' + (idx + 1),
-                    };
-                }
-            });
-            // 加热
-            this.dataJson.data.enableMap.hot.forEach((item, idx) => {
-                if (_item[parseInt(item)] == '1') {
-                    // 开启状态
-                    this.deviceEnableIcon['hot'][idx] = {
-                        icon: fire_active,
-                        value: 1,
-                        name: '加热' + (idx + 1),
-                    };
-                } else {
-                    // 关闭状态
-                    this.deviceEnableIcon['hot'][idx] = {
-                        icon: fire_gray,
-                        value: 0,
-                        name: '加热' + (idx + 1),
-                    };
-                }
-            });
-            // 制冷
-            this.dataJson.data.enableMap.cold.forEach((item, idx) => {
-                if (_item[parseInt(item)] == '1') {
-                    // 开启状态
-                    this.deviceEnableIcon['cold'][idx] = {
-                        icon: cold_active,
-                        value: 1,
-                        name: '制冷' + (idx + 1),
-                    };
-                } else {
-                    // 关闭状态
-                    this.deviceEnableIcon['cold'][idx] = {
-                        icon: cold_gray,
-                        value: 0,
-                        name: '制冷' + (idx + 1),
-                    };
-                }
-            });
-            // 光照
-            this.dataJson.data.enableMap.light.forEach((item, idx) => {
-                if (_item[parseInt(item)] == '1') {
-                    // 开启状态
-                    this.deviceEnableIcon['light'][idx] = {
-                        icon: light_active,
-                        value: 1,
-                        name: '光照' + (idx + 1),
-                    };
-                } else {
-                    // 关闭状态
-                    this.deviceEnableIcon['light'][idx] = {
-                        icon: light_gray,
-                        value: 0,
-                        name: '光照' + (idx + 1),
-                    };
-                }
-            });
-            this.topListData = [...topData];
-            this.topListData.forEach((item) => {
-                if (item.id === 'DataTargetTemperature') {
-                    item.icon = targetTempIcon;
-                } else {
-                    item.icon = dayIcon;
-                }
-            });
-            const allDataShowList = [...otherData, ...sensors];
-            allDataShowList.forEach((item) => {
-                if (item.id.includes('DataTemperatureSensor')) {
-                    item.icon = temp1;
-                } else if (item.id.includes('DataCO2Sensor')) {
-                    item.icon = co2;
-                } else if (item.id.includes('DataPressureSensor')) {
-                    item.icon = presurre;
-                } else if (item.id.includes('DataNH3Sensor')) {
-                    item.icon = nh3;
-                } else if (item.id.includes('DataWindSpeedSensor')) {
-                    item.icon = wind;
-                } else if (item.id.includes('DataTemperatureAva')) {
-                    item.icon = temp2;
-                } else if (item.id.includes('DataHumidityAva')) {
-                    item.icon = water;
-                } else if (item.id.includes('DataFrequencyConversion')) {
-                    item.icon = fan_active;
-                } else if (item.id.includes('DataCurrentWindLevel')) {
-                    item.icon = fan_active;
-                }
-            });
+                // 根据数据源制定左边，右边，下边，上边的数据显示
+                this.dataJson.data.enableMap.fans.forEach((item, idx) => {
+                    if (_item[parseInt(item)] == '1') {
+                        // 开启状态
+                        this.deviceEnableIcon['fans'][idx] = {
+                            icon: fan_active,
+                            value: 1,
+                            name: '风机' + (idx + 1),
+                        };
+                    } else {
+                        // 关闭状态
+                        this.deviceEnableIcon['fans'][idx] = {
+                            icon: fan_gray,
+                            value: 0,
+                            name: '风机' + (idx + 1),
+                        };
+                    }
+                });
+                // 加热
+                this.dataJson.data.enableMap.hot.forEach((item, idx) => {
+                    if (_item[parseInt(item)] == '1') {
+                        // 开启状态
+                        this.deviceEnableIcon['hot'][idx] = {
+                            icon: fire_active,
+                            value: 1,
+                            name: '加热' + (idx + 1),
+                        };
+                    } else {
+                        // 关闭状态
+                        this.deviceEnableIcon['hot'][idx] = {
+                            icon: fire_gray,
+                            value: 0,
+                            name: '加热' + (idx + 1),
+                        };
+                    }
+                });
+                // 制冷
+                this.dataJson.data.enableMap.cold.forEach((item, idx) => {
+                    if (_item[parseInt(item)] == '1') {
+                        // 开启状态
+                        this.deviceEnableIcon['cold'][idx] = {
+                            icon: cold_active,
+                            value: 1,
+                            name: '制冷' + (idx + 1),
+                        };
+                    } else {
+                        // 关闭状态
+                        this.deviceEnableIcon['cold'][idx] = {
+                            icon: cold_gray,
+                            value: 0,
+                            name: '制冷' + (idx + 1),
+                        };
+                    }
+                });
+                // 光照
+                this.dataJson.data.enableMap.light.forEach((item, idx) => {
+                    if (_item[parseInt(item)] == '1') {
+                        // 开启状态
+                        this.deviceEnableIcon['light'][idx] = {
+                            icon: light_active,
+                            value: 1,
+                            name: '光照' + (idx + 1),
+                        };
+                    } else {
+                        // 关闭状态
+                        this.deviceEnableIcon['light'][idx] = {
+                            icon: light_gray,
+                            value: 0,
+                            name: '光照' + (idx + 1),
+                        };
+                    }
+                });
+                this.topListData = [...topData];
+                this.topListData.forEach((item) => {
+                    if (item.id === 'DataTargetTemperature') {
+                        item.icon = targetTempIcon;
+                    } else {
+                        item.icon = dayIcon;
+                    }
+                });
+                const allDataShowList = [...otherData, ...sensors];
+                allDataShowList.forEach((item) => {
+                    if (item.id.includes('DataTemperatureSensor')) {
+                        item.icon = temp1;
+                    } else if (item.id.includes('DataCO2Sensor')) {
+                        item.icon = co2;
+                    } else if (item.id.includes('DataPressureSensor')) {
+                        item.icon = presurre;
+                    } else if (item.id.includes('DataNH3Sensor')) {
+                        item.icon = nh3;
+                    } else if (item.id.includes('DataWindSpeedSensor')) {
+                        item.icon = wind;
+                    } else if (item.id.includes('DataTemperatureAva')) {
+                        item.icon = temp2;
+                    } else if (item.id.includes('DataHumidityAva')) {
+                        item.icon = water;
+                    } else if (item.id.includes('DataFrequencyConversion')) {
+                        item.icon = fan_active;
+                    } else if (item.id.includes('DataCurrentWindLevel')) {
+                        item.icon = fan_active;
+                    }
+                });
 
-            // 拆分数据
-            const half = Math.floor(allDataShowList.length / 2);
-            const firstList = allDataShowList.slice(0, half);
-            this.leftListData = [...firstList];
-            const secondList = allDataShowList.slice(half);
-            this.rightListData = [...secondList];
-            console.log(this.deviceEnableIcon, 'this.deviceEnableIcon');
+                // 拆分数据
+                const half = Math.floor(allDataShowList.length / 2);
+                const firstList = allDataShowList.slice(0, half);
+                this.leftListData = [...firstList];
+                const secondList = allDataShowList.slice(half);
+                this.rightListData = [...secondList];
+            } else {
+                // EC16
+                // 设备开关数据 需要展示的是（风机开关、开度一，二、制冷、加热、光照....）以实际情况而定
+                // 传感器探头 --- 温度传感器
+                const sensors = JSON.parse(this.deviceInfo.thingsModelValue)
+                    .filter((item) => {
+                        // 温度探头
+                        // t_temp
+                        // 二氧化碳
+                        // carbonca
+                        // 压力
+                        // t_negative_pressureca
+                        // 氨气
+                        // ammoniaca
+                        // 风速
+                        // wind_speedca
+                        // 室内外温度
+                        // t_temp_
+                        // 室内外湿度
+                        // indoor_humca
+                        const sensorTypes = ['t_temp', 'carbonca', 'DataCO2Sensor', 't_negative_pressureca', 'ammoniaca', 'wind_speedca', 't_temp_', 'indoor_humca'];
+                        return sensorTypes.some((type) => item.id.includes(type));
+                    })
+                    .filter((sensor) => {
+                        const validSensorNames = ['温度1', '温度2', '温度3', '温度4', '温度5', '温度6', '湿度一', '湿度二', '二氧化碳', '氨气', '负压', '风速'];
+                        return validSensorNames.includes(sensor.name);
+                    });
+                // 其他 数据
+
+                const otherData = JSON.parse(this.deviceInfo.thingsModelValue).filter((item) => {
+                    // 变频
+                    // bianpin
+                    // 通风等级
+                    // level_run
+                    const sensorTypes = ['bianpin', 'level_run'];
+                    return sensorTypes.some((type) => item.id.includes(type));
+                });
+
+                const topData = JSON.parse(this.deviceInfo.thingsModelValue)
+                    .filter((item) => {
+                        // 目标温度
+                        // t_target_temp1
+                        // 日龄
+                        const sensorTypes = ['t_target_temp1', 'age1'];
+                        return sensorTypes.some((type) => item.id.includes(type));
+                    })
+                    .filter((sensor) => {
+                        const validSensorNames = ['目标温度', '日龄'];
+                        return validSensorNames.includes(sensor.name);
+                    });
+                // 风机开关
+                const enable = JSON.parse(this.deviceInfo.thingsModelValue).find((item) => {
+                    return item.id === 'fan_status1';
+                });
+
+                const _item = PrefixZero(parseInt(enable.value).toString(2), this.dataJson.data.mapLength).split('');
+                this.deviceEnableIcon = this.dataJson.data.enableMap;
+
+                // 根据数据源制定左边，右边，下边，上边的数据显示
+                this.dataJson.data.enableMap.fans.forEach((item, idx) => {
+                    if (_item[parseInt(item)] == '1') {
+                        // 开启状态
+                        this.deviceEnableIcon['fans'][idx] = {
+                            icon: fan_active,
+                            value: 1,
+                            name: '风机' + (idx + 1),
+                        };
+                    } else {
+                        // 关闭状态
+                        this.deviceEnableIcon['fans'][idx] = {
+                            icon: fan_gray,
+                            value: 0,
+                            name: '风机' + (idx + 1),
+                        };
+                    }
+                });
+                // 加热
+                this.dataJson.data.enableMap.hot.forEach((item, idx) => {
+                    if (_item[parseInt(item)] == '1') {
+                        // 开启状态
+                        this.deviceEnableIcon['hot'][idx] = {
+                            icon: fire_active,
+                            value: 1,
+                            name: '加热' + (idx + 1),
+                        };
+                    } else {
+                        // 关闭状态
+                        this.deviceEnableIcon['hot'][idx] = {
+                            icon: fire_gray,
+                            value: 0,
+                            name: '加热' + (idx + 1),
+                        };
+                    }
+                });
+                // 制冷
+                this.dataJson.data.enableMap.cold.forEach((item, idx) => {
+                    if (_item[parseInt(item)] == '1') {
+                        // 开启状态
+                        this.deviceEnableIcon['cold'][idx] = {
+                            icon: cold_active,
+                            value: 1,
+                            name: '制冷' + (idx + 1),
+                        };
+                    } else {
+                        // 关闭状态
+                        this.deviceEnableIcon['cold'][idx] = {
+                            icon: cold_gray,
+                            value: 0,
+                            name: '制冷' + (idx + 1),
+                        };
+                    }
+                });
+                // 光照
+                this.dataJson.data.enableMap.light.forEach((item, idx) => {
+                    if (_item[parseInt(item)] == '1') {
+                        // 开启状态
+                        this.deviceEnableIcon['light'][idx] = {
+                            icon: light_active,
+                            value: 1,
+                            name: '光照' + (idx + 1),
+                        };
+                    } else {
+                        // 关闭状态
+                        this.deviceEnableIcon['light'][idx] = {
+                            icon: light_gray,
+                            value: 0,
+                            name: '光照' + (idx + 1),
+                        };
+                    }
+                });
+                this.topListData = [...topData];
+                this.topListData.forEach((item) => {
+                    if (item.id === 'DataTargetTemperature') {
+                        item.icon = targetTempIcon;
+                    } else {
+                        item.icon = dayIcon;
+                    }
+                });
+                const allDataShowList = [...otherData, ...sensors];
+                allDataShowList.forEach((item) => {
+                    if (item.id.includes('t_temp')) {
+                        item.icon = temp1;
+                    } else if (item.id.includes('carbonca')) {
+                        item.icon = co2;
+                    } else if (item.id.includes('t_negative_pressureca')) {
+                        item.icon = presurre;
+                    } else if (item.id.includes('ammoniaca')) {
+                        item.icon = nh3;
+                    } else if (item.id.includes('wind_speedca')) {
+                        item.icon = wind;
+                    } else if (item.id.includes('t_temp_')) {
+                        item.icon = temp2;
+                    } else if (item.id.includes('indoor_humca')) {
+                        item.icon = water;
+                    } else if (item.id.includes('bianpin')) {
+                        item.icon = fan_active;
+                    } else if (item.id.includes('level_run')) {
+                        item.icon = fan_active;
+                    }
+                });
+
+                // // 拆分数据
+                const half = Math.floor(allDataShowList.length / 2);
+                const firstList = allDataShowList.slice(0, half);
+                this.leftListData = [...firstList];
+                const secondList = allDataShowList.slice(half);
+                this.rightListData = [...secondList];
+            }
         },
         /* Mqtt回调处理 */
         mqttCallback() {
