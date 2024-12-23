@@ -484,7 +484,7 @@
                                             }"
                                         />
                                         <div class="topListData-item-label">
-                                            {{ item.name }}
+                                            {{ item.name === 't_target_temp1' ? '目标温度' : item.name }}
                                         </div>
                                         <div class="topListData-item-value">{{ item.shadow }}{{ item.unit }}</div>
                                     </div>
@@ -1017,7 +1017,6 @@ export default {
                     .filter((sensor) => {
                         return sensor.name === 't_target_temp1' || sensor.name === '日龄';
                     });
-                console.log(topData, 'topData');
                 // 风机开关
                 const enable = JSON.parse(this.deviceInfo.thingsModelValue).find((item) => {
                     return item.id === 'fan_status1';
