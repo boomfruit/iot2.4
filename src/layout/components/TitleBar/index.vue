@@ -6,7 +6,7 @@
                     <img :src="avatar" class="user-avatar" />
                 </div>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item @click.native="routerToUser()">个人中心</el-dropdown-item>
+                    <!-- <el-dropdown-item @click.native="routerToUser()">个人中心</el-dropdown-item> -->
 
                     <el-dropdown-item @click.native="setting = true">
                         <span>布局设置</span>

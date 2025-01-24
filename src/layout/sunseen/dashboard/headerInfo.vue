@@ -100,7 +100,7 @@ export default {
                     color: '#8FC5FF',
                 },
                 {
-                    name: '设备总数',
+                    name: '在线设备',
                     value: 0,
                     container: [
                         {
@@ -191,6 +191,7 @@ export default {
 
     mounted() {
         this.getData();
+        console.log(this.$store.state.user.roles, 'this.$store.state.user.roles');
     },
 
     methods: {
@@ -206,7 +207,44 @@ export default {
                     this.$set(this.boxInfo[2], 'value', result.total);
                 }),
             ])
-                .then(() => {})
+                .then(() => {
+                    this.boxInfo = [
+                        this.boxInfo[1],
+                        this.boxInfo[3],
+                        {
+                            name: '短信通知次数',
+                            value: 0,
+                            container: [
+                                {
+                                    name: '今日通知',
+                                    value: 0,
+                                },
+                                {
+                                    name: '昨日通知',
+                                    value: 0,
+                                },
+                            ],
+                            bg: mail,
+                            color: '#FFC8E9',
+                        },
+                        {
+                            name: '电话通知次数',
+                            value: 0,
+                            container: [
+                                {
+                                    name: '今日通知',
+                                    value: 0,
+                                },
+                                {
+                                    name: '昨日通知',
+                                    value: 0,
+                                },
+                            ],
+                            bg: phone,
+                            color: '#FFE3F5',
+                        },
+                    ];
+                })
                 .catch((err) => {});
         },
     },

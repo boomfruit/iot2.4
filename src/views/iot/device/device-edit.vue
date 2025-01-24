@@ -1,11 +1,11 @@
 <template>
     <div class="tab-box">
-        <el-tabs v-model="activeTabName" @tab-click="handleClick" lazy>
+        <el-tabs v-model="activeTabName" @tab-click="handleClick" lazy v-loading="pageLoading" element-loading-text="数据同步中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.7)">
             <el-tab-pane name="10">
                 <span slot="label">{{ $t('device.device-edit.148398-0') }}</span>
                 <el-form ref="form" :model="form" :rules="rules" label-width="100px">
                     <el-row :gutter="100">
-                        <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6">
+                        <el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
                             <el-form-item :label="$t('device.device-edit.148398-1')" prop="deviceName">
                                 <el-input v-model="form.deviceName" :placeholder="$t('device.device-edit.148398-2')">
                                     <el-button slot="append" @click="openSummaryDialog" v-if="form.deviceId != 0">{{ $t('device.device-edit.148398-3') }}</el-button>
@@ -107,7 +107,7 @@
                                 <el-button size="small" @click="openCodeDialog()">{{ $t('device.device-edit.148398-36') }}</el-button>
                             </el-form-item>
                         </el-col>
-                        <el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
+                        <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
                             <el-form-item label="外部1名称" prop="external1">
                                 <el-input v-model="form.external1" placeholder="请输入外部1名称" />
                             </el-form-item>
@@ -139,11 +139,11 @@
                                 <el-input v-model="form.external10" placeholder="请输入外部10名称" />
                             </el-form-item>
                         </el-col>
-                        <el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5" v-if="form.deviceId != 0">
+                        <!-- <el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5" v-if="form.deviceId != 0">
                             <div style="border: 1px solid #dfe4ed; border-radius: 5px; padding: 5px; text-align: center; line-height: 400px">
                                 <div id="map" style="height: 435px; width: 100%">{{ $t('device.device-edit.148398-37') }}</div>
                             </div>
-                        </el-col>
+                        </el-col> -->
                     </el-row>
                 </el-form>
                 <el-form label-width="100px" style="margin-top: 50px">
@@ -271,11 +271,11 @@
                 <device-user ref="deviceUser" :device="form" @userEvent="getUserData($event)" />
             </el-tab-pane>
 
-            <el-tab-pane name="deviceLog" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3" lazy>
-                <!-- <BreedingSettings></BreedingSettings> -->
+            <!-- <el-tab-pane name="deviceLog" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3" lazy>
+                <BreedingSettings></BreedingSettings>
                 <span slot="label">{{ $t('device.device-edit.148398-49') }}</span>
                 <device-log ref="deviceLog" :device="form" />
-            </el-tab-pane>
+            </el-tab-pane> -->
 
             <el-tab-pane name="alertUser" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3">
                 <span slot="label" v-hasPermi="['iot:device:alert:user:list']">{{ $t('device.device-edit.148398-80') }}</span>
@@ -291,10 +291,10 @@
                 <device-func ref="deviceFuncLog" :device="form" />
             </el-tab-pane>
 
-            <el-tab-pane name="deviceMonitor" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3">
+            <!-- <el-tab-pane name="deviceMonitor" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3">
                 <span slot="label">{{ $t('device.device-edit.148398-51') }}</span>
                 <device-monitor ref="deviceMonitor" :device="form" />
-            </el-tab-pane>
+            </el-tab-pane> -->
 
             <el-tab-pane name="deviceStastic" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3">
                 <span slot="label">{{ $t('device.device-edit.148398-52') }}</span>
@@ -613,6 +613,7 @@ export default {
             deviceProductId: '',
             getDeviceTypeJson: false,
             deviceType: '',
+            pageLoading: true,
         };
     },
     created() {
@@ -1176,7 +1177,8 @@ export default {
                 // EC12 154
                 // EC22 155
                 // EC16 169
-                if (response.data.productId == 152 || response.data.productId == 154 || response.data.productId == 155 || response.data.productId == 169) {
+                // EC22改 172
+                if (response.data.productId == 152 || response.data.productId == 154 || response.data.productId == 155 || response.data.productId == 169 || response.data.productId == 172) {
                     this.dataJson = JSON.parse(res.data);
                     this.deviceType = 'env';
                     this.getDeviceTypeJson = true;
@@ -1209,6 +1211,7 @@ export default {
             //Mqtt订阅
             this.connectMqtt();
             this.mqttSubscribe(this.form);
+            this.pageLoading = false;
         },
         /**选择产品 */
         selectProduct() {

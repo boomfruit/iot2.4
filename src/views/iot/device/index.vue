@@ -23,7 +23,7 @@
                     <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">{{ $t('device.index.105953-9') }}</el-button>
                 </el-form-item>
             </el-form>
-            <el-row :gutter="10" class="mb8">
+            <el-row :gutter="10" class="mb8" v-show="FuncBtn">
                 <el-col :span="1.5">
                     <el-dropdown @command="(command) => handleCommand(command)" v-hasPermi="['iot:device:add']">
                         <el-button size="mini" type="primary" plain>
@@ -363,6 +363,7 @@ export default {
             },
             // 批量导入参数
             isSubDev: false,
+            FuncBtn: true,
         };
     },
     created() {
@@ -388,6 +389,9 @@ export default {
             this.queryParams.groupId = null;
         }
         this.connectMqtt();
+        if (this.$store.state.user.roles[0] == 'sysShowUser') {
+            this.FuncBtn = false;
+        }
     },
     activated() {
         const time = this.$route.query.t;

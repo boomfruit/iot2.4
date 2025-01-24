@@ -123,6 +123,8 @@ export default {
                 this.queryParams.endTime = this.daterangeTime[1] + ' 23:59:59';
             }
             this.queryParams.productId = this.deviceInfo.productId;
+            // console.log(this.queryParams, 'this.queryParams');
+            // this.loading = false;
             listHistory(this.queryParams).then((res) => {
                 for (let key in res.data) {
                     for (let i = 0; i < this.staticList.length; i++) {
@@ -170,6 +172,9 @@ export default {
                             '统计 （单位 ' +
                             (this.staticList[i].datatype && this.staticList[i].datatype.unit != undefined ? this.staticList[i].datatype.unit : this.$t('device.device-statistic.932674-7')) +
                             '）',
+                        textStyle: {
+                            color: '#fff',
+                        },
                     },
                     grid: {
                         top: '80px',

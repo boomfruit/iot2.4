@@ -1,5 +1,5 @@
 <template>
-    <div class="shack-box">
+    <div class="shack-box" v-show="isShow">
         <div class="shack-box-search_info">
             <el-row>
                 <el-col :span="22">
@@ -214,6 +214,7 @@ export default {
             breedList: [],
             currentHoverId: null,
             total: 0,
+            isShow: true,
         };
     },
 
@@ -225,8 +226,12 @@ export default {
 
     mounted() {
         // 获取农场，获取养殖品种
-        this.getPreData();
-        this.getList();
+        if (this.$store.state.user.roles[0] !== 'sysShowUser') {
+            this.getPreData();
+            this.getList();
+        } else {
+            this.isShow = false;
+        }
     },
     methods: {
         getPreData() {

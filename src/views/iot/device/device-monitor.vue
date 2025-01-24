@@ -45,7 +45,8 @@ export default {
         //     this.deviceInfo = newVal;
         //     if (this.deviceInfo && this.deviceInfo.deviceId != 0) {
         //         // 监测数据
-        //         this.monitorThings = this.deviceInfo.monitorList;
+        //         console.log(this.deviceInfo.monitorList, 'this.monitorThings');
+        //         // this.monitorThings = this.deviceInfo.monitorList;
         //         // 监测数据集合初始化
         //         this.dataList = [];
         //         for (let i = 0; i < this.monitorThings.length; i++) {

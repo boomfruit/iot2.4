@@ -3,59 +3,11 @@
         <headerInfo></headerInfo>
         <div class="content">
             <el-row :gutter="20">
-                <!-- <el-col :span="6">
-                    <div class="content-card">
-                        <div style="display: flex">
-                            <div class="content-card-img"></div>
-                            <div class="content-card-title">消息监控总览</div>
-                        </div>
-                        <div class="content-card-line">
-                            <div class="bottom-line1"></div>
-                            <div class="bottom-line2"></div>
-                        </div>
-                        <leftTop></leftTop>
-                    </div>
-                    <div class="content-card">
-                        <div style="display: flex">
-                            <div class="content-card-img"></div>
-                            <div class="content-card-title">数据传输总览</div>
-                        </div>
-                        <div class="content-card-line">
-                            <div class="bottom-line1"></div>
-                            <div class="bottom-line2"></div>
-                        </div>
-                        <leftBottom :leftBottomData="leftBottomData"></leftBottom>
-                    </div>
-                </el-col> -->
                 <el-col :span="24">
                     <div class="content-card-big">
                         <centerMap></centerMap>
                     </div>
                 </el-col>
-                <!-- <el-col :span="6">
-                    <div class="content-card">
-                        <div style="display: flex">
-                            <div class="content-card-img"></div>
-                            <div class="content-card-title">设备类型占比</div>
-                        </div>
-                        <div class="content-card-line">
-                            <div class="bottom-line1"></div>
-                            <div class="bottom-line2"></div>
-                        </div>
-                        <rightTop></rightTop>
-                    </div>
-                    <div class="content-card">
-                        <div style="display: flex">
-                            <div class="content-card-img"></div>
-                            <div class="content-card-title">实时报警列表</div>
-                        </div>
-                        <div class="content-card-line">
-                            <div class="bottom-line1"></div>
-                            <div class="bottom-line2"></div>
-                        </div>
-                        <rightBottom></rightBottom>
-                    </div>
-                </el-col> -->
             </el-row>
         </div>
     </div>

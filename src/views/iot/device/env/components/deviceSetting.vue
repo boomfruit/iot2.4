@@ -192,23 +192,6 @@ export default {
         getData(data) {
             this.$nextTick(() => {
                 this.composeList = this.transformData(data);
-                console.log(this.composeList, 'this.composeList');
-                // if (this.isShowFanMode) {
-                //     this.composeList.forEach((arr, index) => {
-                //         arr.forEach((item, idx) => {
-                //             if (idx === 1 && item.Id === 'text') {
-                //                 if (index < this.SystemSettingInitialLevelOfTunnel - 1) {
-                //                     item.value = '最小通风';
-                //                 } else if (index >= this.SystemSettingInitialLevelOfTunnel - 1 && index < this.SystemSettingVentilationLevel) {
-                //                     item.value = '隧道通风';
-                //                 } else {
-                //                     item.value = '无';
-                //                 }
-                //             }
-                //         });
-                //     });
-                // }
-
                 this.isGetDataDone = true;
             });
         },

@@ -67,6 +67,26 @@ export default {
 
     mounted() {
         this.getName();
+        if (this.$store.state.user.roles[0] === 'sysShowUser') {
+            this.tabList = [
+                {
+                    name: '驾驶舱',
+                    key: 1,
+                },
+                {
+                    name: '智慧养殖',
+                    key: 2,
+                },
+                {
+                    name: '资源管理',
+                    key: 5,
+                },
+                {
+                    name: '系统设置',
+                    key: 6,
+                },
+            ];
+        }
     },
     methods: {
         getName() {

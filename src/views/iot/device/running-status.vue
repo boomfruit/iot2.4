@@ -472,7 +472,7 @@
             <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
                 <el-row v-if="getDeviceTypeJson">
                     <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-                        <!-- 报警器 -->
+                        <!-- 环控器 -->
                         <div v-if="deviceType === 'env'">
                             <div class="ec22-box">
                                 <div class="day-target-box">
@@ -699,7 +699,8 @@ export default {
                             // EC12 154
                             // EC22 155
                             // EC16 169
-                            if (this.deviceInfo.productId == 152 || this.deviceInfo.productId == 154 || this.deviceInfo.productId == 155 || this.deviceInfo.productId == 169) {
+                            // EC22改 172
+                            if (this.deviceInfo.productId == 152 || this.deviceInfo.productId == 154 || this.deviceInfo.productId == 155 || this.deviceInfo.productId == 169 || this.deviceInfo.productId == 172) {
                                 this.dataJson = JSON.parse(res.data);
                                 this.fansList.length = this.dataJson.data.enableMap['fans'].length;
                                 this.fansList.fill(0);
@@ -940,6 +941,8 @@ export default {
                     }
                 });
                 const allDataShowList = [...otherData, ...sensors];
+
+                console.log(_allDataShowList, '_allDataShowList');
                 allDataShowList.forEach((item) => {
                     if (item.id.includes('DataTemperatureSensor')) {
                         item.icon = temp1;
@@ -1106,33 +1109,69 @@ export default {
                     }
                 });
                 const allDataShowList = [...otherData, ...sensors];
+                console.log(allDataShowList, 'allDataShowList');
+                // const _allDataShowList = allDataShowList.sort((a, b) => {
+                //     const order = [
+                //         'DataCurrentWindLevel',
+                //         'DataTemperatureSensor1',
+                //         'DataTemperatureSensor2',
+                //         'DataTemperatureSensor3',
+                //         'DataTemperatureSensor4',
+                //         'DataTemperatureSensor5',
+                //         'DataTemperatureSensor6',
+                //         'DataFrequencyConversion1',
+                //         'DataFrequencyConversion2',
+                //         'DataFrequencyConversion3',
+                //         'DataFrequencyConversion4',
+                //         'DataCO2Sensor',
+                //         'DataNH3Sensor',
+                //         'DataNegativePressureWindSpeed',
+                //     ];
+                //     return order.indexOf(a.id) - order.indexOf(b.id);
+                // });
+
                 allDataShowList.forEach((item) => {
                     if (item.id.includes('t_temp')) {
                         item.icon = temp1;
+                        let key = item.id.split('t_tempca')[1];
+                        item.sort = 8 + parseInt(key);
                     } else if (item.id.includes('carbonca')) {
                         item.icon = co2;
+                        item.sort = 50;
                     } else if (item.id.includes('t_negative_pressureca')) {
                         item.icon = presurre;
+                        item.sort = 53;
                     } else if (item.id.includes('ammoniaca')) {
                         item.icon = nh3;
+                        item.sort = 52;
                     } else if (item.id.includes('wind_speedca')) {
                         item.icon = wind;
+                        item.sort = 55;
                     } else if (item.id.includes('t_temp_')) {
                         item.icon = temp2;
+                        item.sort = 50;
                     } else if (item.id.includes('indoor_humca')) {
                         item.icon = water;
+                        item.sort = 54;
                     } else if (item.id.includes('bianpin')) {
                         item.icon = fan_active;
+                        let key = item.id.split('bianpin')[1];
+                        item.sort = 2 + parseInt(key);
                     } else if (item.id.includes('level_run')) {
+                        item.name = '通风级别';
                         item.icon = fan_active;
+                        item.sort = 1;
                     }
+                });
+                const _allDataShowList = allDataShowList.sort((a, b) => {
+                    return a.sort - b.sort;
                 });
 
                 // // 拆分数据
-                const half = Math.floor(allDataShowList.length / 2);
-                const firstList = allDataShowList.slice(0, half);
+                const half = Math.floor(_allDataShowList.length / 2);
+                const firstList = _allDataShowList.slice(0, half);
                 this.leftListData = [...firstList];
-                const secondList = allDataShowList.slice(half);
+                const secondList = _allDataShowList.slice(half);
                 this.rightListData = [...secondList];
             }
         },
