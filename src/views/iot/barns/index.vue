@@ -115,14 +115,14 @@
             </div>
         </div>
 
-        <div>
+        <div style="position: absolute; bottom: 50px; left: 10px; right: 0; height: 80px; border-radius: 16px">
             <pagination
                 style="width: 100%; height: 50px; border-radius: 16px"
                 v-show="total > 0"
                 :total="total"
                 :page.sync="queryParams.pageNum"
                 :limit.sync="queryParams.pageSize"
-                :pageSizes="[10]"
+                :pageSizes="[12]"
                 @pagination="getList"
             />
         </div>
@@ -203,7 +203,7 @@ export default {
             // 查询参数
             queryParams: {
                 pageNum: 1,
-                pageSize: 10,
+                pageSize: 12,
                 farmId: null,
                 name: null,
                 location: null,
@@ -575,15 +575,15 @@ $bg-top-btn2: #142342;
     margin-top: 20px;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     grid-gap: 20px;
     .shack-item {
         cursor: pointer;
         color: #00eeff;
         background-color: #0d1827;
         border-radius: 10px 10px 10px 10px;
-        height: 252px;
-        padding: 0 23px;
+        height: 232px;
+        padding: 0 17px;
         .shack-item-header {
             display: flex;
             height: 44px;

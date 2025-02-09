@@ -701,13 +701,31 @@ export default {
                             // EC16 169
                             // EC22改 172
                             if (this.deviceInfo.productId == 152 || this.deviceInfo.productId == 154 || this.deviceInfo.productId == 155 || this.deviceInfo.productId == 169 || this.deviceInfo.productId == 172) {
-                                this.dataJson = JSON.parse(res.data);
-                                this.fansList.length = this.dataJson.data.enableMap['fans'].length;
-                                this.fansList.fill(0);
-                                setTimeout(() => {
-                                    this.getEnvData();
-                                }, 1000 * 3);
-                                this.getDeviceTypeJson = true;
+                                // if (res.data) {
+                                if (res.data) {
+                                    this.dataJson = JSON.parse(res.data);
+                                    this.dataJson = JSON.parse(res.data);
+                                    this.fansList.length = this.dataJson.data.enableMap['fans'].length;
+                                    this.fansList.fill(0);
+                                    setTimeout(() => {
+                                        this.getEnvData();
+                                    }, 1000 * 3);
+                                    this.getDeviceTypeJson = true;
+                                }
+
+                                // } else {
+                                //     setTimeout(() => {
+                                //         this.$nextTick(() => {
+                                //             this.dataJson = JSON.parse(res.data);
+                                //             this.fansList.length = this.dataJson.data.enableMap['fans'].length;
+                                //             this.fansList.fill(0);
+                                //             setTimeout(() => {
+                                //                 this.getEnvData();
+                                //             }, 1000 * 3);
+                                //             this.getDeviceTypeJson = true;
+                                //         });
+                                //     }, 1000);
+                                // }
                             } else if (this.deviceInfo.productId == 153) {
                                 // D06
                                 setTimeout(() => {
@@ -833,7 +851,6 @@ export default {
                     const sensorTypes = ['DataTemperatureSensor', 'DataHumiditySensor', 'DataCO2Sensor', 'DataPressureSensor', 'DataNH3Sensor', 'DataWindSpeedSensor', 'DataTemperatureAva', 'DataHumidityAva'];
                     return sensorTypes.some((type) => item.id.includes(type));
                 });
-
                 // 其他 数据
 
                 const otherData = JSON.parse(this.deviceInfo.thingsModelValue).filter((item) => {
@@ -940,9 +957,15 @@ export default {
                         item.icon = dayIcon;
                     }
                 });
-                const allDataShowList = [...otherData, ...sensors];
+                let allDataShowList = [...otherData, ...sensors];
+                if (this.deviceInfo.productId === 154) {
+                    // 增加通风级别
+                    const levelData = JSON.parse(this.deviceInfo.thingsModelValue).find((item) => {
+                        return item.id === 'dtm_zac';
+                    });
+                    allDataShowList.push(levelData);
+                }
 
-                console.log(_allDataShowList, '_allDataShowList');
                 allDataShowList.forEach((item) => {
                     if (item.id.includes('DataTemperatureSensor')) {
                         item.icon = temp1;
@@ -962,9 +985,16 @@ export default {
                         item.icon = fan_active;
                     } else if (item.id.includes('DataCurrentWindLevel')) {
                         item.icon = fan_active;
+                    } else if (item.id === 'dtm_zac') {
+                        item.icon = fan_active;
                     }
                 });
-
+                if (this.deviceInfo.productId === 154) {
+                    allDataShowList.sort((a, b) => {
+                        const order = ['变频1', '变频2', '温度1', '温度2', '温度3', '温度4', '室内平均温度', '室外平均温度', '室内湿度', '室外湿度', '二氧化碳', '氨气', '负压', '通风级别'];
+                        return order.indexOf(a.name) - order.indexOf(b.name);
+                    });
+                }
                 // 拆分数据
                 const half = Math.floor(allDataShowList.length / 2);
                 const firstList = allDataShowList.slice(0, half);
@@ -1109,7 +1139,6 @@ export default {
                     }
                 });
                 const allDataShowList = [...otherData, ...sensors];
-                console.log(allDataShowList, 'allDataShowList');
                 // const _allDataShowList = allDataShowList.sort((a, b) => {
                 //     const order = [
                 //         'DataCurrentWindLevel',

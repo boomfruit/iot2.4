@@ -5,7 +5,7 @@
                 <span slot="label">{{ $t('device.device-edit.148398-0') }}</span>
                 <el-form ref="form" :model="form" :rules="rules" label-width="100px">
                     <el-row :gutter="100">
-                        <el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
+                        <el-col :xs="11" :sm="11" :md="11" :lg="11" :xl="11">
                             <el-form-item :label="$t('device.device-edit.148398-1')" prop="deviceName">
                                 <el-input v-model="form.deviceName" :placeholder="$t('device.device-edit.148398-2')">
                                     <el-button slot="append" @click="openSummaryDialog" v-if="form.deviceId != 0">{{ $t('device.device-edit.148398-3') }}</el-button>
@@ -69,7 +69,7 @@
                                 <el-input v-model="form.remark" type="textarea" :placeholder="$t('device.device-edit.148398-18')" rows="1" />
                             </el-form-item>
                         </el-col>
-                        <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6">
+                        <el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10">
                             <el-form-item :label="$t('device.device-edit.148398-19')" prop="locationWay">
                                 <el-select v-model="form.locationWay" :placeholder="$t('device.device-edit.148398-20')" clearable size="small" style="width: 100%" :disabled="form.deviceType === 3">
                                     <el-option v-for="dict in dict.type.iot_location_way" :key="dict.value" :label="dict.label" :value="Number(dict.value)" />
@@ -107,43 +107,6 @@
                                 <el-button size="small" @click="openCodeDialog()">{{ $t('device.device-edit.148398-36') }}</el-button>
                             </el-form-item>
                         </el-col>
-                        <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-                            <el-form-item label="外部1名称" prop="external1">
-                                <el-input v-model="form.external1" placeholder="请输入外部1名称" />
-                            </el-form-item>
-                            <el-form-item label="外部2名称" prop="external2">
-                                <el-input v-model="form.external2" placeholder="请输入外部2名称" />
-                            </el-form-item>
-                            <el-form-item label="外部3名称" prop="external3">
-                                <el-input v-model="form.external3" placeholder="请输入外部3名称" />
-                            </el-form-item>
-                            <el-form-item label="外部4名称" prop="external4">
-                                <el-input v-model="form.external4" placeholder="请输入外部4名称" />
-                            </el-form-item>
-                            <el-form-item label="外部5名称" prop="external5">
-                                <el-input v-model="form.external5" placeholder="请输入外部5名称" />
-                            </el-form-item>
-                            <el-form-item label="外部6名称" prop="external6">
-                                <el-input v-model="form.external6" placeholder="请输入外部6名称" />
-                            </el-form-item>
-                            <el-form-item label="外部7名称" prop="external7">
-                                <el-input v-model="form.external7" placeholder="请输入外部7名称" />
-                            </el-form-item>
-                            <el-form-item label="外部8名称" prop="external8">
-                                <el-input v-model="form.external8" placeholder="请输入外部8名称" />
-                            </el-form-item>
-                            <el-form-item label="外部9名称" prop="external9">
-                                <el-input v-model="form.external9" placeholder="请输入外部9名称" />
-                            </el-form-item>
-                            <el-form-item label="外部10名称" prop="external10">
-                                <el-input v-model="form.external10" placeholder="请输入外部10名称" />
-                            </el-form-item>
-                        </el-col>
-                        <!-- <el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5" v-if="form.deviceId != 0">
-                            <div style="border: 1px solid #dfe4ed; border-radius: 5px; padding: 5px; text-align: center; line-height: 400px">
-                                <div id="map" style="height: 435px; width: 100%">{{ $t('device.device-edit.148398-37') }}</div>
-                            </div>
-                        </el-col> -->
                     </el-row>
                 </el-form>
                 <el-form label-width="100px" style="margin-top: 50px">
@@ -1033,19 +996,15 @@ export default {
         },
         /**加载地图*/
         loadMap() {
-            this.$nextTick(() => {
-                loadBMap().then(() => {
-                    this.getmap();
-                });
-            });
+            // this.$nextTick(() => {
+            //     loadBMap().then(() => {
+            //         this.getmap();
+            //     });
+            // });
         },
         /** 返回按钮 */
         goBack() {
-            // const obj = {
-            //     path: '/smartAquaculture/iot/device',
-            // };
             this.$router.go(-1);
-            // this.$tab.closeOpenPage(obj);
             this.reset();
         },
         // 表单重置
@@ -1211,7 +1170,15 @@ export default {
             //Mqtt订阅
             this.connectMqtt();
             this.mqttSubscribe(this.form);
-            this.pageLoading = false;
+
+            if (response.data.productId == 152 || response.data.productId == 154 || response.data.productId == 155 || response.data.productId == 169 || response.data.productId == 172) {
+                setTimeout(() => {
+                    this.pageLoading = false;
+                }, 3000);
+            } else {
+                this.pageLoading = false;
+            }
+            // this.pageLoading = false;
         },
         /**选择产品 */
         selectProduct() {

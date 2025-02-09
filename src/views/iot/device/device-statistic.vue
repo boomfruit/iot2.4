@@ -138,6 +138,8 @@ export default {
                                 dataList.push(item);
                             }
                             // 图表显示数据
+                            console.log(res, 'res');
+                            console.log(this.chart[i], i);
                             this.chart[i].setOption({
                                 series: [
                                     {
@@ -154,6 +156,9 @@ export default {
 
         /**监测统计数据 */
         getStatistic() {
+            if (this.staticList === undefined || this.staticList.length === 0) {
+                return;
+            }
             let color = ['#1890FF', '#91CB74', '#FAC858', '#EE6666', '#73C0DE', '#3CA272', '#FC8452', '#9A60B4', '#ea7ccc'];
             for (let i = 0; i < this.staticList.length; i++) {
                 // 设置宽度

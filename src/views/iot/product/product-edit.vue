@@ -425,15 +425,7 @@ export default {
         },
         /** 返回按钮 */
         goBack() {
-            const obj = {
-                path: '/iot/product',
-                query: {
-                    t: Date.now(),
-                    pageNum: this.$route.query.pageNum,
-                },
-            };
-            this.$tab.closeOpenPage(obj);
-            this.reset();
+            this.$router.go(-1);
         },
         /** 获取产品信息 */
         getProduct() {

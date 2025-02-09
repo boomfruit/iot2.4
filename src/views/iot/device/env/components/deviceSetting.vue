@@ -14,7 +14,7 @@
         <div class="device-setting-content-box" style="overflow-x: scroll" ref="scrollContainer">
             <div class="scrollable-content" :style="{ width: domWidth }">
                 <div class="box-title" :style="{ width: scrollWidth }">
-                    <div class="box-title-item" v-for="item in titleList" :key="item">{{ item.title }}</div>
+                    <div class="box-title-item" v-for="(item, odx) in titleList" :key="odx">{{ item.title }}</div>
                 </div>
                 <div v-for="(col, iid) in colTitle" :key="iid" class="col-box">
                     <div v-for="(item, idx) in titleList.length" :key="idx" class="col-item">
@@ -164,7 +164,6 @@ export default {
         handleScroll(position) {
             const container = this.$refs.scrollContainer;
             if (!container) {
-                console.log('Container not found');
                 return;
             }
 
@@ -192,6 +191,7 @@ export default {
         getData(data) {
             this.$nextTick(() => {
                 this.composeList = this.transformData(data);
+                console.log(this.composeList, '_composeList');
                 this.isGetDataDone = true;
             });
         },

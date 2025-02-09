@@ -78,7 +78,7 @@ const device = require('./img/device.png');
 import { listBarns } from '@/api/iot/barns';
 import { listDeviceShort } from '@/api/iot/device';
 import { listAlarm } from '@/api/iot/alarm';
-
+import { getDeviceStatistic } from '@/api/iot/device';
 export default {
     data() {
         return {
@@ -191,10 +191,16 @@ export default {
 
     mounted() {
         this.getData();
+
         console.log(this.$store.state.user.roles, 'this.$store.state.user.roles');
     },
 
     methods: {
+        getDeviceStatisticData() {
+            getDeviceStatistic().then((result) => {
+                this.$set(this.boxInfo[0], 'value', result.data.deviceOnlineCount);
+            });
+        },
         getData() {
             Promise.all([
                 listBarns().then((result) => {
@@ -244,6 +250,7 @@ export default {
                             color: '#FFE3F5',
                         },
                     ];
+                    this.getDeviceStatisticData();
                 })
                 .catch((err) => {});
         },
