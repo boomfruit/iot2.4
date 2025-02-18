@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="$t('device.recycle-record.845969-0')" :visible.sync="open" width="900px">
+    <el-dialog :modal="false" :title="$t('device.recycle-record.845969-0')" :visible.sync="open" width="900px">
         <div style="margin-top: -55px">
             <el-divider style="margin-top: -30px"></el-divider>
             <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="68px">
@@ -46,8 +46,6 @@ import { listRecycleRecord } from '@/api/iot/device';
 import { deptsTreeSelect } from '@/api/system/user';
 import Treeselect from '@riophae/vue-treeselect';
 import '@riophae/vue-treeselect/dist/vue-treeselect.css';
-
-
 
 export default {
     name: 'recycleRecord',

@@ -848,7 +848,7 @@ export default {
                     // DataTemperatureAva
                     // 室内外湿度
                     // DataHumidityAva
-                    const sensorTypes = ['DataTemperatureSensor', 'DataHumiditySensor', 'DataCO2Sensor', 'DataPressureSensor', 'DataNH3Sensor', 'DataWindSpeedSensor', 'DataTemperatureAva', 'DataHumidityAva'];
+                    const sensorTypes = ['DataTemperatureSensor', 'DataHumiditySensor', 'DataCO2Sensor', 'DataNH3Sensor', 'DataWindSpeedSensor', 'DataTemperatureAva', 'DataHumidityAva'];
                     return sensorTypes.some((type) => item.id.includes(type));
                 });
                 // 其他 数据
@@ -1230,8 +1230,8 @@ export default {
                     this.$modal.notifySuccess(message);
                 }
                 if (topic.endsWith('ws/service')) {
-                    console.log('接收到【物模型】主题1：', topic);
-                    console.log('接收到【物模型】内容：', message);
+                    // console.log('接收到【物模型】主题1：', topic);
+                    // console.log('接收到【物模型】内容：', message);
                     // 更新列表中设备的属性
                     if (this.deviceInfo.serialNumber == deviceNum) {
                         for (let j = 0; j < message.message.length; j++) {

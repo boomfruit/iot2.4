@@ -9,9 +9,7 @@
                     <div class="el-table el-table--enable-row-hover el-table--medium">
                         <div class="prop-box-info" id="scenePropBox">
                             <div class="left-pic">
-                                <el-image style="width: 100px; height: 100px"
-                                    :src="sceneModels.imgUrl ? baseUrl + sceneModels.imgUrl : require('@/assets/images/scene-info.png')"
-                                    fit="fill"></el-image>
+                                <el-image style="width: 100px; height: 100px" :src="sceneModels.imgUrl ? baseUrl + sceneModels.imgUrl : require('@/assets/images/scene-info.png')" fit="fill"></el-image>
                             </div>
                             <div class="right-message">
                                 <div class="title">{{ sceneModels.sceneModelName }}</div>
@@ -22,9 +20,7 @@
                                 <div class="info-item">
                                     <label>{{ $t('scene.overview.324354-2') }}</label>
                                     <span v-if="sceneModels.cusDeviceList && sceneModels.cusDeviceList.length > 0">
-                                        <el-tag class="tag-wrap" size="small"
-                                            v-for="(item, index) in sceneModels.cusDeviceList" :key="index">{{ item.name
-                                            }}</el-tag>
+                                        <el-tag class="tag-wrap" size="small" v-for="(item, index) in sceneModels.cusDeviceList" :key="index">{{ item.name }}</el-tag>
                                     </span>
                                 </div>
                                 <div class="info-item">
@@ -50,8 +46,7 @@
                                 <br />
                                 <br />
                                 <br />
-                                <el-image style="width: 493px; height: 29px"
-                                    :src="require('@/assets/images/scene-basic-attr-flow.png')" fit="fill"></el-image>
+                                <el-image style="width: 493px; height: 29px" :src="require('@/assets/images/scene-basic-attr-flow.png')" fit="fill"></el-image>
                             </div>
                             <!-- <div class="num-area">
                                 <div class="num-props">
@@ -88,59 +83,43 @@
                     <div class="el-table--enable-row-hover el-table--medium">
                         <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" label-width="68px">
                             <el-form-item :label="$t('scene.overview.324354-7')" prop="sceneModelDeviceId">
-                                <el-select v-model="queryParams.sceneModelDeviceId"
-                                    :placeholder="$t('scene.overview.324354-8')" clearable>
-                                    <el-option v-for="(item, index) in sceneModels.sceneModelDeviceList" :key="index"
-                                        :label="item.name" :value="item.id"></el-option>
+                                <el-select v-model="queryParams.sceneModelDeviceId" :placeholder="$t('scene.overview.324354-8')" clearable>
+                                    <el-option v-for="(item, index) in sceneModels.sceneModelDeviceList" :key="index" :label="item.name" :value="item.id"></el-option>
                                 </el-select>
                             </el-form-item>
                             <el-form-item :label="$t('scene.overview.324354-9')" prop="slaveName">
-                                <el-input v-model="queryParams.slaveName" :placeholder="$t('scene.overview.324354-10')"
-                                    clearable />
+                                <el-input v-model="queryParams.slaveName" :placeholder="$t('scene.overview.324354-10')" clearable />
                             </el-form-item>
                             <el-form-item :label="$t('scene.overview.324354-11')" prop="sourceName">
-                                <el-input v-model="queryParams.sourceName" :placeholder="$t('scene.overview.324354-12')"
-                                    clearable />
+                                <el-input v-model="queryParams.sourceName" :placeholder="$t('scene.overview.324354-12')" clearable />
                             </el-form-item>
                             <el-form-item>
-                                <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">{{
-                                    $t('search') }}</el-button>
-                                <el-button icon="el-icon-refresh" size="mini" @click="handleResetQuery">{{ $t('reset')
-                                    }}</el-button>
+                                <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">{{ $t('search') }}</el-button>
+                                <el-button icon="el-icon-refresh" size="mini" @click="handleResetQuery">{{ $t('reset') }}</el-button>
                             </el-form-item>
                         </el-form>
-                        <el-table v-loading="loading" :data="variableList" style="width: 100%; margin-top: 10px"
-                            :border="false">
-                            <el-table-column prop="id" :label="$t('scene.overview.324354-13')"
-                                width="100"></el-table-column>
-                            <el-table-column prop="sceneModelDeviceName" :label="$t('scene.overview.324354-7')"
-                                width="130"></el-table-column>
+                        <el-table v-loading="loading" :data="variableList" style="width: 100%; margin-top: 10px" :border="false">
+                            <el-table-column prop="id" :label="$t('scene.overview.324354-13')" width="100"></el-table-column>
+                            <el-table-column prop="sceneModelDeviceName" :label="$t('scene.overview.324354-7')" width="130"></el-table-column>
                             <el-table-column prop="slaveName" :label="$t('scene.overview.324354-9')"></el-table-column>
-                            <el-table-column prop="sourceName"
-                                :label="$t('scene.overview.324354-11')"></el-table-column>
-                            <el-table-column prop="updateTime" :label="$t('scene.overview.324354-14')"
-                                width="190"></el-table-column>
+                            <el-table-column prop="sourceName" :label="$t('scene.overview.324354-11')"></el-table-column>
+                            <el-table-column prop="updateTime" :label="$t('scene.overview.324354-14')" width="190"></el-table-column>
                             <el-table-column prop="value" :label="$t('scene.overview.324354-15')">
                                 <template slot-scope="scope">
                                     <span>
                                         {{ scope.row.value === '' || scope.row.value === null ? '-' : scope.row.value }}
                                         {{ scope.row.value !== '' && scope.row.value !== null ? scope.row.unit : '' }}
-                                        <i v-if="scope.row.isReadonly === 0" style="cursor: pointer; color: #1890ff"
-                                            class="el-icon-edit" v-hasPermi="['iot:service:invoke']"
-                                            @click="handleEditVariable(scope.row)"></i>
+                                        <i v-if="scope.row.isReadonly === 0" style="cursor: pointer; color: #1890ff" class="el-icon-edit" v-hasPermi="['iot:service:invoke']" @click="handleEditVariable(scope.row)"></i>
                                     </span>
                                 </template>
                             </el-table-column>
-                            <el-table-column :label="$t('opation')" align="center"
-                                class-name="small-padding fixed-width" width="100">
+                            <el-table-column :label="$t('opation')" align="center" class-name="small-padding fixed-width" width="100">
                                 <template slot-scope="scope">
-                                    <el-button size="mini" type="text" @click="handleQueryHistory(scope.row)">{{
-                                        $t('scene.overview.324354-16') }}</el-button>
+                                    <el-button size="mini" type="text" @click="handleQueryHistory(scope.row)">{{ $t('scene.overview.324354-16') }}</el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
-                        <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNum"
-                            :limit.sync="queryParams.pageSize" @pagination="getVariableList" />
+                        <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNum" :limit.sync="queryParams.pageSize" @pagination="getVariableList" />
                     </div>
                 </el-card>
             </el-col>
@@ -319,8 +298,8 @@ export default {
                 if (!message) {
                     return;
                 }
-                console.log('接收到【物模型】主题：', topic);
-                console.log('接收到【物模型】内容：', message);
+                // console.log('接收到【物模型】主题：', topic);
+                // console.log('接收到【物模型】内容：', message);
                 if (topic.endsWith('ws/service')) {
                     // 更新列表中设备的属性
                     message = message.message;

@@ -140,9 +140,16 @@ export function getDeviceThingsModelValue(deviceId) {
 // 新增设备
 export function addDevice(data) {
     return request({
-        url: '/iot/devices',
+        url: '/iot/device',
         method: 'post',
         data: data,
+    });
+}
+
+export function delDevice(id) {
+    return request({
+        url: '/iot/device/' + id,
+        method: 'delete',
     });
 }
 

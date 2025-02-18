@@ -1,6 +1,6 @@
 <template>
     <div class="tab-box">
-        <el-tabs v-model="activeTabName" @tab-click="handleClick" lazy v-loading="pageLoading" element-loading-text="数据同步中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.7)">
+        <el-tabs v-model="activeTabName" @tab-click="handleClick" lazy v-loading="pageLoading" :element-loading-text="loadText" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.7)">
             <el-tab-pane name="10">
                 <span slot="label">{{ $t('device.device-edit.148398-0') }}</span>
                 <el-form ref="form" :model="form" :rules="rules" label-width="100px">
@@ -131,63 +131,61 @@
             </el-tab-pane>
             <el-tab-pane label="设备参数" name="2">
                 <div class="con" v-if="getDeviceTypeJson">
-                    <!--  @scroll="scrollEvent()" -->
                     <div class="pdf flex5" ref="scrollDiv">
-                        <envCard v-for="cardItem in dataJson.list" :key="cardItem.id" :title="cardItem.title" lineWidth="62px" :id="cardItem.id" :ref="cardItem.id">
-                            <el-row v-for="(level1Row, level1RowIdx) in cardItem.children" :key="level1RowIdx" :gutter="level1Row.gutter">
-                                <el-col v-for="(level2Row, level2RowIdx) in level1Row.children" :key="level2RowIdx" :span="level2Row.span" :gutter="level1Row.gutter">
-                                    <el-row :style="level2Row.style">
-                                        <el-col v-for="(level3Row, level3RowIdx) in level2Row.children" :key="level3RowIdx" :span="level3Row.span" :id="level3Row.id">
-                                            <el-row :style="level3Row.style" :ref="level3Row.id">
-                                                <el-col v-for="(level4Row, level4RowIdx) in level3Row.children" :key="level4RowIdx" :span="level4Row.span">
-                                                    <component
-                                                        :ref="level4Row.id"
-                                                        :is="level4Row.componentName"
-                                                        :title="level4Row.title"
-                                                        :titleList="level4Row.titleList"
-                                                        :colTitle="level4Row.colTitle"
-                                                        :gutter="level4Row.gutter"
-                                                        :style="level4Row.style"
-                                                        :valueIDs="level4Row.valueID"
-                                                        :textDirection="level4Row.textDirection"
-                                                        :childrenSpan="level4Row.childrenSpan"
-                                                        :url="level4Row.img"
-                                                        :selectOption="level4Row.Option"
-                                                        :selectIcon="level4Row.selectIcon"
-                                                        :isBit="level4Row.isBit"
-                                                        :inside="level4Row.inside"
-                                                        :isShowFanMode="level4Row.isShowFanMode"
-                                                        :isScroll="level4Row.isScroll"
-                                                        :domWidth="level4Row.domWidth"
-                                                        @change="updateData"
-                                                        @changeDeviceInsideValue="updateDataInside"
-                                                    ></component>
-                                                </el-col>
-                                            </el-row>
-                                        </el-col>
-                                    </el-row>
-                                </el-col>
-                            </el-row>
-                        </envCard>
+                        <div v-for="cardItem in dataJson.list" :key="cardItem.id">
+                            <envCard v-if="cardItem.id === activeMenu" :title="cardItem.title" lineWidth="62px" :id="cardItem.id" :ref="cardItem.id">
+                                <el-row v-for="(level1Row, level1RowIdx) in cardItem.children" :key="level1RowIdx" :gutter="level1Row.gutter">
+                                    <el-col v-for="(level2Row, level2RowIdx) in level1Row.children" :key="level2RowIdx" :span="level2Row.span" :gutter="level1Row.gutter">
+                                        <el-row :style="level2Row.style">
+                                            <el-col v-for="(level3Row, level3RowIdx) in level2Row.children" :key="level3RowIdx" :span="level3Row.span" :id="level3Row.id">
+                                                <el-row
+                                                    :style="{ width: '100%', background: '#07111e', marginTop: '18px', paddingLeft: '22px', borderRadius: '17px 17px 17px 17px', paddingBottom: '10px' }"
+                                                    :ref="level3Row.id"
+                                                >
+                                                    <el-col v-for="(level4Row, level4RowIdx) in level3Row.children" :key="level4RowIdx" :span="level4Row.span">
+                                                        <component
+                                                            :ref="level4Row.id"
+                                                            :is="level4Row.componentName"
+                                                            :title="level4Row.title"
+                                                            :titleList="level4Row.titleList"
+                                                            :colTitle="level4Row.colTitle"
+                                                            :gutter="level4Row.gutter"
+                                                            :style="{
+                                                                width: '100%',
+                                                                marginTop: '10px',
+                                                                paddingRight: '22px',
+                                                            }"
+                                                            :valueIDs="level4Row.valueID"
+                                                            :textDirection="level4Row.textDirection"
+                                                            :childrenSpan="level4Row.childrenSpan"
+                                                            :url="level4Row.img"
+                                                            :selectOption="level4Row.Option"
+                                                            :selectIcon="level4Row.selectIcon"
+                                                            :isBit="level4Row.isBit"
+                                                            :inside="level4Row.inside"
+                                                            :isShowFanMode="level4Row.isShowFanMode"
+                                                            :isScroll="level4Row.isScroll"
+                                                            :domWidth="level4Row.domWidth"
+                                                            @change="updateData"
+                                                            @changeDeviceInsideValue="updateDataInside"
+                                                        ></component>
+                                                    </el-col>
+                                                </el-row>
+                                            </el-col>
+                                        </el-row>
+                                    </el-col>
+                                </el-row>
+                            </envCard>
+                        </div>
+
                         <div style="width: 100%; height: 1500px" id="ID_DIV_3"></div>
                     </div>
                     <div class="Nav flex1">
-                        <el-tree
-                            icon-class="none"
-                            :expand-on-click-node="false"
-                            ref="tree"
-                            style="height: calc(100% - 16px); overflow-y: auto"
-                            :data="treeData"
-                            :props="defaultProps"
-                            highlight-current
-                            default-expand-all
-                            node-key="configname"
-                            @node-click="handleNodeClick"
-                        >
-                            <span slot-scope="{ data }" class="custom-tree-node">
-                                <span style="margin-left: 5px">{{ data.configname }}</span>
-                            </span>
-                        </el-tree>
+                        <el-menu :default-active="activeMenu" @select="menuSelect" background-color="#0d1827" active-text-color="#fff" text-color="#A8AEC9" class="el-menu-vertical-demo">
+                            <el-menu-item v-for="(item, index) in treeData" :key="index" :index="item.id">
+                                <span slot="title">{{ item.configname }}</span>
+                            </el-menu-item>
+                        </el-menu>
                     </div>
                 </div>
                 <div v-else>
@@ -576,7 +574,13 @@ export default {
             deviceProductId: '',
             getDeviceTypeJson: false,
             deviceType: '',
-            pageLoading: true,
+            pageLoading: false,
+            activeMenu: 'feed_setting',
+            getDeviceResponse: '',
+            menuChangeSaveData: '',
+            menuChangeSaveJson: '',
+            menuChangeRes: '',
+            loadText: '数据同步中',
         };
     },
     created() {
@@ -587,6 +591,7 @@ export default {
         // 获取设备信息
         this.form.deviceId = this.$route.query && this.$route.query.deviceId;
         if (this.form.deviceId != 0) {
+            this.pageLoading = true;
             this.getDevice(this.form.deviceId);
         }
     },
@@ -633,6 +638,9 @@ export default {
         },
         /* Mqtt回调处理  */
         mqttCallback() {
+            if (!this.$mqttTool.client) {
+                return;
+            }
             this.$mqttTool.client.on('message', (topic, message, buffer) => {
                 let topics = topic.split('/');
                 let productId = topics[1];
@@ -643,16 +651,12 @@ export default {
                     const str = decoder.decode(message);
                     message = str; //转换后的字符串
                 }
-                //  console.log('🚀 ~ this.$mqttTool.client.on ~ message:', message);
-                // console.log('🚀 ~ this.$mqttTool.client.on ~ topics:', topic);
                 message = JSON.parse(message.toString());
 
                 if (!message) {
                     return;
                 }
                 if (topics[3] == 'status' || topics[2] == 'status') {
-                    console.log('接收到【设备状态-详情】主题:', topic);
-                    console.log('接收到【设备状态-详情】内容：', message);
                     // 更新列表中设备的状态
                     if (this.form.serialNumber == deviceNum) {
                         this.oldDeviceStatus = message.status;
@@ -730,6 +734,17 @@ export default {
                     this.$refs.deviceLiveStream.changeChannel();
                 }
             });
+        },
+        // 获取高度偏移位置
+        getJsonList() {
+            this.$nextTick(() => {
+                this.treeData = this.dataJson.tabs;
+            });
+        },
+        handleClick() {
+            if (this.activeTabName === '2') {
+                this.getJsonList();
+            }
         },
         /** 选项卡改变事件*/
         tabChange(panel) {
@@ -810,7 +825,6 @@ export default {
             deviceSynchronization(this.form.serialNumber).then(async (response) => {
                 // 获取缓存物模型
                 response.data.cacheThingsModel = await this.getCacheThingsModdel(response.data.productId);
-                console.log(response.data, 'response');
                 // 获取设备运行状态
                 response.data.thingsModels = await this.getDeviceStatus(this.form);
                 // 格式化物模型，拆分出监测值,数组添加前缀
@@ -819,14 +833,13 @@ export default {
                 // 选项卡切换
                 this.activeName = 'runningStatus';
                 this.oldDeviceStatus = this.form.status;
-                this.loadMap();
             });
         },
         /**获取设备详情*/
         getDevice(deviceId) {
             getDevice(deviceId).then(async (response) => {
                 // 获取设备状态和物模型
-                console.log(response, '获取数量');
+                this.getDeviceResponse = response;
                 this.getDeviceStatusWitchThingsModel(response);
             });
         },
@@ -852,9 +865,7 @@ export default {
                 getDeviceRunningStatus(params)
                     // 获取数据配对JSON
                     .then((response) => {
-                        // console.log('runningState:', response.data);
                         this.$set(this.form, 'thingsModelsValue', JSON.parse(response.data.thingsModelValue));
-                        // this.form.thingsModels = [...response.data.thingsModels];
                         let _obj = {};
                         response.data.thingsModels.forEach((item) => {
                             if (item.datatype.arrayParams !== null) {
@@ -994,14 +1005,6 @@ export default {
                 }
             }
         },
-        /**加载地图*/
-        loadMap() {
-            // this.$nextTick(() => {
-            //     loadBMap().then(() => {
-            //         this.getmap();
-            //     });
-            // });
-        },
         /** 返回按钮 */
         goBack() {
             this.$router.go(-1);
@@ -1060,7 +1063,7 @@ export default {
                 } else {
                     this.$modal.alertSuccess(this.$t('device.device-edit.148398-68'));
                     this.form = JSON.parse(JSON.stringify(this.form));
-                    this.loadMap();
+
                     //刷新页面
                     // this.$router.go(0);
                     //是否设备设置为禁用状态，则踢出设备
@@ -1096,7 +1099,7 @@ export default {
                             } else {
                                 this.$modal.alertSuccess(this.$t('device.device-edit.148398-68'));
                                 this.form = JSON.parse(JSON.stringify(this.form));
-                                this.loadMap();
+
                                 //刷新页面
                                 this.$router.go(0);
                                 //是否设备设置为禁用状态，则踢出设备
@@ -1107,6 +1110,8 @@ export default {
                             }
                         });
                     } else {
+                        this.loadText = '设备添加中.....';
+                        this.pageLoading = true;
                         addDevice(this.form).then(async (response) => {
                             // 获取设备状态
                             await this.getDeviceStatusWitchThingsModel(response);
@@ -1116,10 +1121,10 @@ export default {
                                 if (this.form.status == 2) {
                                     this.deviceStatus = 1;
                                 }
-
                                 this.$modal.alertSuccess(this.$t('device.device-edit.148398-70'));
-                                this.loadMap();
                             }
+                            this.pageLoading = false;
+                            this.$router.push('/smartAquaculture/iot/device');
                         });
                     }
                 }
@@ -1129,6 +1134,8 @@ export default {
         async getDeviceStatusWitchThingsModel(response) {
             // 获取缓存物模型
             response.data.cacheThingsModel = await this.getCacheThingsModdel(response.data.productId);
+            // alert(response.data.cacheThingsModel, 'response.data.cacheThingsModel');
+            this.menuChangeSaveData = response;
             // 获取配置JSON
             getProductMOdelJson(response.data.productId).then((res) => {
                 // 环控器
@@ -1137,6 +1144,7 @@ export default {
                 // EC22 155
                 // EC16 169
                 // EC22改 172
+                this.menuChangeSaveJson = JSON.parse(res.data);
                 if (response.data.productId == 152 || response.data.productId == 154 || response.data.productId == 155 || response.data.productId == 169 || response.data.productId == 172) {
                     this.dataJson = JSON.parse(res.data);
                     this.deviceType = 'env';
@@ -1160,13 +1168,12 @@ export default {
             // 格式化物模型，拆分出监测值,数组添加前缀
             this.formatThingsModel(response.data);
             this.form = response.data;
-            console.log('this.form =', response.data);
             // 解析设备摘要
             if (this.form.summary != null && this.form.summary != '') {
                 this.summary = JSON.parse(this.form.summary);
             }
             this.oldDeviceStatus = this.form.status;
-            this.loadMap();
+
             //Mqtt订阅
             this.connectMqtt();
             this.mqttSubscribe(this.form);
@@ -1178,7 +1185,6 @@ export default {
             } else {
                 this.pageLoading = false;
             }
-            // this.pageLoading = false;
         },
         /**选择产品 */
         selectProduct() {
@@ -1244,24 +1250,6 @@ export default {
             this.qrText = JSON.stringify(json);
             this.openCode = true;
         },
-        // 地图定位
-        getmap() {
-            this.map = new BMap.Map('map');
-            let point = null;
-            if (this.form.longitude != null && this.form.longitude != '' && this.form.latitude != null && this.form.latitude != '') {
-                point = new BMap.Point(this.form.longitude, this.form.latitude);
-            } else {
-                point = new BMap.Point(116.404, 39.915);
-            }
-            this.map.centerAndZoom(point, 19);
-            this.map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
-            this.map.addControl(new BMap.NavigationControl());
-
-            // 标注设备位置
-            this.mk = new BMap.Marker(point);
-            this.map.addOverlay(this.mk);
-            this.map.panTo(point);
-        },
         // 生成随机字母和数字
         generateNum() {
             if (!this.form.productId || this.form.productId == 0) {
@@ -1289,126 +1277,61 @@ export default {
                 }
             });
         },
-        // 获取高度偏移位置
-        getJsonList() {
-            this.$nextTick(() => {
-                this.treeData = this.dataJson.tabs;
-                this.treeData.forEach((item) => {
-                    item.children.forEach((_itm) => {
-                        // 获取偏移高度
-                        _itm.offset = this.$refs[_itm.id][0].$el.offsetTop;
-                    });
-                });
-            });
-            this.allPdfList = []; // 无视父级，同级所需索引用到的导航数组
-            this.treeData.forEach((e) => {
-                if (!e?.father) {
-                    this.allPdfList.push(e);
-                } else if (e.children.length > 0) {
-                    const childArr = e.children.map((e) => {
-                        return { ...e, configname: e?.configname };
-                    });
-                    this.allPdfList = [...this.allPdfList, ...childArr];
-                }
-            });
-            this.$nextTick(() => {
-                this.$refs.tree.setCurrentKey(this.allPdfList[0]?.configname);
-            });
-        },
-        getElementOffsetRelativeToParent(element) {
-            const parent = element.parentNode;
-            return {
-                left: element.offsetLeft - parent.offsetLeft,
-                top: element.offsetTop - parent.offsetTop,
-            };
-        },
         // 跳转位置
-        handleNodeClick(row) {
-            // 点击锚点触发
-            this.$nextTick(() => {
-                console.log(row, 'rowrowrow');
-                let _id = row.id;
-                if (_id.split('_').length === 4) {
-                    // 1.找到对应的上级
-                    const Dom = this.$refs[row.id];
-                    // 2. 位移
-                    console.log(Dom, 'DOm');
-                    this.$refs.scrollDiv.scrollTo({
-                        top: row.offset - 40,
-                        behavior: 'smooth',
+        menuSelect(e) {
+            this.activeMenu = e;
+            this.$refs.scrollDiv.scrollTop = 0;
+            let _obj = {};
+            this.menuChangeSaveData.data.thingsModels.forEach((item) => {
+                if (item.datatype.arrayParams !== null) {
+                    item.datatype.arrayParams.forEach((itm, idx) => {
+                        let arr = itm[0].id.split('_');
+                        if (arr[0] === 'array') {
+                            _obj[itm[0].id] = itm[0].value;
+                        } else {
+                            // let _iid = parseInt(idx);
+                            let _iid = parseInt(idx) < 10 ? '0' + idx : idx;
+                            let iid = 'array_' + _iid + '_' + itm[0].id;
+                            _obj[iid] = itm[0].value;
+                        }
                     });
                 } else {
-                    const rowName = row?.configname;
-                    const names = this.allPdfList.map((e) => {
-                        return e?.configname;
-                    });
-                    const id = 'IDDIV_' + names.indexOf(rowName);
-                    const dom = document.getElementById(id);
-                    if (dom && this.$refs.scrollDiv) {
-                        // 嵌入式 缺少头部引用  少算60
-                        this.$refs.scrollDiv.scrollTo({
-                            top: dom.offsetTop - 60,
-                            behavior: 'smooth',
-                        });
-                    }
+                    _obj[item.id] = item.value;
                 }
             });
-        },
-        // 滚动监听
-        // scrollEvent() {
-        //     const nowScroll = this.$refs.scrollDiv.scrollTop + 42; // h1的高度是42
-        //     const allIds = this.allPdfList.map((e, index) => {
-        //         return 'IDDIV_' + index;
-        //     });
-        //     // console.log(allIds)
-        //     allIds.forEach((id, index) => {
-        //         // 每一个id容器的高度获取
-        //         const dom = document.getElementById(id);
-        //         if (index < allIds.length - 1) {
-        //             // console.log(index, allIds.length)
-        //             const domNext = document.getElementById(allIds[index + 1]);
-        //             // 监听至滚动在指定的模块区域中
-        //             if (nowScroll > dom.offsetTop && nowScroll < domNext.offsetTop) {
-        //                 // 在当前dom选中内
-        //                 this.$nextTick(() => {
-        //                     this.$refs.tree.setCurrentKey(this.allPdfList[index]?.configname);
-        //                 });
-        //             }
-        //         } else {
-        //             // 滚动至最后一个tree选中的条件
-        //             if (nowScroll > dom.offsetTop) {
-        //                 this.$nextTick(() => {
-        //                     this.$refs.tree.setCurrentKey(this.allPdfList[index]?.configname);
-        //                 });
-        //             }
-        //         }
-        //     });
-        // },
-        handleClick() {
-            if (this.activeTabName === '2') {
-                this.getJsonList();
-            }
+            const _data = JSON.parse(JSON.stringify(this.menuChangeSaveJson));
+            this.dataJson = { ...this.findLevelFourObjects(_data, _obj) };
         },
         // 第四层级的数据类型及数据 环控
+        // 查找第四级对象
         findLevelFourObjects(jsonData, data) {
             let result = [];
             let that = this;
+            // 从data中提取特定设置
             const { SystemSettingVentilationLevel, SystemSettingInitialLevelOfTunnel } = data;
+            // 遍历jsonData
             function traverse(obj) {
                 for (let key in obj) {
                     if (obj.hasOwnProperty(key)) {
+                        // 如果当前key对应的值是一个数组，则遍历这个数组
                         if (Array.isArray(obj[key])) {
                             obj[key].forEach((item) => traverse(item));
-                        } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+                        }
+                        // 如果当前key对应的值是一个对象且不为空，则继续遍历这个对象
+                        else if (typeof obj[key] === 'object' && obj[key] !== null) {
                             traverse(obj[key]);
-                        } else if (key === 'level' && obj[key] === 4) {
+                        }
+                        // 如果当前key对应的值是'level'且值为4，则处理这个对象
+                        else if (key === 'level' && obj[key] === 4) {
                             handleComponent(obj);
                         }
                     }
                 }
             }
 
+            // 处理组件
             function handleComponent(obj) {
+                // 根据组件类型进行处理
                 if (obj.componentName === 'inputBox' || obj.componentName === 'switchBox') {
                     updateValueIDForInputOrSwitch(obj);
                 } else if (obj.componentName === 'deviceSetting') {
@@ -1416,9 +1339,11 @@ export default {
                 }
             }
 
+            // 更新输入框或开关框的值ID
             function updateValueIDForInputOrSwitch(obj) {
                 let _data = data;
                 const idList = [];
+                // 如果valueID不为空，则获取对应的值
                 if (obj.valueID[0] !== 'null') {
                     const _id = obj.valueID[0];
                     idList.push({
@@ -1426,13 +1351,19 @@ export default {
                         value: _data[_id] || '',
                     });
                 } else {
+                    // 如果valueID为空，则设置为'null'
                     idList.push({
                         id: 'null',
                         value: 'null',
                     });
                 }
-                that.$refs[obj.id][0].getData(idList);
-                // obj.valueID = idList;
+                // 通过ref获取组件并传入idList
+
+                if (obj.id.includes(that.activeMenu)) {
+                    that.$nextTick(() => {
+                        that.$refs[obj.id][0].getData(idList);
+                    });
+                }
             }
 
             function updateValueIDForDeviceSetting(obj) {
@@ -1446,12 +1377,12 @@ export default {
                         value: data[item] || '',
                     });
                 });
-                // 特殊处理 风机模式
-                if (obj.isShowFanMode) {
-                    that.$refs[obj.id][0].getModeType([SystemSettingInitialLevelOfTunnel, SystemSettingVentilationLevel]);
-                }
                 // 传输数据
-                that.$refs[obj.id][0].getData(divideArrayIntoParts(idList, _length));
+                if (obj.id.includes(that.activeMenu)) {
+                    that.$nextTick(() => {
+                        that.$refs[obj.id][0].getData(divideArrayIntoParts(idList, _length));
+                    });
+                }
                 obj.valueID = idList;
             }
             traverse(jsonData);
@@ -1497,7 +1428,11 @@ export default {
                         value: 'null',
                     });
                 }
-                that.$refs[obj.id][0].getData(idList);
+                if (obj.id.includes(that.activeMenu)) {
+                    that.$nextTick(() => {
+                        that.$refs[obj.id][0].getData(idList);
+                    });
+                }
             }
 
             function updateValueIDForDeviceSetting(obj) {
@@ -1510,7 +1445,11 @@ export default {
                         }))
                     );
                 });
-                that.$refs[obj.id][0].getData(idList);
+                if (obj.id.includes(that.activeMenu)) {
+                    that.$nextTick(() => {
+                        that.$refs[obj.id][0].getData(idList);
+                    });
+                }
                 obj.valueID = idList;
             }
 
@@ -1522,6 +1461,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '@/assets/styles/tableView.scss';
+
+::v-deep .el-menu-item.is-active {
+    background-image: url('../../../assets/sunseen/feed/item-active.png'); // 替换为您的图片路径
+    background-size: cover; // 根据需要调整背景图大小
+    background-repeat: no-repeat; // 不重复背景图
+}
 
 ::v-deep .el-tabs__content {
     padding-top: 22px;

@@ -157,7 +157,9 @@ export default {
 
     computed: {},
 
-    mounted() {},
+    mounted() {
+        // this.getData();
+    },
 
     methods: {
         // 新增：处理滚动方法

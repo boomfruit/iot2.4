@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="$t('device.allot-record.155854-0')" :visible.sync="open" width="70%">
+    <el-dialog :modal="false" :title="$t('device.allot-record.155854-0')" :visible.sync="open" width="70%">
         <div style="margin-top: -55px">
             <el-divider style="margin-top: -30px"></el-divider>
             <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="68px">

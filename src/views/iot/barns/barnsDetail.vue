@@ -247,6 +247,7 @@ export default {
             windSpeedUrl: require('@/assets/sunseen/shackDetail/windSpeed.png'),
             pressureUrl: require('@/assets/sunseen/shackDetail/pressure.png'),
             fanLevel: require('@/assets/sunseen/shackDetail/fanLevel.png'),
+            tunnelVentilation: require('@/assets/sunseen/env/tunnelVentilation.png'),
             dataList: [],
             dataStatusList: [],
             dataJson: {},
@@ -265,12 +266,16 @@ export default {
                 DataHumidityAva01: '室内湿度',
                 DataHumidityAva02: '室外湿度',
                 Dataco2Sensor: '二氧化碳',
+                DataCO2Sensor: '二氧化碳',
                 DatanH3Sensor: '氨气',
+                DataNH3Sensor: '氨气',
                 DataDayLive: '日龄',
                 DataTargetTemperature: '目标温度',
                 DataCurrentWindLevel: '通风级别',
                 DataWindSpeedSensor: '风速',
                 DataPressureSensor: '负压',
+                DataFrequencyConversion2: '变频2',
+                DataFrequencyConversion1: '变频1',
             },
             DataDayLive: '',
             DataTargetTemperature: '',
@@ -281,6 +286,7 @@ export default {
             // 分页相关数据
             currentPage: 1,
             pageSize: 10,
+            ecProductId: '',
         };
     },
     components: {
@@ -354,11 +360,18 @@ export default {
                     item.imgUrl = this.pressureUrl;
                 } else if (item.id.includes('DataCurrentWindLevel')) {
                     item.imgUrl = this.fanLevel;
-                } else if (item.id.includes('DatanH3Sensor')) {
+                } else if (item.id.includes('DataH3Sensor')) {
                     item.imgUrl = this.nh3Url;
+                } else if (item.id.includes('NH3')) {
+                    item.imgUrl = this.nh3Url;
+                } else if (item.id.includes('DataFrequencyConversion')) {
+                    item.imgUrl = this.tunnelVentilation;
                 }
             });
-            this.chartDataList = [...chartDataList];
+            this.chartDataList = [...chartDataList].filter((item) => {
+                return item.name;
+            });
+
             // 设备开关数据 需要展示的是（风机开关、开度一，二、制冷、加热、光照....）以实际情况而定
             const enable = this.deviceData.find((item) => {
                 return item.id === 'DataAllDeviceStatus';
@@ -371,7 +384,16 @@ export default {
                 return item.id === 'DataTargetTemperature';
             }).value;
 
-            const _item = PrefixZero(parseInt(enable.value).toString(2), 32).split('');
+            let _item = [];
+
+            if (this.ecProductId == 154) {
+                //  ec12
+                _item = PrefixZero(parseInt(enable.value).toString(2), 25).split('');
+            } else {
+                _item = PrefixZero(parseInt(enable.value).toString(2), 32).split('');
+            }
+
+            console.log(_item, ' _item');
             // 风机
             this.dataJson.data.enableMap.fans.forEach((item, idx) => {
                 if (_item[item] == '1') {
@@ -416,6 +438,7 @@ export default {
         getBarnsDetailData() {
             getBarns(this.farmId).then((res) => {
                 this.deviceData = res.data.ecThingsModelJsonValue;
+                this.ecProductId = res.data.ecProductId;
                 this.dataJson = JSON.parse(res.data.ecThingsModelValue);
                 if (this.dataJson) {
                     this.getIcon();

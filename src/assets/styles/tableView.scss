@@ -461,3 +461,17 @@ $backcolor: #192434; //背景颜色
 ::v-deep .vue-treeselect__option-arrow-container .vue-treeselect__option-arrow {
     color: #2aebff !important;
 }
+
+/* 自定义滚动条样式 */
+.custom-scroll::-webkit-scrollbar {
+    width: 8px; /* 滚动条宽度 */
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    background-color: #4a4a4a; /* 滚动条颜色 */
+    border-radius: 4px; /* 滚动条圆角 */
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+    background: #2c2c2c; /* 滚动条轨道颜色 */
+}

@@ -74,7 +74,7 @@
         </el-card>
 
         <el-card style="padding-bottom: 100px" v-if="showType == 'list'">
-            <el-table style="height: 680px; background-color: #0d1827" v-loading="loading" :data="deviceList" border>
+            <el-table class="custom-scroll" style="height: 580px; background-color: #0d1827; overflow-y: auto" v-loading="loading" :data="deviceList" border>
                 <el-table-column :label="$t('device.index.105953-20')" align="center" header-align="center" prop="deviceId" width="50" />
                 <el-table-column :label="$t('device.index.105953-0')" align="center" header-align="center" prop="deviceName" min-width="120" />
                 <el-table-column :label="$t('device.index.105953-2')" align="center" prop="serialNumber" min-width="130" />
@@ -140,7 +140,7 @@
                 </el-table-column>
             </el-table>
 
-            <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNum" :limit.sync="queryParams.pageSize" :pageSizes="[12, 24, 36, 60]" @pagination="getList" />
+            <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNum" :pageSizes="[8]" :limit.sync="queryParams.pageSize" @pagination="getList" />
         </el-card>
 
         <el-card style="padding-bottom: 100px" v-if="showType == 'card'">
@@ -249,17 +249,17 @@
                 </el-col>
             </el-row>
             <el-empty :description="$t('device.index.105953-41')" v-if="total == 0"></el-empty>
-            <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNum" :limit.sync="queryParams.pageSize" :pageSizes="[12, 24, 36, 60]" @pagination="getList" />
+            <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNum" :limit.sync="queryParams.pageSize" :pageSizes="[8]" @pagination="getList" />
         </el-card>
         <!-- 二维码 -->
-        <el-dialog :visible.sync="openSummary" width="300px" append-to-body>
+        <el-dialog :modal="false" :visible.sync="openSummary" width="300px" append-to-body>
             <div style="border: 1px solid #ccc; width: 220px; text-align: center; margin: 0 auto; margin-top: -15px">
                 <vue-qr :text="qrText" :size="200"></vue-qr>
                 <div style="padding-bottom: 10px">{{ $t('device.index.105953-42') }}</div>
             </div>
         </el-dialog>
 
-        <el-dialog :title="$t('device.index.105953-54')" :visible.sync="openGenerate" width="500px" append-to-body>
+        <el-dialog :modal="false" :title="$t('device.index.105953-54')" :visible.sync="openGenerate" width="500px" append-to-body>
             <el-form v-model="elForm" style="height: 100%; padding: 0 20px">
                 <el-form-item label-width="80px" :label="$t('device.index.105953-55')">
                     <el-input v-model="elForm.count" type="number" style="width: 240px" :max="200" oninput="if(value>200)value=200;if(value<0)value=0"></el-input>
@@ -332,7 +332,7 @@ export default {
             // 查询参数
             queryParams: {
                 pageNum: 1,
-                pageSize: 12,
+                pageSize: 8,
                 showChild: true,
                 deviceName: null,
                 productId: null,
@@ -691,17 +691,16 @@ export default {
         handleDelete(row) {
             const deviceIds = row.deviceId || this.ids;
             console.log(deviceIds, 'deviceIds');
+            let that = this;
             this.$modal.confirm(this.$t('device.index.105953-45', [deviceIds])).then(function () {
                 if (row.deviceType === 3) {
-                    // delSipDeviceBySipId(row.serialNumber);
+                    delSipDeviceBySipId(row.serialNumber);
                 }
-                // return delDevice(deviceIds);
+                delDevice(deviceIds).then(() => {
+                    that.getList();
+                    that.$modal.msgSuccess(this.$t('device.index.105953-47'));
+                });
             });
-            // .then(() => {
-            //     this.getList();
-            //     this.$modal.msgSuccess(this.$t('device.index.105953-47'));
-            // })
-            // .catch(() => {});
         },
         /** 未启用设备影子*/
         shadowUnEnable(device, thingsModel) {

@@ -2,7 +2,10 @@
     <div>
         <el-card style="margin: 10px">
             <el-row :gutter="10">
-                <i class="el-icon-arrow-left" @click="goBack()"></i>
+                <el-button type="text" @click="goBack()">
+                    <i class="el-icon-arrow-left" style="font-size: 16px; color: #f8f8f9"></i>
+                    <span style="color: #f8f8f9">返回</span>
+                </el-button>
                 <el-divider direction="vertical"></el-divider>
                 <span style="color: #f8f8f9">{{ $t('device.device-select-allot.903153-0') }}</span>
             </el-row>
@@ -41,7 +44,13 @@
                         <span style="font-size: 15px; font-weight: bold; float: right">{{ selectedCount }}/{{ this.count }}</span>
                     </div>
                     <el-row>
-                        <el-table ref="leftTableData" :data="menuTableData" style="width: 100%" max-height="373" @selection-change="changeCheckBoxValueLeft">
+                        <el-table
+                            class="custom-scroll"
+                            ref="leftTableData"
+                            :data="menuTableData"
+                            style="width: 100%; height: 373px; overflow-y: scroll; background-color: #0d1827"
+                            @selection-change="changeCheckBoxValueLeft"
+                        >
                             <template slot="empty">
                                 <el-empty :image-size="100" :description="$t('device.device-select-allot.903153-7')"></el-empty>
                             </template>
@@ -63,7 +72,13 @@
                         <span style="font-size: 15px; font-weight: bold; float: right">{{ selectedCount1 }}/500</span>
                     </div>
                     <el-row>
-                        <el-table ref="rightTableData" :data="rightTableData" style="width: 100%" max-height="373" @selection-change="changeCheckBoxValueRight">
+                        <el-table
+                            class="custom-scroll"
+                            ref="rightTableData"
+                            :data="rightTableData"
+                            style="width: 100%; height: 373px; overflow-y: scroll; background-color: #0d1827"
+                            @selection-change="changeCheckBoxValueRight"
+                        >
                             <template slot="empty">
                                 <el-empty :image-size="100" :description="$t('device.device-select-allot.903153-7')"></el-empty>
                             </template>
@@ -96,10 +111,10 @@
                     </div>
                 </el-form>
             </div>
+            <div style="display: flex; justify-content: center">
+                <el-button type="primary" @click="confirmDistribution">{{ $t('device.device-select-allot.903153-14') }}</el-button>
+            </div>
         </el-card>
-        <div class="footer">
-            <el-button type="primary" @click="confirmDistribution">{{ $t('device.device-select-allot.903153-14') }}</el-button>
-        </div>
     </div>
 </template>
 <script type="text/javascript">
@@ -334,6 +349,20 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '@/assets/styles/tableView.scss';
+
+/* 自定义滚动条样式 */
+.custom-scroll::-webkit-scrollbar {
+    width: 8px; /* 滚动条宽度 */
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    background-color: #4a4a4a; /* 滚动条颜色 */
+    border-radius: 4px; /* 滚动条圆角 */
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+    background: #2c2c2c; /* 滚动条轨道颜色 */
+}
 
 .topCenter {
     .el-button + .el-button {

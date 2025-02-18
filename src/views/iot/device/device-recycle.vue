@@ -2,7 +2,10 @@
     <div class="recycle-wrap">
         <el-card style="margin: 10px">
             <el-row :gutter="10">
-                <i class="el-icon-arrow-left" @click="goBack()"></i>
+                <el-button type="text" @click="goBack()">
+                    <i class="el-icon-arrow-left" style="font-size: 16px; color: #f8f8f9"></i>
+                    <span style="color: #f8f8f9">返回</span>
+                </el-button>
                 <el-divider direction="vertical"></el-divider>
                 <span style="color: #fff !important">{{ $t('device.device-recycle.864193-0') }}</span>
             </el-row>
@@ -83,10 +86,10 @@
             <div class="pagination-container">
                 <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNum" :pager-count="5" :limit.sync="queryParams.pageSize" :pageSizes="[10, 20, 30, 40]" @pagination="getList" />
             </div>
+            <div style="display: flex; justify-content: center">
+                <el-button type="primary" @click="confirmDistribution">{{ $t('device.device-recycle.864193-13') }}</el-button>
+            </div>
         </el-card>
-        <div class="footer">
-            <el-button type="primary" @click="confirmDistribution">{{ $t('device.device-recycle.864193-13') }}</el-button>
-        </div>
     </div>
 </template>
 <script type="text/javascript">
