@@ -24,14 +24,14 @@
                 <div class="icon-wrapper"><component :is="icons.status" /></div>
                 <div>
                     <div class="label">运行模式:</div>
-                    <div class="value status-normal">{{ runMode }}</div>
+                    <div class="value status-normal">{{ getRunMode }}</div>
                 </div>
             </div>
             <div class="info-item">
                 <div class="icon-wrapper"><component :is="icons.status" /></div>
                 <div>
                     <div class="label">每日一测:</div>
-                    <div class="value status-normal">{{ DailyTestStatus }}</div>
+                    <div class="value status-normal">{{ getSingerTest }}</div>
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@
         <div class="panel power-info">
             <h2>
                 <span class="icon-title"><component :is="icons.battery" /></span>
-                电池信息
+                综合信息
             </h2>
             <div class="info-item">
                 <div class="icon-wrapper"><component :is="icons.battery" /></div>
@@ -65,7 +65,7 @@
                 <div class="icon-wrapper"><component :is="icons.temperature" /></div>
                 <div>
                     <div class="label">温度:</div>
-                    <div class="value">{{ Temperature }}°C---{{ temperatureAlarm }}</div>
+                    <div class="value">{{ Temperature }}</div>
                 </div>
             </div>
         </div>
@@ -91,7 +91,7 @@
                             <div>{{ item.name }}</div>
                         </td>
                         <td class="status-normal">{{ item.type }}</td>
-                        <td class="status-normal">{{ item.status }}</td>
+                        <td :class="{ 'status-normal': item.status === '正常', 'status-warning': item.status !== '正常' }">{{ item.status }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -125,7 +125,7 @@
                         <td>{{ phase.current }} A</td>
                         <td>{{ phase.angle }}°</td>
                         <td>{{ phase.frequency }} Hz</td>
-                        <td class="status-normal">{{ phase.status }}</td>
+                        <td class="status-normal" :class="{ 'status-normal': phase.status === '正常', 'status-warning': phase.status !== '正常' }">{{ phase.status }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -351,8 +351,14 @@ export default {
         },
         Temperature() {
             if (this.CC01AlarmInfo.staticList) {
-                const _temperature = this.CC01AlarmInfo.staticList.find((item) => item.id.includes('Temperature'));
-                return _temperature.value;
+                const TemperatureSwitch = this.CC01AlarmInfo.thingsModels.find((item) => item.id.includes('TemperatureSwitch'));
+                console.log(this.CC01AlarmInfo.staticList, 'TemperatureSwitch');
+                if (TemperatureSwitch.value != 1) {
+                    return '未安装温度传感器';
+                } else {
+                    const _temperature = this.CC01AlarmInfo.staticList.find((item) => item.id.includes('Temperature'));
+                    return _temperature.value;
+                }
             } else {
                 return '-';
             }
@@ -372,7 +378,7 @@ export default {
                     return '低温';
                 }
             } else {
-                return '-';
+                return '';
             }
         },
         DeviceNameObj() {
@@ -385,7 +391,13 @@ export default {
 
                 const getExternalStatus = (Status) => {
                     const ExternalStatus = this.CC01AlarmInfo.thingsModels.find((item) => item.id.includes(Status));
-                    return ExternalStatus.value;
+                    if (ExternalStatus.value == 1) {
+                        return '常开';
+                    } else if (ExternalStatus.value == 2) {
+                        return '常闭';
+                    } else {
+                        return '-';
+                    }
                 };
 
                 const name1 = getExternalDeviceNames('External1Name');
@@ -505,18 +517,39 @@ export default {
             ];
             if (this.CC01AlarmInfo.staticList) {
                 // 报警状态
-                const UPhaseStatus = this.CC01AlarmInfo.staticList.find((item) => item.id.includes('UPhaseStatus'));
-                const VPhaseStatus = this.CC01AlarmInfo.staticList.find((item) => item.id.includes('VPhaseStatus'));
-                const WPhaseStatus = this.CC01AlarmInfo.staticList.find((item) => item.id.includes('WPhaseStatus'));
-
-                if (UPhaseStatus.value == 1) {
-                    originPhaseData[0].status = '报警';
-                }
-                if (VPhaseStatus.value == 1) {
-                    originPhaseData[1].status = '报警';
-                }
-                if (WPhaseStatus.value == 1) {
-                    originPhaseData[2].status = '报警';
+                const PowerStatus = this.CC01AlarmInfo.staticList.find((item) => item.id.includes('PowerStatus')).value;
+                if (PowerStatus == 1) {
+                    originPhaseData[1].status = '缺相';
+                    originPhaseData[1].status = '正常';
+                    originPhaseData[2].status = '正常';
+                } else if (PowerStatus == 2) {
+                    originPhaseData[0].status = '正常';
+                    originPhaseData[1].status = '缺相';
+                    originPhaseData[2].status = '正常';
+                } else if (PowerStatus == 3) {
+                    originPhaseData[0].status = '正常';
+                    originPhaseData[1].status = '正常';
+                    originPhaseData[2].status = '缺相';
+                } else if (PowerStatus == 4) {
+                    originPhaseData[0].status = '缺相';
+                    originPhaseData[1].status = '正常';
+                    originPhaseData[2].status = '缺相';
+                } else if (PowerStatus == 5) {
+                    originPhaseData[0].status = '缺相';
+                    originPhaseData[1].status = '缺相';
+                    originPhaseData[2].status = '正常';
+                } else if (PowerStatus == 6) {
+                    originPhaseData[0].status = '正常';
+                    originPhaseData[1].status = '缺相';
+                    originPhaseData[2].status = '缺相';
+                } else if (PowerStatus == 7) {
+                    originPhaseData[0].status = '停电';
+                    originPhaseData[1].status = '停电';
+                    originPhaseData[2].status = '停电';
+                } else if (PowerStatus == 8) {
+                    originPhaseData[0].status = '错相';
+                    originPhaseData[1].status = '错相';
+                    originPhaseData[2].status = '错相';
                 }
 
                 // 电压
@@ -539,6 +572,38 @@ export default {
             }
 
             return originPhaseData;
+        },
+        getRunMode() {
+            if (this.CC01AlarmInfo.staticList) {
+                const _runMode = this.CC01AlarmInfo.staticList.find((item) => item.id.includes('MuteStatus'));
+                if (_runMode.value == 1) {
+                    return '消音';
+                } else if (_runMode.value == 2) {
+                    return '正常';
+                } else if (_runMode.value == 3) {
+                    return '消音';
+                } else if (_runMode.value == 4) {
+                    return '正常';
+                }
+            } else {
+                return '-';
+            }
+        },
+        getSingerTest() {
+            if (this.CC01AlarmInfo.staticList) {
+                const _runMode = this.CC01AlarmInfo.staticList.find((item) => item.id.includes('MuteStatus'));
+                if (_runMode.value == 1) {
+                    return '已测';
+                } else if (_runMode.value == 2) {
+                    return '已测';
+                } else if (_runMode.value == 3) {
+                    return '未测';
+                } else if (_runMode.value == 4) {
+                    return '未测';
+                }
+            } else {
+                return '-';
+            }
         },
     },
     data() {
@@ -748,5 +813,15 @@ tr:hover {
 
 .external-icon {
     mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 3h18v18H3V3m2 2v14h14V5H5z"/></svg>');
+}
+
+.status-normal {
+    color: #40ff40;
+    text-shadow: 0 0 5px rgba(64, 255, 64, 0.5);
+}
+
+.status-warning {
+    color: #ff4040;
+    text-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
 }
 </style>

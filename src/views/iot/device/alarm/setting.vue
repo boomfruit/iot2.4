@@ -1,5 +1,5 @@
 <template>
-    <div class="settings-container">
+    <div class="settings-container" v-loading="loading" element-loading-text="加载中..." element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.7)">
         <el-row :gutter="20">
             <el-col :span="8">
                 <div class="settings-card half-width">
@@ -32,7 +32,7 @@
                         <div class="form-group">
                             <label>报警开关</label>
                             <label class="switch">
-                                <input v-model="tempAlarm" type="checkbox" @change="handleInputChange('tempAlarm', tempAlarm)" />
+                                <input v-model="tempAlarm" :true-value="1" :false-value="2" type="checkbox" @change="handleInputChange('tempAlarm', tempAlarm)" />
                                 <span class="slider" />
                             </label>
                         </div>
@@ -60,18 +60,18 @@
                     <label>电流上限</label>
                     <input v-model="currentUpper" type="text" @blur="handleInputChange('currentUpper', currentUpper)" />
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label>电流检测</label>
                     <label class="switch">
                         <input v-model="currentDetection" type="checkbox" @change="handleInputChange('currentDetection', currentDetection)" />
                         <span class="slider" />
                     </label>
-                </div>
+                </div> -->
             </div>
         </div>
 
         <!-- Basic Information Section -->
-        <div class="settings-card">
+        <!-- <div class="settings-card">
             <div class="card-header">
                 <i class="icon basic-icon" />
                 <span>基本信息</span>
@@ -99,12 +99,8 @@
                     <label>熄屏时间</label>
                     <input v-model="screenOffTime" type="text" @blur="handleInputChange('screenOffTime', screenOffTime)" />
                 </div>
-                <!-- <div class="form-group">
-                    <label>每日一测</label>
-                    <input v-model="dailyTest" type="text" @blur="handleInputChange('dailyTest', dailyTest)" />
-                </div> -->
             </div>
-        </div>
+        </div> -->
 
         <div class="settings-card">
             <div class="card-header">
@@ -119,7 +115,7 @@
                 <div class="form-group">
                     <label>外部1类型</label>
                     <label class="switch">
-                        <input v-model="External1Type" type="checkbox" @change="handleInputChange('External1Type', External1Type)" />
+                        <input v-model="External1Type" :true-value="1" :false-value="2" type="checkbox" @change="handleInputChange('External1Type', External1Type)" />
                         <span class="slider" />
                     </label>
                 </div>
@@ -137,7 +133,7 @@
                 <div class="form-group">
                     <label>外部2类型</label>
                     <label class="switch">
-                        <input v-model="External2Type" type="checkbox" @change="handleInputChange('External2Type', External2Type)" />
+                        <input v-model="External2Type" :true-value="1" :false-value="2" type="checkbox" @change="handleInputChange('External2Type', External2Type)" />
                         <span class="slider" />
                     </label>
                 </div>
@@ -152,7 +148,7 @@
             <div class="form-row">
                 <div class="form-group">
                     <label>外部3</label>
-                    <input v-model="external3" maxlength="5" type="text" @blur="handleInputChange('external3', external3)" />
+                    <input v-model="external3" :true-value="1" :false-value="2" maxlength="5" type="text" @blur="handleInputChange('external3', external3)" />
                 </div>
                 <div class="form-group">
                     <label>外部3类型</label>
@@ -175,7 +171,7 @@
                 <div class="form-group">
                     <label>外部4类型</label>
                     <label class="switch">
-                        <input v-model="External4Type" type="checkbox" @change="handleInputChange('External4Type', External4Type)" />
+                        <input v-model="External4Type" :true-value="1" :false-value="2" type="checkbox" @change="handleInputChange('External4Type', External4Type)" />
                         <span class="slider" />
                     </label>
                 </div>
@@ -195,7 +191,7 @@
                 <div class="form-group">
                     <label>外部5类型</label>
                     <label class="switch">
-                        <input v-model="External5Type" type="checkbox" @change="handleInputChange('External5Type', External5Type)" />
+                        <input v-model="External5Type" :true-value="1" :false-value="2" type="checkbox" @change="handleInputChange('External5Type', External5Type)" />
                         <span class="slider" />
                     </label>
                 </div>
@@ -208,7 +204,7 @@
                 </div>
                 <div class="form-group">
                     <label>外部6</label>
-                    <input v-model="external6" maxlength="5" type="text" @blur="handleInputChange('external6', external6)" />
+                    <input v-model="external6" :true-value="1" :false-value="2" maxlength="5" type="text" @blur="handleInputChange('external6', external6)" />
                 </div>
                 <div class="form-group">
                     <label>外部6类型</label>
@@ -249,45 +245,47 @@ export default {
     },
     data() {
         return {
-            deviceName: '',
-            voltageUpper: '',
-            voltageLower: '',
-            currentUpper: '',
-            currentDetection: false,
-            tempUpper: '0',
-            tempLower: '',
-            tempAlarm: false,
-            timeSync: false,
-            brightness: '',
-            autoScreen: false,
+            deviceName: '', // ok
+            voltageUpper: '', // ok
+            voltageLower: '', // ok
+            currentUpper: '', // ok
+            currentDetection: false, // ok
+            tempUpper: '0', // ok
+            tempLower: '', // ok
+            tempAlarm: false, // ok
+            timeSync: false, // ok
+            brightness: '', // ok
+            autoScreen: false, // ok
             screenOffTime: '',
-            dailyTest: '',
-            external1: '',
-            external2: '',
-            external3: '',
-            external4: '',
-            external5: '',
-            external6: '',
-            External1EnabledStatus: false,
-            External2EnabledStatus: false,
-            External3EnabledStatus: false,
-            External4EnabledStatus: false,
-            External5EnabledStatus: false,
-            External6EnabledStatus: false,
-            External1Type: '',
-            External2Type: '',
-            External3Type: '',
-            External4Type: '',
-            External5Type: '',
-            External6Type: '',
+            dailyTest: '', // ok
+            external1: '', // ok
+            external2: '', // ok
+            external3: '', // ok
+            external4: '', // ok
+            external5: '', // ok
+            external6: '', // ok
+            External1EnabledStatus: false, // ok
+            External2EnabledStatus: false, // ok
+            External3EnabledStatus: false, // ok
+            External4EnabledStatus: false, // ok
+            External5EnabledStatus: false, // ok
+            External6EnabledStatus: false, // ok
+            External1Type: '', // ok
+            External2Type: '', // ok
+            External3Type: '', // ok
+            External4Type: '', // ok
+            External5Type: '', // ok
+            External6Type: '', // ok
             centerDialogVisible: false,
             currentChangeKey: '',
             currentChangeValue: '',
+            loading: false,
         };
     },
     mounted() {
         let urlParams = new URLSearchParams(window.location.search);
         let deviceId = urlParams.get('deviceId');
+
         getDeviceRunningStatus({ deviceId: deviceId }).then((res) => {
             let newVal = res.data;
             const _deviceNames = newVal.thingsModels.filter((item) => item.id.includes('LocalAlarmName'));
@@ -316,7 +314,7 @@ export default {
 
             // 外部名称
             const getExternalDeviceNames = (externalName) => {
-                const filteredDevices = this.CC01AlarmInfo.thingsModels.filter((item) => item.id.includes(externalName));
+                const filteredDevices = newVal.thingsModels.filter((item) => item.id.includes(externalName));
                 filteredDevices.sort((a, b) => a.id.split(externalName)[1] - b.id.split(externalName)[1]);
                 return filteredDevices.map((item) => item.value).join('');
             };
@@ -330,12 +328,13 @@ export default {
             this.external6 = getExternalDeviceNames('External6Name');
 
             // 外部设备类型
-            this.External1Type = newVal.thingsModels.find((item) => item.id.includes('External1Type')).value == 1 ? true : false;
-            this.External2Type = newVal.thingsModels.find((item) => item.id.includes('External2Type')).value == 1 ? true : false;
-            this.External3Type = newVal.thingsModels.find((item) => item.id.includes('External3Type')).value == 1 ? true : false;
-            this.External4Type = newVal.thingsModels.find((item) => item.id.includes('External4Type')).value == 1 ? true : false;
-            this.External5Type = newVal.thingsModels.find((item) => item.id.includes('External5Type')).value == 1 ? true : false;
-            this.External6Type = newVal.thingsModels.find((item) => item.id.includes('External6Type')).value == 1 ? true : false;
+            this.External1Type = newVal.thingsModels.find((item) => item.id.includes('External1Type')).value;
+            this.External2Type = newVal.thingsModels.find((item) => item.id.includes('External2Type')).value;
+            this.External3Type = newVal.thingsModels.find((item) => item.id.includes('External3Type')).value;
+            this.External4Type = newVal.thingsModels.find((item) => item.id.includes('External4Type')).value;
+            this.External5Type = newVal.thingsModels.find((item) => item.id.includes('External5Type')).value;
+            this.External6Type = newVal.thingsModels.find((item) => item.id.includes('External6Type')).value;
+            // console.log(newVal.thingsModels);
 
             // 外部设备启用状态
             this.External1EnabledStatus = newVal.thingsModels.find((item) => item.id.includes('External1EnabledStatus')).value == 1 ? true : false;
@@ -364,19 +363,30 @@ export default {
                 for (let i = 0; i < valueArray.length && i < 9; i++) {
                     fixedLengthArray[i] = valueArray[i];
                 }
-                fixedLengthArray.forEach((item, idx) => {
-                    serviceInvoke({
-                        identifier: deviceId,
-                        isShadow: false,
-                        productId: this.device.productId,
-                        remoteCommand: {
-                            ['LocalAlarmName' + parseInt(idx + 1)]: item,
-                        },
-                        serialNumber: this.device.serialNumber,
-                        type: 2,
-                    }).then(() => {
-                        this.centerDialogVisible = false;
+                let promise = Promise.resolve(); // 初始化一个已解决的 Promise
+                this.loading = true;
+                this.centerDialogVisible = false;
+                let requests = fixedLengthArray.map((item, idx) => {
+                    return (promise = promise.then(() => {
+                        return serviceInvoke({
+                            identifier: 'LocalAlarmName' + parseInt(idx + 1),
+                            isShadow: false,
+                            productId: this.device.productId,
+                            remoteCommand: {
+                                ['LocalAlarmName' + parseInt(idx + 1)]: item,
+                            },
+                            serialNumber: this.device.serialNumber,
+                            type: 2,
+                        }).then(() => {});
+                    }));
+                });
+                // 在所有请求完成后触发消息弹出
+                Promise.all(requests).then(() => {
+                    this.$message({
+                        message: '数据保存完成！',
+                        type: 'success',
                     });
+                    this.loading = false;
                 });
             } else if (
                 this.currentChangeKey == 'external1' ||
@@ -403,48 +413,89 @@ export default {
                     external6: 'External6Name',
                 };
 
-                fixedLengthArray.forEach((item, idx) => {
-                    serviceInvoke({
-                        identifier: deviceId,
-                        isShadow: false,
-                        productId: this.device.productId,
-                        remoteCommand: {
-                            [nameObj[this.currentChangeKey] + parseInt(idx + 1)]: item,
-                        },
-                        serialNumber: this.device.serialNumber,
-                        type: 2,
-                    }).then(() => {
-                        this.centerDialogVisible = false;
+                let promise = Promise.resolve(); // 初始化一个已解决的 Promise
+                this.loading = true;
+                this.centerDialogVisible = false;
+                let requests = fixedLengthArray.map((item, idx) => {
+                    return (promise = promise.then(() => {
+                        return serviceInvoke({
+                            identifier: nameObj[this.currentChangeKey] + parseInt(idx + 1),
+                            isShadow: false,
+                            productId: this.device.productId,
+                            remoteCommand: {
+                                [nameObj[this.currentChangeKey] + parseInt(idx + 1)]: item,
+                            },
+                            serialNumber: this.device.serialNumber,
+                            type: 2,
+                        }).then(() => {});
+                    }));
+                });
+                // 在所有请求完成后触发消息弹出
+                Promise.all(requests).then(() => {
+                    this.$message({
+                        message: '数据保存完成！',
+                        type: 'success',
                     });
+                    this.loading = false;
                 });
             } else if (
-                this.currentChangeKey == 'External1Type' ||
-                this.currentChangeKey == 'External2Type' ||
-                this.currentChangeKey == 'External3Type' ||
-                this.currentChangeKey == 'External4Type' ||
-                this.currentChangeKey == 'External5Type' ||
-                this.currentChangeKey == 'External6Type' ||
-                this.currentChangeKey == 'External1EnabledStatus' ||
-                this.currentChangeKey == 'External2EnabledStatus' ||
-                this.currentChangeKey == 'External3EnabledStatus' ||
-                this.currentChangeKey == 'External4EnabledStatus' ||
-                this.currentChangeKey == 'External5EnabledStatus' ||
-                this.currentChangeKey == 'External6EnabledStatus' ||
-                this.currentChangeKey == 'tempAlarm' ||
-                this.currentChangeKey == 'currentDetection' ||
-                this.currentChangeKey == 'timeSync' ||
-                this.currentChangeKey == 'autoScreen'
+                [
+                    'External1Type',
+                    'External2Type',
+                    'External3Type',
+                    'External4Type',
+                    'External5Type',
+                    'External6Type',
+                    'External1EnabledStatus',
+                    'External2EnabledStatus',
+                    'External3EnabledStatus',
+                    'External4EnabledStatus',
+                    'External5EnabledStatus',
+                    'External6EnabledStatus',
+                    'tempAlarm',
+                    'currentDetection',
+                    'timeSync',
+                    'autoScreen',
+                ].includes(this.currentChangeKey)
             ) {
+                let addrMap = {
+                    External1Type: 'External1Type',
+                    External2Type: 'External2Type',
+                    External3Type: 'External3Type',
+                    External4Type: 'External4Type',
+                    External5Type: 'External5Type',
+                    External6Type: 'External6Type',
+                    External1EnabledStatus: 'External1EnabledStatus',
+                    External2EnabledStatus: 'External2EnabledStatus',
+                    External3EnabledStatus: 'External3EnabledStatus',
+                    External4EnabledStatus: 'External4EnabledStatus',
+                    External5EnabledStatus: 'External5EnabledStatus',
+                    External6EnabledStatus: 'External6EnabledStatus',
+                    tempAlarm: 'TemperatureSwitch',
+                    currentDetection: 'CurrentDetectionEnabledStatus',
+                    timeSync: 'timeSync',
+                    autoScreen: 'ScreenOffSwitch',
+                };
                 this.centerDialogVisible = true;
                 let urlParams = new URLSearchParams(window.location.search);
                 let deviceId = urlParams.get('deviceId');
+
+                let remoteCommandData = {};
+                let arr = ['External1Type', 'External2Type', 'External3Type', 'External4Type', 'External5Type', 'External6Type', 'TemperatureSwitch'];
+                if (arr.includes(addrMap[this.currentChangeKey])) {
+                    if (this.currentChangeValue == 1) {
+                        remoteCommandData[addrMap[this.currentChangeKey]] = 1;
+                    } else {
+                        remoteCommandData[addrMap[this.currentChangeKey]] = 2;
+                    }
+                } else {
+                    remoteCommandData[addrMap[this.currentChangeKey]] = this.currentChangeValue ? 1 : 0;
+                }
                 serviceInvoke({
-                    identifier: deviceId,
+                    identifier: addrMap[this.currentChangeKey],
                     isShadow: false,
                     productId: this.device.productId,
-                    remoteCommand: {
-                        [this.currentChangeKey]: this.currentChangeValue ? 1 : 0,
-                    },
+                    remoteCommand: remoteCommandData,
                     serialNumber: this.device.serialNumber,
                     type: 2,
                 }).then(() => {
@@ -454,12 +505,20 @@ export default {
                 this.centerDialogVisible = true;
                 let urlParams = new URLSearchParams(window.location.search);
                 let deviceId = urlParams.get('deviceId');
+                let addrMap = {
+                    voltageUpper: 'VoltageUpperLimit',
+                    voltageLower: 'VoltageLowerLimit',
+                    currentUpper: 'CurrentUpperLimit',
+                    tempUpper: 'TemperatureUpperLimit',
+                    tempLower: 'TemperatureLowerLimit',
+                    brightness: 'ScreenBrightness',
+                };
                 serviceInvoke({
-                    identifier: deviceId,
+                    identifier: addrMap[this.currentChangeKey],
                     isShadow: false,
                     productId: this.device.productId,
                     remoteCommand: {
-                        [this.currentChangeKey]: this.currentChangeValue,
+                        [addrMap[this.currentChangeKey]]: this.currentChangeValue,
                     },
                     serialNumber: this.device.serialNumber,
                     type: 2,
