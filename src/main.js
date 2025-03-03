@@ -12,6 +12,10 @@ import directive from './directive'; // directive
 import plugins from './plugins'; // plugins
 import './assets/icons'; // icon
 import './permission'; // permission control
+import VxeUITable from 'vxe-table';
+import { VxeUI } from 'vxe-table';
+VxeUI.setTheme('dark');
+import 'vxe-table/lib/style.css';
 import { i18n } from '@/lang';
 
 import busEvent from '@/utils/busEvent';
@@ -88,6 +92,7 @@ Vue.use(directive);
 Vue.use(VueMeta);
 Vue.use(VueClipboard);
 Vue.use(dataV);
+Vue.use(VxeUITable);
 Vue.use(VideoPlayer);
 Vue.use(BaiduMap, { ak: process.env.VUE_APP_BAI_DU_AK });
 

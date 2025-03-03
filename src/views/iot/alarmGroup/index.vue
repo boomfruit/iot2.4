@@ -40,75 +40,72 @@
                 <el-form-item label="绑定设备">
                     <el-tree style="width: 220px" ref="tree" :data="treeData" show-checkbox :default-checked-keys="checkedKeys" node-key="id" @check="handleCheckChange" />
                 </el-form-item>
-                <el-form-item label="通知用户">
-                    <el-select v-model="bindusers" multiple allow-clear>
-                        <el-option v-for="user in userList" :key="user.value" :label="user.label" :value="user.value" />
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="短信通知:">
-                    <el-select v-model="dataForm.groupSmsNotify" allow-clear>
-                        <el-option v-for="option in selectOpenList" :key="option.value" :label="option.label" :value="option.value" />
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="语音通知:">
-                    <el-select v-model="dataForm.groupCallNotify" allow-clear>
-                        <el-option v-for="option in selectOpenList" :key="option.value" :label="option.label" :value="option.value" />
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="微信推送:">
-                    <el-select v-model="dataForm.groupWechatNotify" allow-clear>
-                        <el-option v-for="option in selectOpenList" :key="option.value" :label="option.label" :value="option.value" />
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="额外用户">
-                    <div v-for="(item, index) in dataForm.extraUsersList" :key="index" style="margin-bottom: 20px">
-                        <el-row>
-                            <el-col :span="3">手机号码:</el-col>
-                            <el-col :span="18">
-                                <el-input v-model="item.phoneNumber" placeholder="请输入手机号" style="width: 220px; margin-right: 8px" />
-                            </el-col>
-                        </el-row>
-                        <el-row>
-                            <el-col :span="3">电话推送:</el-col>
-                            <el-col :span="18">
-                                <el-select v-model="item.notifyCall" allow-clear>
-                                    <el-option v-for="option in selectOpenList" :key="option.value" :label="option.label" :value="option.value" />
-                                </el-select>
-                            </el-col>
-                        </el-row>
-                        <el-row>
-                            <el-col :span="3">短信推送:</el-col>
-                            <el-col :span="18">
-                                <el-select v-model="item.notifySms" allow-clear>
-                                    <el-option v-for="option in selectOpenList" :key="option.value" :label="option.label" :value="option.value" />
-                                </el-select>
-                            </el-col>
-                        </el-row>
-                        <el-row>
-                            <el-col :span="3">备注:</el-col>
-                            <el-col :span="18">
-                                <el-input v-model="item.remark" placeholder="备注" style="width: 220px; margin-right: 8px" />
-                            </el-col>
-                        </el-row>
-                        <el-row style="margin-top: 10px">
-                            <el-col :span="9" :offset="3">
-                                <el-button :disabled="dataForm.extraUsersList.length === 0 || !showMode" style="width: 60%" @click="removeDomain(item)">删除</el-button>
-                            </el-col>
-                        </el-row>
-                    </div>
-                    <el-row>
-                        <el-col :span="5" :offset="1">
-                            <el-button type="dashed" style="width: 100%" @click="addDomain">
-                                <i class="el-icon-plus" />
-                                添加
-                            </el-button>
-                        </el-col>
-                    </el-row>
+                <el-form-item label="通知设置">
+                    <el-table :data="alarmTypeList" style="width: 100%" row-key="id" :expand-row-keys="expandRows" @expand-change="handleExpandChange">
+                        <el-table-column type="expand">
+                            <template slot-scope="props">
+                                <div class="bound-users-list">
+                                    <div v-for="(user, index) in props.row.users" :key="index" style="margin-bottom: 20px">
+                                        <el-row>
+                                            <el-col :span="3">姓名:</el-col>
+                                            <el-col :span="18">
+                                                <el-input v-model="user.name" placeholder="请输入姓名" style="width: 220px; margin-right: 8px" />
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="3">手机号码:</el-col>
+                                            <el-col :span="18">
+                                                <el-input v-model="user.phone" placeholder="请输入手机号" style="width: 220px; margin-right: 8px" @blur="validatePhone(user)" />
+                                                <span v-if="user.phoneError" style="color: red; font-size: 12px">请输入有效的手机号码</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row style="margin-top: 10px">
+                                            <el-col :span="9" :offset="3">
+                                                <el-button style="width: 60%" @click="removeUser(props.row, index)">删除</el-button>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                    <el-row>
+                                        <el-col :span="24">
+                                            <el-button type="dashed" style="width: 100%" @click="addUserToAlarmType(props.row)">
+                                                <i class="el-icon-plus"></i>
+                                                添加接收人
+                                            </el-button>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="报警类型" prop="name"></el-table-column>
+                        <el-table-column label="电话报警" width="120">
+                            <template slot-scope="scope">
+                                <el-switch v-model="scope.row.callNotify" active-color="#13ce66" :active-value="1" :inactive-value="0" inactive-color="#ff4949"></el-switch>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="短信报警" width="120">
+                            <template slot-scope="scope">
+                                <el-switch v-model="scope.row.smsNotify" active-color="#13ce66" :active-value="1" :inactive-value="0" inactive-color="#ff4949"></el-switch>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="微信报警" width="120">
+                            <template slot-scope="scope">
+                                <el-switch v-model="scope.row.wechatNotify" active-color="#13ce66" :active-value="1" :inactive-value="0" inactive-color="#ff4949"></el-switch>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="绑定人数" width="120">
+                            <template slot-scope="scope">
+                                <el-tag type="info">{{ scope.row.users.length }} 人</el-tag>
+                            </template>
+                        </el-table-column>
+                    </el-table>
                 </el-form-item>
                 <el-form-item label="报警优先级:">
                     <el-select v-model="dataForm.priority" allow-clear>
                         <el-option v-for="option in priorityOptions" :key="option.value" :label="option.label" :value="option.value" />
                     </el-select>
+                </el-form-item>
+                <el-form-item label="升级时间:" v-if="dataForm.priority === 1 || dataForm.priority === 2">
+                    <el-input-number v-model="dataForm.upgradeTime" :min="1" placeholder="请选择升级时间" />
                 </el-form-item>
                 <el-form-item label="状态:">
                     <el-select v-model="dataForm.status" allow-clear>
@@ -132,6 +129,7 @@ import { getGroupById, listGroups, addGroup, editGroup, delGroup, getBarnsAlarmD
 import { getFarmsDevice } from '@/api/iot/device';
 import { listBarns } from '@/api/iot/barns';
 import { listUser } from '@/api/system/user';
+import { listData } from '@/api/system/dict/data';
 let that;
 
 const columns = [
@@ -200,6 +198,7 @@ export default {
                 groupWechatNotify: 1,
                 priority: '1',
                 status: 1,
+                upgradeTime: 5,
             },
             showMode: true,
             visible: false,
@@ -225,6 +224,10 @@ export default {
             userList: [],
             tableData: [],
             delVisible: false,
+            // ----
+            expandRows: [], // 当前展开的行
+            alarmTypeList: [],
+            originAlarmTypeList: [],
         };
     },
     beforeCreate() {
@@ -234,8 +237,36 @@ export default {
         this.getDeviceList();
         this.getUserList();
         this.getGroupList();
+        this.getDictData();
     },
     methods: {
+        async getDictData() {
+            const res = await listData({
+                dictType: 'alarm_message_type',
+            });
+
+            let _alarmTypeList = res.rows.map((item, idx) => {
+                return {
+                    id: idx + 1,
+                    name: item.dictLabel,
+                    callNotify: 1,
+                    smsNotify: 1,
+                    wechatNotify: 0,
+                    users: [],
+                };
+            });
+            this.alarmTypeList = res.rows.map((item, idx) => {
+                return {
+                    id: idx + 1,
+                    name: item.dictLabel,
+                    callNotify: 1,
+                    smsNotify: 1,
+                    wechatNotify: 0,
+                    users: [],
+                };
+            });
+            this.originAlarmTypeList = JSON.parse(JSON.stringify(_alarmTypeList));
+        },
         showDeletePopover() {
             console.log('删除按钮被点击');
             this.delVisible = true;
@@ -266,25 +297,6 @@ export default {
                     }),
                 };
             });
-            // const res = await listBarns();
-            // const farmList = await Promise.all(
-            //     res.rows.map(async (item) => {
-            //         const deviceLists = await getFarmsDevice(item.id);
-            //         return { name: item.name, id: item.id, deviceLists };
-            //     })
-            // );
-            // this.treeData = farmList.map((barn) => {
-            //     return {
-            //         label: barn.name,
-            //         id: barn.id,
-            //         children: barn.deviceLists.data.map((device) => {
-            //             return {
-            //                 label: device.deviceName,
-            //                 id: device.devicesId,
-            //             };
-            //         }),
-            //     };
-            // });
         },
         async getUserList() {
             const res = await listUser({
@@ -328,15 +340,21 @@ export default {
             this.checksDevices = [];
             this.bindusers = [];
             this.checkedKeys = [];
-            this.dataForm = {
-                groupName: '',
-                extraUsersList: [],
-                groupSmsNotify: 1,
-                groupCallNotify: 1,
-                groupWechatNotify: 1,
-                priority: 1,
-                status: 1,
-            };
+            listData({
+                dictType: 'alarm_message_type',
+            }).then((res) => {
+                this.alarmTypeList = res.rows.map((item, idx) => {
+                    return {
+                        id: idx + 1,
+                        name: item.dictLabel,
+                        callNotify: 1,
+                        smsNotify: 1,
+                        wechatNotify: 0,
+                        users: [],
+                    };
+                });
+            });
+            this.dataForm.priority = 1;
             this.showMode = true;
             this.visible = true;
             this.title = '添加分组';
@@ -362,7 +380,29 @@ export default {
             this.dataForm = res.data;
             this.visible = true;
             this.checkedKeys = this.dataForm.devicesList.map((item) => item.deviceNo);
-            this.bindusers = this.dataForm.innerUsersList.map((item) => item.userId);
+            this.alarmTypeList = res.data.notifyReceiveConfigInfoList.map((item, idx) => {
+                return {
+                    id: item.confInfoId,
+                    name: item.alarmReceiveType,
+                    callNotify: item.callNotify,
+                    smsNotify: item.smsNotify,
+                    wechatNotify: item.wechatNotify,
+                    users: item.receiveUsersList.map((user) => {
+                        return {
+                            name: user.receiveUserName,
+                            phone: user.phoneNumber,
+                        };
+                    }),
+                };
+            });
+            console.log(res.data.notifyReceiveConfigInfoList, 'this.res.data.notifyReceiveConfigInfoList');
+            // 重置报警类型的用户列表
+            // this.alarmTypeList.forEach((type) => {
+            //     type.users = [];
+            // });
+
+            // 映射用户到报警类型
+            // this.mapUsersToAlarmTypes();
         },
         async removeTableData(record) {
             const id = record.alarmNotifyGroupNo;
@@ -373,68 +413,97 @@ export default {
             this.getGroupList();
             this.resetModal();
         },
+        validatePhone(user) {
+            const phoneRegex = /^1[3-9]\d{9}$/;
+            if (!user.phone || !phoneRegex.test(user.phone)) {
+                this.$set(user, 'phoneError', true);
+                return false;
+            } else {
+                this.$set(user, 'phoneError', false);
+                return true;
+            }
+        },
         addAndEditModalOk() {
             this.$refs.formRef.validate((valid) => {
                 if (valid) {
+                    // 验证所有电话号码
+                    let phoneValid = true;
+                    this.alarmTypeList.forEach((type) => {
+                        type.users.forEach((user) => {
+                            if (!this.validatePhone(user)) {
+                                phoneValid = false;
+                            }
+                        });
+                    });
+
+                    if (!phoneValid) {
+                        this.$message.error('请检查并填写正确的手机号码');
+                        return;
+                    }
                     const list = this.commitKeys;
                     if (this.dataForm.alarmNotifyGroupNo) {
-                        let _devicesList = [];
-                        if (list.length === 0) {
-                            _devicesList = this.checkedKeys.map((item) => {
-                                return {
-                                    deviceNo: item,
-                                };
-                            });
-                        } else {
-                            _devicesList = list.map((item) => {
-                                return {
-                                    deviceNo: item,
-                                };
-                            });
+                        let obj = {};
+                        obj.alarmNotifyGroupNo = this.dataForm.alarmNotifyGroupNo;
+                        obj.groupName = this.dataForm.groupName;
+                        obj.priority = this.dataForm.priority;
+                        obj.status = this.dataForm.status;
+                        obj.remark = this.dataForm.remark;
+                        if (this.dataForm.priority === 1 || this.dataForm.priority === 2) {
+                            obj.upgradeTime = this.dataForm.upgradeTime;
                         }
-
-                        let _obj = {
-                            ...this.dataForm,
-                            devicesList: list,
-                            innerUsersList: this.bindusers,
-                        };
-                        _obj.devicesList = _devicesList;
-                        _obj.innerUsersList = _obj.innerUsersList.map((user) => {
-                            const foundUser = this.userList.find((u) => u.value === user);
-                            return {
-                                nickName: foundUser ? foundUser.label : user,
-                                userId: user,
-                            };
-                        });
-                        let _alarmNotifyGroupNo = _obj.alarmNotifyGroupNo;
-                        delete _obj.companyId;
-                        delete _obj.createUserId;
-                        editGroup(_obj).then((res) => {
-                            this.$message.success('修改成功');
-                            this.resetModal();
-                        });
-                        console.log(_obj, '_obj');
-                    } else {
-                        let _obj = {
-                            ...this.dataForm,
-                            devicesList: list,
-                            innerUsersList: this.bindusers,
-                        };
-                        let _devicesList = _obj.devicesList.map((item) => {
+                        obj.devicesList = list.map((item) => {
                             return {
                                 deviceNo: item,
                             };
                         });
-                        _obj.devicesList = _devicesList;
-                        // _obj.innerUsersList =
-                        _obj.innerUsersList = _obj.innerUsersList.map((user) => {
-                            const foundUser = this.userList.find((u) => u.value === user);
+                        obj.notifyReceiveConfigInfoList = this.alarmTypeList.map((item) => {
                             return {
-                                nickName: foundUser ? foundUser.label : user,
-                                userId: user,
+                                confInfoId: item.id,
+                                alarmReceiveType: item.name,
+                                callNotify: item.callNotify,
+                                smsNotify: item.smsNotify,
+                                wechatNotify: item.wechatNotify,
+                                receiveUsersList: item.users.map((user) => {
+                                    return {
+                                        receiveUserName: user.name,
+                                        phoneNumber: user.phone,
+                                    };
+                                }),
                             };
                         });
-                        addGroup(_obj).then((res) => {
+                        editGroup(obj).then((res) => {
+                            this.$message.success('修改成功');
+                            this.resetModal();
+                        });
+                    } else {
+                        let obj = {};
+                        obj.groupName = this.dataForm.groupName;
+                        obj.priority = this.dataForm.priority;
+                        obj.status = this.dataForm.status;
+                        obj.remark = this.dataForm.remark;
+                        if (this.dataForm.priority === 1 || this.dataForm.priority === 2) {
+                            obj.upgradeTime = this.dataForm.upgradeTime;
+                        }
+                        obj.devicesList = list.map((item) => {
+                            return {
+                                deviceNo: item,
+                            };
+                        });
+                        obj.notifyReceiveConfigInfoList = this.alarmTypeList.map((item) => {
+                            return {
+                                alarmReceiveType: item.name,
+                                callNotify: item.callNotify,
+                                smsNotify: item.smsNotify,
+                                wechatNotify: item.wechatNotify,
+                                receiveUsersList: item.users.map((user) => {
+                                    return {
+                                        receiveUserName: user.name,
+                                        phoneNumber: user.phone,
+                                    };
+                                }),
+                            };
+                        });
+                        addGroup(obj).then((res) => {
                             this.$message.success('增加成功');
                             this.resetModal();
                         });
@@ -458,6 +527,43 @@ export default {
             this.visible = false;
             this.getGroupList();
         },
+        handleExpandChange(row, expandedRows) {
+            // 如果有展开的行，则记录展开的行的id
+            if (expandedRows.length > 0) {
+                this.expandRows = expandedRows.map((item) => item.id);
+            } else {
+                this.expandRows = [];
+            }
+        },
+        // 添加用户到报警类型
+        addUserToAlarmType(alarmType) {
+            // 直接添加一个空用户对象
+            alarmType.users.push({
+                name: '',
+                phone: '',
+            });
+        },
+        // 从报警类型中移除用户
+        removeUser(alarmType, index) {
+            alarmType.users.splice(index, 1);
+        },
+        // 在提交表单时，需要将alarmTypeList中的数据映射回用户列表
+        mapAlarmTypesToUsers() {
+            let innerUsersList = [];
+            this.alarmTypeList.forEach((alarmType) => {
+                alarmType.users.forEach((user) => {
+                    if (user.name && user.phone) {
+                        // 只添加有姓名和电话的用户
+                        innerUsersList.push({
+                            nickName: user.name,
+                            phoneNumber: user.phone,
+                            alarmTypeId: alarmType.id,
+                        });
+                    }
+                });
+            });
+            this.dataForm.innerUsersList = innerUsersList;
+        },
     },
 };
 </script>
@@ -470,5 +576,46 @@ export default {
 }
 .search-header {
     margin-bottom: 10px;
+}
+/* 新增样式 */
+.bound-users-list {
+    padding: 10px 20px;
+}
+
+.user-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #ebeef5;
+}
+
+.user-name {
+    font-weight: 500;
+}
+
+.user-phone {
+    color: #909399;
+}
+
+.add-user-btn {
+    margin-top: 10px;
+    padding: 8px;
+    text-align: center;
+    border: 1px dashed #dcdfe6;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #409eff;
+}
+
+.add-user-btn:hover {
+    background-color: #0d1827;
+}
+
+::v-deep .el-table__expanded-cell {
+    background-color: #0d1827 !important;
+    border-bottom: none !important;
+    padding: 20px 30px !important;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05) !important;
+    border-radius: 0 0 4px 4px !important;
 }
 </style>

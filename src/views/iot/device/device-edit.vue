@@ -1177,14 +1177,14 @@ export default {
             //Mqtt订阅
             this.connectMqtt();
             this.mqttSubscribe(this.form);
-
-            if (response.data.productId == 152 || response.data.productId == 154 || response.data.productId == 155 || response.data.productId == 169 || response.data.productId == 172) {
-                setTimeout(() => {
-                    this.pageLoading = false;
-                }, 3000);
-            } else {
-                this.pageLoading = false;
-            }
+            this.pageLoading = false;
+            // if (response.data.productId == 152 || response.data.productId == 154 || response.data.productId == 155 || response.data.productId == 169 || response.data.productId == 172) {
+            //     setTimeout(() => {
+            //         this.pageLoading = false;
+            //     }, 3000);
+            // } else {
+            //     this.pageLoading = false;
+            // }
         },
         /**选择产品 */
         selectProduct() {
@@ -1280,7 +1280,6 @@ export default {
         // 跳转位置
         menuSelect(e) {
             this.activeMenu = e;
-            this.$refs.scrollDiv.scrollTop = 0;
             let _obj = {};
             this.menuChangeSaveData.data.thingsModels.forEach((item) => {
                 if (item.datatype.arrayParams !== null) {

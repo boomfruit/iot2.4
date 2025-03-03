@@ -1,6 +1,30 @@
 <template>
     <div style="padding: 6px">
         <el-card v-show="showSearch" style="margin-bottom: 6px">
+            <!-- <vxe-table :data="tableList" border :edit-config="{ trigger: 'click', mode: 'cell' }" @edit-activated="handleEditStart" @edit-closed="handleEditClosed">
+                <vxe-column v-for="col in columns" :key="col.field" :field="col.field" :title="col.title" :width="col.width" :align="col.align" :edit-render="col.editRender">
+
+                    <template #editRender="{ row, column }">
+                        <template v-if="column.editRender">
+                            <template v-if="column.editRender.name === 'select'">
+                                <vxe-select v-model="row[column.field].value" :options="column.editRender.options" clearable></vxe-select>
+                            </template>
+                            <template v-else-if="column.editRender.name === 'input'">
+                                <vxe-input v-model="row[column.field].value" clearable></vxe-input>
+                            </template>
+                        </template>
+                    </template>
+                    <template #default="{ row, column }">
+                        <template v-if="column.editRender && column.editRender.name === 'select'">
+                            {{ optionsFormat(row[column.field].value) }}
+                        </template>
+                        <template v-else>
+                            {{ row[column.field].value }}
+                        </template>
+                    </template>
+                </vxe-column>
+            </vxe-table> -->
+
             <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px" style="margin-bottom: -20px">
                 <el-form-item :label="$t('alert.index.236501-0')" prop="alertName">
                     <el-input v-model="queryParams.alertName" :placeholder="$t('alert.log.491272-1')" clearable size="small" @keyup.enter.native="handleQuery" />
@@ -19,7 +43,6 @@
                 </el-form-item>
             </el-form>
         </el-card>
-
         <el-card style="padding-bottom: 100px">
             <el-table v-loading="loading" :data="alertList" @selection-change="handleSelectionChange" border size="mini">
                 <el-table-column :label="$t('alert.index.236501-0')" align="center" prop="alertName" />
@@ -161,7 +184,13 @@
                 <el-button @click="handleCancel">{{ $t('cancel') }}</el-button>
             </div>
         </el-dialog>
-
+        <!-- <el-dialog :title="'确认修改'" :visible.sync="dialogVisible" width="400px">
+    <p>您确定要修改第 {{ currentIndex }} 个内容吗？</p>
+    <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="confirmEdit">确定</el-button>
+    </span>
+</el-dialog> -->
         <!-- 选择场景对话框 -->
         <scene-list ref="sceneList" @sceneEvent="getSceneData($event)" />
         <!-- 选择通知模板 -->
@@ -173,6 +202,8 @@
 import { listAlert, getAlert, delAlert, addAlert, updateAlert, getScenesByAlertId, listNotifyTemplate } from '@/api/iot/alert';
 import sceneList from './scene-list';
 import notifyTempList from './notify-temp-list.vue';
+import ECN22JSON from './ECN22JSON.json';
+import { generateFanSettingTable } from './envSettingFunc';
 
 export default {
     name: 'alert',
@@ -234,13 +265,36 @@ export default {
                     },
                 ],
             },
+            tableList: [],
+            columns: [],
+            currentSaveData: {},
         };
     },
-
+    mounted() {
+        const fanSetting = ECN22JSON.setting.fanSetting;
+        const settingTable = generateFanSettingTable(fanSetting.fans, fanSetting.frequency, fanSetting.level, fanSetting.valueID, fanSetting.options);
+        this.tableList = settingTable.defaultData;
+        this.columns = settingTable.columns;
+    },
     created() {
         this.getList();
     },
     methods: {
+        handleEditStart({ row, rowIndex, $rowIndex, column, columnIndex, $columnIndex }) {
+            this.originalRow = { ...row }; // 保存原始数据
+            this.currentIndex = rowIndex; // 记录当前索引
+            this.currentSaveData = { ...row }[column.field];
+        },
+        handleEditClosed({ row, column }) {
+            let _obj = { ...row };
+            this.currentSaveData.value = _obj[column.field];
+            row[column.field] = this.currentSaveData;
+            console.log(_obj, 'row, column');
+        },
+        optionsFormat(value) {
+            const fanFormat = ECN22JSON.setting.fanSetting.options;
+            return fanFormat.find((option) => option.value == value)?.label || value;
+        },
         /** 移除告警通知项*/
         handleAlertNotifyTempRemove(row) {
             for (let i = 0; i < this.form.notifyTemplateList.length; i++) {
