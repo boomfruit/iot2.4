@@ -1,30 +1,19 @@
 <template>
     <div style="padding: 6px">
         <el-card v-show="showSearch" style="margin-bottom: 6px">
-            <!-- <vxe-table :data="tableList" border :edit-config="{ trigger: 'click', mode: 'cell' }" @edit-activated="handleEditStart" @edit-closed="handleEditClosed">
-                <vxe-column v-for="col in columns" :key="col.field" :field="col.field" :title="col.title" :width="col.width" :align="col.align" :edit-render="col.editRender">
-
-                    <template #editRender="{ row, column }">
-                        <template v-if="column.editRender">
-                            <template v-if="column.editRender.name === 'select'">
-                                <vxe-select v-model="row[column.field].value" :options="column.editRender.options" clearable></vxe-select>
-                            </template>
-                            <template v-else-if="column.editRender.name === 'input'">
-                                <vxe-input v-model="row[column.field].value" clearable></vxe-input>
-                            </template>
-                        </template>
-                    </template>
-                    <template #default="{ row, column }">
-                        <template v-if="column.editRender && column.editRender.name === 'select'">
-                            {{ optionsFormat(row[column.field].value) }}
-                        </template>
-                        <template v-else>
-                            {{ row[column.field].value }}
-                        </template>
-                    </template>
-                </vxe-column>
+            <!-- <vxe-table
+                :header-cell-style="{ color: '#fff' }"
+                :max-height="750"
+                :data="formattedTableData"
+                border
+                :cell-style="cellStyle"
+                :edit-config="{ trigger: 'click', mode: 'cell' }"
+                @edit-activated="handleEditStart"
+                @edit-closed="handleEditClosed"
+            >
+                <vxe-column v-for="col in columns" :key="col.field" :field="col.field" :title="col.title" :width="col.width" :align="col.align" :edit-render="col.editRender"></vxe-column>
             </vxe-table> -->
-
+            ``
             <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px" style="margin-bottom: -20px">
                 <el-form-item :label="$t('alert.index.236501-0')" prop="alertName">
                     <el-input v-model="queryParams.alertName" :placeholder="$t('alert.log.491272-1')" clearable size="small" @keyup.enter.native="handleQuery" />
@@ -203,7 +192,7 @@ import { listAlert, getAlert, delAlert, addAlert, updateAlert, getScenesByAlertI
 import sceneList from './scene-list';
 import notifyTempList from './notify-temp-list.vue';
 import ECN22JSON from './ECN22JSON.json';
-import { generateFanSettingTable } from './envSettingFunc';
+import { generateFanSettingTable, generateRatioTable } from './envSettingFunc';
 
 export default {
     name: 'alert',
@@ -268,28 +257,75 @@ export default {
             tableList: [],
             columns: [],
             currentSaveData: {},
+            fixedNum: '',
         };
     },
+    computed: {
+        formattedTableData() {
+            return this.tableList.map((row) => {
+                const formattedRow = {};
+                for (const key in row) {
+                    formattedRow[key] = row[key].value;
+                }
+                return formattedRow;
+            });
+        },
+    },
     mounted() {
-        const fanSetting = ECN22JSON.setting.fanSetting;
-        const settingTable = generateFanSettingTable(fanSetting.fans, fanSetting.frequency, fanSetting.level, fanSetting.valueID, fanSetting.options);
-        this.tableList = settingTable.defaultData;
-        this.columns = settingTable.columns;
+        //风机
+        // const fanSetting = ECN22JSON.setting.fanSetting;
+        // this.fixedNum = fanSetting.fixedNum;
+        // const settingTable = generateFanSettingTable(fanSetting.fans, fanSetting.frequency, fanSetting.level, fanSetting.valueID, fanSetting.options);
+        // this.tableList = settingTable.defaultData;
+        // this.columns = settingTable.columns;
+        //比例
+        const ratioSetting = ECN22JSON.setting.ratioSetting;
+        const ratioTable = generateRatioTable(ratioSetting.vents, ratioSetting.level, ratioSetting.valueID);
+        this.tableList = ratioTable.defaultData;
+        this.columns = ratioTable.columns;
+        console.log(this.columns, this.tableList, 'this.columns');
     },
     created() {
         this.getList();
     },
     methods: {
+        cellStyle({ column }) {
+            return column.editRender ? { cursor: 'pointer' } : {}; // 如果单元格可编辑，返回小手样式
+        },
+        rowClassName({ row, column }) {
+            return 'cursor-pointer';
+        },
+        handleSelectChange(row, column) {
+            console.log(row, column, 'row, column');
+        },
         handleEditStart({ row, rowIndex, $rowIndex, column, columnIndex, $columnIndex }) {
             this.originalRow = { ...row }; // 保存原始数据
             this.currentIndex = rowIndex; // 记录当前索引
             this.currentSaveData = { ...row }[column.field];
+            console.log(this.currentSaveData, 'this.currentSaveData');
         },
-        handleEditClosed({ row, column }) {
+        handleEditClosed({ row, column, $rowIndex, $columnIndex }) {
+            console.log(row, column, 'this.tableList');
             let _obj = { ...row };
-            this.currentSaveData.value = _obj[column.field];
-            row[column.field] = this.currentSaveData;
-            console.log(_obj, 'row, column');
+            let _changeValue = '';
+            if (column.title.includes('风机')) {
+                _changeValue = this.optionsFormat(_obj[column.field]);
+            } else {
+                _changeValue = _obj[column.field];
+            }
+            if (this.originalRow[column.field] != _obj[column.field]) {
+                this.$confirm(`确认要修改: ${column.title}，修改的值: ${_changeValue}`, '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning',
+                })
+                    .then(() => {
+                        const { key } = this.tableList[$rowIndex][column.field];
+                        const value = _obj[column.field];
+                        console.log(key, value, '_updata');
+                    })
+                    .catch(() => {});
+            }
         },
         optionsFormat(value) {
             const fanFormat = ECN22JSON.setting.fanSetting.options;
@@ -462,4 +498,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/styles/tableView.scss';
 @import '@/assets/styles/sunseen-btn.scss';
+.cursor-pointer {
+    cursor: pointer;
+}
 </style>

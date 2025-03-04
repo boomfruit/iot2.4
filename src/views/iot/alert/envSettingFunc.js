@@ -9,7 +9,9 @@ export function generateFanSettingTable(fans, frequency, level, valueIDs, option
             title: '开启时间',
             width: 160,
             align: 'center',
-            editRender: { name: 'input' }, // 可编辑的输入框
+            editRender: {
+                name: 'input',
+            }, // 可编辑的输入框
         },
         {
             field: 'endTime',
@@ -31,11 +33,12 @@ export function generateFanSettingTable(fans, frequency, level, valueIDs, option
     for (let i = 0; i < fans; i++) {
         _columns.push({
             field: `fan${i + 1}`, // 列字段名，如 fan1, fan2, ..., fan12
+            originField: `fan${i + 1}`,
             title: `风机${i + 1}`, // 列标题，如 风机1, 风机2, ..., 风机12
             width: 120,
             align: 'center',
             editRender: {
-                name: 'select', // 下拉菜单
+                name: 'select',
                 options: options,
             },
         });
@@ -45,7 +48,14 @@ export function generateFanSettingTable(fans, frequency, level, valueIDs, option
     for (let z = 0; z < frequency; z++) {
         _columns.push({
             field: `frequencyFan${z + 1}`, // 列字段名，如 fan1, fan2, ..., fan12
+            originField: `frequencyFan${z + 1}`,
             title: `变频风机${z + 1}`, // 列标题，如 风机1, 风机2, ..., 风机12
+            width: 120,
+            align: 'center',
+            editRender: {
+                name: 'select', // 下拉菜单
+                options: options,
+            },
         });
     }
 
@@ -59,18 +69,18 @@ export function generateFanSettingTable(fans, frequency, level, valueIDs, option
         const row = {};
         // 初始化每个风机的状态为“关闭”
         for (let i = 0; i < fans; i++) {
-            row[`fan${i + 1}`] = { key: `fan${i + 1}`, value: '0', sort: i + 1 }; // 默认值为 "0"（关闭）
+            row[`fan${i + 1}`] = { key: `fan${i + 1}`, value: 0, sort: i + 1 }; // 默认值为 "0"（关闭）
         }
         for (let z = 0; z < frequency; z++) {
-            row[`frequencyFan${z + 1}`] = { key: `frequencyFan${z + 1}`, value: '0', sort: fans + z + 1 }; // 默认值为 "0"（关闭）
+            row[`frequencyFan${z + 1}`] = { key: `frequencyFan${z + 1}`, value: 0, sort: fans + z + 1 }; // 默认值为 "0"（关闭）
         }
 
         // 添加其他字段
-        row.startTime = { key: 'startTime', value: '', sort: fans + frequency + 1 };
-        row.endTime = { key: 'endTime', value: '', sort: fans + frequency + 2 };
+        row.startTime = { key: 'startTime', value: '0', sort: fans + frequency + 1 };
+        row.endTime = { key: 'endTime', value: '0', sort: fans + frequency + 2 };
         row.temperature = {
             key: 'temperature',
-            value: '',
+            value: '0',
             sort: fans + frequency + 3,
         };
 
@@ -95,16 +105,11 @@ export function generateFanSettingTable(fans, frequency, level, valueIDs, option
             };
         }),
         optionsFormat: (value) => {
-            return options.find((option) => option.value === value)?.label || value;
+            return options.find((option) => option === value)?.label || value;
         },
     };
 }
-export function generateRatioTable() {
-    const ratioSettings = {
-        vents: 8, // 变频设备数量
-        level: 20, // 等级数量（行数）
-    };
-
+export function generateRatioTable(vents, level, valueIDs) {
     const _columns = []; // 用于存储变频设备列
     const header = [
         { field: 'level', title: '等级', width: 80, align: 'center' }, // 表头：等级列
@@ -113,78 +118,81 @@ export function generateRatioTable() {
         {
             field: 'windWindow',
             title: '侧风窗',
-            width: 120,
             align: 'center',
             editRender: { name: 'input' },
         },
         {
             field: 'skyWindow',
             title: '天窗窗',
-            width: 120,
             align: 'center',
             editRender: { name: 'input' },
         },
         {
             field: 'rollScreen',
             title: '卷帘',
-            width: 120,
             align: 'center',
             editRender: { name: 'input' },
         },
         {
             field: 'sunScreen',
             title: '遮阳',
-            width: 120,
             align: 'center',
             editRender: { name: 'input' },
         },
     ];
 
     // 动态生成变频设备列
-    for (let i = 0; i < ratioSettings.vents; i++) {
+    for (let i = 0; i < vents; i++) {
         _columns.push({
             field: `vent${i + 1}`, // 列字段名，如 vent1, vent2, ..., vent8
             title: `变频${i + 1}`, // 列标题，如 变频1, 变频2, ..., 变频8
-            width: 120,
             align: 'center',
             editRender: { name: 'input' }, // 使用输入框
         });
     }
 
     // 合并所有列：表头 + 变频设备列 + 结束列
-    const ratioColumns = [...header, ..._columns, ...endColumns];
+    const ratioColumns = [..._columns, ...endColumns];
     console.log('比例设置表格列结构：', ratioColumns);
 
     // 生成表格行数据
     const rows = [];
-    for (let j = 0; j < ratioSettings.level; j++) {
-        const row = {
-            key: 'level',
-            value: j + 1, // 当前等级
-        };
+    for (let j = 0; j < level; j++) {
+        const row = {};
 
         // 初始化每个变频设备的值为空
-        for (let i = 0; i < ratioSettings.vents; i++) {
-            row[`vent${i + 1}`] = { key: `vent${i + 1}`, value: '' };
+        for (let i = 0; i < vents; i++) {
+            row[`vent${i + 1}`] = { key: `vent${i + 1}`, value: '10', sort: i + 1 };
         }
 
         // 添加其他字段
-        row.windWindow = { key: 'windWindow', value: '' };
-        row.skyWindow = { key: 'skyWindow', value: '' };
-        row.rollScreen = { key: 'rollScreen', value: '' };
-        row.sunScreen = { key: 'sunScreen', value: '' };
+        row.windWindow = { key: 'windWindow', value: '1', sort: vents + 1 };
+        row.skyWindow = { key: 'skyWindow', value: '2', sort: vents + 2 };
+        row.rollScreen = { key: 'rollScreen', value: '3', sort: vents + 3 };
+        row.sunScreen = { key: 'sunScreen', value: '4', sort: vents + 4 };
 
         rows.push(row); // 将当前行添加到 rows 数组中
     }
 
-    console.log('比例设置表格行数据：', rows);
+    rows.forEach((item, idx) => {
+        const _arr = valueIDs[idx];
+        for (const key in item) {
+            const sort = item[key].sort; // 获取 sort 值
+            if (sort !== undefined && _arr[sort - 1] !== undefined) {
+                item[key].key = _arr[sort - 1]; // 将 key 赋值给 arr 的对应位置
+            }
+        }
+    });
 
     // 返回生成的表格配置
     return {
-        mode1: {
-            columns: ratioColumns,
-            defaultData: rows,
-        },
+        columns: [...header, ...ratioColumns],
+        defaultData: rows.map((item, idx) => {
+            return {
+                level: { key: 'level', value: idx + 1 },
+                ...item,
+            };
+        }),
     };
 }
 export function generateLightTable(mode = lightSettings.mode, levels = lightSettings.lightLevels, customKeys = null) {

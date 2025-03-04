@@ -16,14 +16,15 @@
     },
     "setting": {
         "fanSetting": {
+            "fixedNum": 1,
             "fans": 18,
             "frequency": 4,
             "level": 30,
             "options": [
-                { "value": "0", "label": "关闭" },
-                { "value": "1", "label": "开启" },
-                { "value": "2", "label": "循环" },
-                { "value": "3", "label": "轮询" }
+                { "value": 0, "label": "关闭" },
+                { "value": 1, "label": "开启" },
+                { "value": 2, "label": "循环" },
+                { "value": 3, "label": "轮询" }
             ],
             "valueID": [
                 [
@@ -839,6 +840,7 @@
             ]
         },
         "ratioSetting": {
+            "fixedNum": 1,
             "vents": 4,
             "level": 30,
             "valueID": [

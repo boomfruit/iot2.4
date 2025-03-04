@@ -608,23 +608,31 @@ export default {
     },
     methods: {
         updateData(data) {
-            serviceInvoke({
-                identifier: data.itemId,
-                isShadow: false,
-                productId: this.form.productId,
-                remoteCommand: {
-                    [data.itemId]: data.itemValue || data.value,
-                },
-                serialNumber: this.form.serialNumber,
-                type: 2,
-            }).then((response) => {
-                if (response.code == 200) {
-                    this.$message({
-                        type: 'success',
-                        message: '数据修改成功!',
-                    });
-                }
-            });
+            // 172 ECN22环控器
+            if (this.form.productId === 172) {
+                serviceInvoke({
+                    identifier: data.itemId,
+                    isShadow: false,
+                    productId: this.form.productId,
+                    remoteCommand: {
+                        [data.itemId]: data.itemValue || data.value,
+                    },
+                    serialNumber: this.form.serialNumber,
+                    type: 2,
+                }).then((response) => {
+                    if (response.code == 200) {
+                        this.$message({
+                            type: 'success',
+                            message: '数据修改成功!',
+                        });
+                    }
+                });
+            } else {
+                this.$message({
+                    type: 'error',
+                    message: '该产品不支持修改!',
+                });
+            }
         },
         /* 连接Mqtt消息服务器 */
         async connectMqtt() {
