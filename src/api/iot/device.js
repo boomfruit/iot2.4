@@ -205,3 +205,12 @@ export function unBoundDevicesList(params) {
         params: params,
     });
 }
+
+// 栏舍绑定设备
+export function bindBarnDevice(data) {
+    return request({
+        url: '/iot/devices',
+        method: 'post',
+        data: data,
+    });
+}

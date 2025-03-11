@@ -216,7 +216,7 @@
 <script>
 import lineCharts from '../../dashboard/LineChart.vue';
 import player from '@/views/components/player/jessibuca.vue';
-import { listDevices, getDevices, delDevices, addDevices, updateDevices, listDeviceShort, getFarmsDevice, unBoundDevicesList, addDevice, removeBarnDevices } from '@/api/iot/device';
+import { listDevices, getDevices, delDevices, addDevices, updateDevices, listDeviceShort, getFarmsDevice, unBoundDevicesList, addDevice, removeBarnDevices, bindBarnDevice } from '@/api/iot/device';
 import { chunkArray } from '@/utils/index.js';
 import { getBarns } from '@/api/iot/barns';
 import { getProductMOdelJson } from '@/api/iot/model';
@@ -484,7 +484,7 @@ export default {
         },
         bindDeviceBarn(item) {
             const deviceId = item.deviceId;
-            addDevice({
+            bindBarnDevice({
                 devicesId: deviceId,
                 barnId: this.farmId,
             }).then((res) => {

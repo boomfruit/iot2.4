@@ -1,19 +1,6 @@
 <template>
     <div style="padding: 6px">
-        <el-card v-show="showSearch" style="margin-bottom: 6px">
-            <!-- <vxe-table
-                :header-cell-style="{ color: '#fff' }"
-                :max-height="750"
-                :data="formattedTableData"
-                border
-                :cell-style="cellStyle"
-                :edit-config="{ trigger: 'click', mode: 'cell' }"
-                @edit-activated="handleEditStart"
-                @edit-closed="handleEditClosed"
-            >
-                <vxe-column v-for="col in columns" :key="col.field" :field="col.field" :title="col.title" :width="col.width" :align="col.align" :edit-render="col.editRender"></vxe-column>
-            </vxe-table> -->
-            ``
+        <el-card v-show="showSearch" style="margin-bottom: 6px" v-if="tableShow">
             <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px" style="margin-bottom: -20px">
                 <el-form-item :label="$t('alert.index.236501-0')" prop="alertName">
                     <el-input v-model="queryParams.alertName" :placeholder="$t('alert.log.491272-1')" clearable size="small" @keyup.enter.native="handleQuery" />
@@ -191,9 +178,7 @@
 import { listAlert, getAlert, delAlert, addAlert, updateAlert, getScenesByAlertId, listNotifyTemplate } from '@/api/iot/alert';
 import sceneList from './scene-list';
 import notifyTempList from './notify-temp-list.vue';
-import ECN22JSON from './ECN22JSON.json';
-import { generateFanSettingTable, generateRatioTable } from './envSettingFunc';
-
+import { getDeviceRunningStatus } from '@/api/iot/device';
 export default {
     name: 'alert',
     dicts: ['iot_alert_level', 'sys_job_status', 'notify_channel_type'],
@@ -258,6 +243,7 @@ export default {
             columns: [],
             currentSaveData: {},
             fixedNum: '',
+            tableShow: false,
         };
     },
     computed: {
@@ -271,20 +257,7 @@ export default {
             });
         },
     },
-    mounted() {
-        //风机
-        // const fanSetting = ECN22JSON.setting.fanSetting;
-        // this.fixedNum = fanSetting.fixedNum;
-        // const settingTable = generateFanSettingTable(fanSetting.fans, fanSetting.frequency, fanSetting.level, fanSetting.valueID, fanSetting.options);
-        // this.tableList = settingTable.defaultData;
-        // this.columns = settingTable.columns;
-        //比例
-        const ratioSetting = ECN22JSON.setting.ratioSetting;
-        const ratioTable = generateRatioTable(ratioSetting.vents, ratioSetting.level, ratioSetting.valueID);
-        this.tableList = ratioTable.defaultData;
-        this.columns = ratioTable.columns;
-        console.log(this.columns, this.tableList, 'this.columns');
-    },
+    mounted() {},
     created() {
         this.getList();
     },
@@ -302,7 +275,22 @@ export default {
             this.originalRow = { ...row }; // 保存原始数据
             this.currentIndex = rowIndex; // 记录当前索引
             this.currentSaveData = { ...row }[column.field];
-            console.log(this.currentSaveData, 'this.currentSaveData');
+
+            // 处于报警table中，无法修改
+            // if ($rowIndex === 0 && $columnIndex === 1) {
+            //     this.$confirm(`无法修改`, '提示', {
+            //         confirmButtonText: '确定',
+            //         cancelButtonText: '取消',
+            //         type: 'warning',
+            //     });
+            // }
+            // if ($rowIndex === 0 && $columnIndex === 2) {
+            //     this.$confirm(`无法修改`, '提示', {
+            //         confirmButtonText: '确定',
+            //         cancelButtonText: '取消',
+            //         type: 'warning',
+            //     });
+            // }
         },
         handleEditClosed({ row, column, $rowIndex, $columnIndex }) {
             console.log(row, column, 'this.tableList');

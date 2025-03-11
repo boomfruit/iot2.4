@@ -178,7 +178,6 @@ import location from '@/assets/sunseen/shack/shack-location.png';
 import { listBarns, getBarns, delBarns, addBarns, updateBarns } from '@/api/iot/barns';
 import { listFarms } from '@/api/iot/farms';
 import { listBreeds } from '@/api/iot/breeds';
-
 export default {
     data() {
         return {

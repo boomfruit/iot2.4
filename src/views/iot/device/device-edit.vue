@@ -130,7 +130,35 @@
                 <running-status :deviceType="deviceType" ref="runningStatus" :device="form" @statusEvent="getDeviceStatusData($event)" />
             </el-tab-pane>
             <el-tab-pane label="设备参数" name="2">
-                <div class="con" v-if="getDeviceTypeJson">
+                <div style="width: 100%; height: 100%; display: flex" v-if="getDeviceTypeJson && isProductTypeECN22">
+                    <div style="flex: 5; height: 800px; padding: 8px; overflow-y: auto; border-radius: 10px; margin-top: 5px">
+                        <div>
+                            <vxe-table
+                                :header-cell-style="{ color: '#fff' }"
+                                :max-height="700"
+                                :data="formattedTableData"
+                                border
+                                :cell-style="cellStyle"
+                                :edit-config="{
+                                    trigger: 'click',
+                                    mode: 'cell',
+                                }"
+                                @edit-activated="handleEditStart"
+                                @edit-closed="handleEditClosed"
+                            >
+                                <vxe-column v-for="col in columns" :key="col.field" :field="col.field" :title="col.title" :width="col.width" :align="col.align" :edit-render="col.editRender"></vxe-column>
+                            </vxe-table>
+                        </div>
+                    </div>
+                    <div style="flex: 1; height: 800px; padding: 8px; margin-top: 5px">
+                        <el-menu :default-active="activeMenuECN22" @select="menuSelectECN22" background-color="#0d1827" active-text-color="#fff" text-color="#A8AEC9" class="el-menu-vertical-demo">
+                            <el-menu-item v-for="(item, index) in treeData" :key="index" :index="item.id">
+                                <span slot="title">{{ item.name }}</span>
+                            </el-menu-item>
+                        </el-menu>
+                    </div>
+                </div>
+                <div class="con" v-if="getDeviceTypeJson && !isProductTypeECN22">
                     <div class="pdf flex5" ref="scrollDiv">
                         <div v-for="cardItem in dataJson.list" :key="cardItem.id">
                             <envCard v-if="cardItem.id === activeMenu" :title="cardItem.title" lineWidth="62px" :id="cardItem.id" :ref="cardItem.id">
@@ -188,7 +216,7 @@
                         </el-menu>
                     </div>
                 </div>
-                <div v-else>
+                <div v-if="!getDeviceTypeJson">
                     <div class="con" v-if="deviceType === 'ccAlarm'">
                         <div class="pdf flex5" ref="scrollDiv">
                             <alarmSetting :device="form"></alarmSetting>
@@ -197,7 +225,7 @@
                     </div>
                 </div>
             </el-tab-pane>
-            <el-tab-pane name="deviceSub" :disabled="form.deviceId == 0" v-if="form.deviceType == 2 && (form.protocolCode == 'MODBUS-RTU' || form.protocolCode == 'MODBUS-TCP')" lazy>
+            <!-- <el-tab-pane name="deviceSub" :disabled="form.deviceId == 0" v-if="form.deviceType == 2 && (form.protocolCode == 'MODBUS-RTU' || form.protocolCode == 'MODBUS-TCP')" lazy>
                 <span slot="label">{{ $t('device.device-edit.148398-43') }}</span>
                 <device-sub ref="deviceSub" :device="form" />
             </el-tab-pane>
@@ -215,9 +243,9 @@
             <el-tab-pane name="sipVideo" :disabled="form.deviceId == 0" v-if="form.deviceType === 3" lazy>
                 <span slot="label">{{ $t('device.device-edit.148398-46') }}</span>
                 <deviceVideo ref="deviceVideo" :device="form" />
-            </el-tab-pane>
+            </el-tab-pane> -->
 
-            <el-tab-pane name="ossRecord" :disabled="form.deviceId == 0" v-if="form.deviceType === 3">
+            <!-- <el-tab-pane name="ossRecord" :disabled="form.deviceId == 0" v-if="form.deviceType === 3">
                 <span slot="label">{{ $t('device.device-edit.148398-79') }}</span>
                 <OssRecord ref="OssRecord" :device="form" />
             </el-tab-pane>
@@ -230,62 +258,51 @@
             <el-tab-pane name="deviceUser" :disabled="form.deviceId == 0" lazy>
                 <span slot="label">{{ $t('device.device-edit.148398-48') }}</span>
                 <device-user ref="deviceUser" :device="form" @userEvent="getUserData($event)" />
-            </el-tab-pane>
-
-            <!-- <el-tab-pane name="deviceLog" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3" lazy>
-                <BreedingSettings></BreedingSettings>
-                <span slot="label">{{ $t('device.device-edit.148398-49') }}</span>
-                <device-log ref="deviceLog" :device="form" />
             </el-tab-pane> -->
 
-            <el-tab-pane name="alertUser" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3">
+            <!-- <el-tab-pane name="alertUser" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3">
                 <span slot="label" v-hasPermi="['iot:device:alert:user:list']">{{ $t('device.device-edit.148398-80') }}</span>
                 <alert-user ref="alertUser" :device="form" />
-            </el-tab-pane>
-            <el-tab-pane name="deviceAlert" :disabled="form.deviceId == 0">
+            </el-tab-pane> -->
+            <!-- <el-tab-pane name="deviceAlert" :disabled="form.deviceId == 0">
                 <span slot="label" v-hasPermi="['iot:alertLog:list']">{{ $t('device.device-edit.148398-81') }}</span>
                 <device-alert ref="deviceAlert" :device="form" />
-            </el-tab-pane>
+            </el-tab-pane> -->
 
             <el-tab-pane name="deviceFuncLog" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3" lazy>
                 <span slot="label">{{ $t('device.device-edit.148398-50') }}</span>
                 <device-func ref="deviceFuncLog" :device="form" />
             </el-tab-pane>
 
-            <!-- <el-tab-pane name="deviceMonitor" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3">
-                <span slot="label">{{ $t('device.device-edit.148398-51') }}</span>
-                <device-monitor ref="deviceMonitor" :device="form" />
-            </el-tab-pane> -->
-
             <el-tab-pane name="deviceStastic" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3">
                 <span slot="label">{{ $t('device.device-edit.148398-52') }}</span>
                 <device-statistic ref="deviceStatistic" :device="form" />
             </el-tab-pane>
-
+            <!--
             <el-tab-pane name="deviceModbusTask" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3 && form.deviceType !== 2 && (form.protocolCode == 'MODBUS-RTU' || form.protocolCode == 'MODBUS-TCP')" lazy>
                 <span slot="label">{{ $t('device.device-edit.148398-77') }}</span>
                 <device-modbus-task ref="deviceModbusTask" :device="form" />
-            </el-tab-pane>
+            </el-tab-pane> -->
 
-            <el-tab-pane name="instructionParsing" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3" lazy>
+            <!-- <el-tab-pane name="instructionParsing" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3" lazy>
                 <span slot="label">{{ $t('device.device-edit.148398-76') }}</span>
                 <instruction-parsing ref="instructionParsing" :device="form" />
-            </el-tab-pane>
+            </el-tab-pane> -->
 
-            <el-tab-pane name="scada" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3 && isShowScada == true" lazy>
+            <!-- <el-tab-pane name="scada" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3 && isShowScada == true" lazy>
                 <span slot="label">{{ $t('device.device-edit.148398-73') }}</span>
                 <device-scada ref="deviceScada" :device="form" />
-            </el-tab-pane>
+            </el-tab-pane> -->
 
-            <el-tab-pane name="variable" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3" lazy>
+            <!-- <el-tab-pane name="variable" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3" lazy>
                 <span slot="label">{{ $t('device.device-edit.148398-74') }}</span>
                 <device-variable ref="deviceVariable" :device="form" />
-            </el-tab-pane>
+            </el-tab-pane> -->
 
-            <el-tab-pane name="inlineVideo" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3" lazy>
+            <!-- <el-tab-pane name="inlineVideo" :disabled="form.deviceId == 0" v-if="form.deviceType !== 3" lazy>
                 <span slot="label">{{ $t('device.device-edit.148398-75') }}</span>
                 <device-inline-video ref="deviceInlineVideo" :sipRelationList="form.sipRelationList" />
-            </el-tab-pane>
+            </el-tab-pane> -->
 
             <!-- 用于设置间距 -->
             <el-tab-pane disabled>
@@ -406,12 +423,47 @@ import { divideArrayIntoParts } from '@/utils/index';
 import { getProductMOdelJson } from '@/api/iot/model';
 
 import alarmSetting from './alarm/setting.vue';
+
+// ------------
+import {
+    generateFanSettingTable,
+    generateRatioTable,
+    generateLightTable,
+    generateSystemTable,
+    generateHumidityTable,
+    generateHeatingTable,
+    generateCoolingTable,
+    generateGasTable,
+    generateAddOxygenTable,
+    generateTemperatureTable,
+    generateAlarmTable,
+    generateWindowTable,
+    generateZoneAlarmTable,
+    generateCustomTable,
+} from './envSettingFunc';
+import {
+    generateFanSettingDatalist,
+    generateRatioSettingDatalist,
+    generateHeatingSettingDatalist,
+    generateCoolingSettingDatalist,
+    generateLightSettingDatalist,
+    generateGasSettingDatalist,
+    generateSystemSettingDatalist,
+    generateAddOxygenSettingDatalist,
+    generateTemperatureSettingDatalist,
+    generateAlarmSettingDatalist,
+    generateWindowSettingDatalist,
+    generateZoneAlarmSettingDatalist,
+    generateCustomSettingDatalist,
+    generateHumiditySettingDatalist,
+} from './envSettingDataFunc';
+import ECN22JSON from './ECN22JSON.json';
+
 export default {
     name: 'DeviceEdit',
     dicts: ['iot_device_status', 'iot_location_way'],
     components: {
         BreedingSettings,
-
         RealTimeStatus,
         DeviceFunc,
         deviceLog,
@@ -448,16 +500,16 @@ export default {
         pureText,
         alarmSetting,
     },
-    watch: {
-        activeName(val) {
-            if (val == 'deviceStastic') {
-                this.$nextTick(() => {
-                    // TODO 重置统计表格的尺寸
-                });
-            }
-        },
-    },
     computed: {
+        formattedTableData() {
+            return this.tableList.map((row) => {
+                const formattedRow = {};
+                for (const key in row) {
+                    formattedRow[key] = row[key].value;
+                }
+                return formattedRow;
+            });
+        },
         deviceStatus: {
             set(val) {
                 if (val == 1) {
@@ -581,6 +633,13 @@ export default {
             menuChangeSaveJson: '',
             menuChangeRes: '',
             loadText: '数据同步中',
+            // -------
+            isProductTypeECN22: false,
+            activeMenuECN22: 'customSetting',
+            tableList: [],
+            columns: [],
+            currentSaveData: {},
+            fixedNum: '',
         };
     },
     created() {
@@ -609,7 +668,7 @@ export default {
     methods: {
         updateData(data) {
             // 172 ECN22环控器
-            if (this.form.productId === 172) {
+            if (this.form.productId !== 172) {
                 serviceInvoke({
                     identifier: data.itemId,
                     isShadow: false,
@@ -746,7 +805,9 @@ export default {
         // 获取高度偏移位置
         getJsonList() {
             this.$nextTick(() => {
-                this.treeData = this.dataJson.tabs;
+                // this.treeData = this.dataJson.tabs;
+                this.treeData = ECN22JSON.tableList;
+                console.log(this.treeData, 'ECN22JSON');
             });
         },
         handleClick() {
@@ -895,8 +956,11 @@ export default {
                         this.$nextTick(() => {
                             // 环空器
                             if (this.deviceType === 'env') {
-                                const _data = JSON.parse(JSON.stringify(this.dataJson));
-                                this.dataJson = { ...this.findLevelFourObjects(_data, _obj) };
+                                if (this.isProductTypeECN22) {
+                                } else {
+                                    const _data = JSON.parse(JSON.stringify(this.dataJson));
+                                    this.dataJson = { ...this.findLevelFourObjects(_data, _obj) };
+                                }
                             } else {
                                 // 1-10个外部名称
                                 for (let i = 1; i <= 10; i++) {
@@ -1156,6 +1220,9 @@ export default {
                 if (response.data.productId == 152 || response.data.productId == 154 || response.data.productId == 155 || response.data.productId == 169 || response.data.productId == 172) {
                     this.dataJson = JSON.parse(res.data);
                     this.deviceType = 'env';
+                    if (response.data.productId == 172) {
+                        this.isProductTypeECN22 = true;
+                    }
                     this.getDeviceTypeJson = true;
                 } else if (response.data.productId == 153) {
                     // 4G报警器
@@ -1176,6 +1243,24 @@ export default {
             // 格式化物模型，拆分出监测值,数组添加前缀
             this.formatThingsModel(response.data);
             this.form = response.data;
+            // 获取ECN22JSON,得到自定义数据
+            if (this.isProductTypeECN22) {
+                const dataList = generateCustomSettingDatalist(this.form.thingsModels, 'mode2');
+                const customSetting = ECN22JSON.setting.customSetting;
+                this.fixedNum = customSetting.fixedNum;
+                const customTable = generateCustomTable(customSetting.mode, customSetting.level, customSetting.valueID);
+                this.columns = customTable.columns;
+                customTable.defaultData.forEach((item, index) => {
+                    for (const key in item) {
+                        if (item[key].sort) {
+                            item[key].value = dataList[parseInt(item[key].sort) - 1];
+                        }
+                    }
+                });
+                this.tableList = customTable.defaultData;
+
+                this.pageLoading = false;
+            }
             // 解析设备摘要
             if (this.form.summary != null && this.form.summary != '') {
                 this.summary = JSON.parse(this.form.summary);
@@ -1185,14 +1270,13 @@ export default {
             //Mqtt订阅
             this.connectMqtt();
             this.mqttSubscribe(this.form);
-            this.pageLoading = false;
-            // if (response.data.productId == 152 || response.data.productId == 154 || response.data.productId == 155 || response.data.productId == 169 || response.data.productId == 172) {
-            //     setTimeout(() => {
-            //         this.pageLoading = false;
-            //     }, 3000);
-            // } else {
-            //     this.pageLoading = false;
-            // }
+            if (response.data.productId == 152 || response.data.productId == 154 || response.data.productId == 155 || response.data.productId == 169 || response.data.productId == 172) {
+                setTimeout(() => {
+                    this.pageLoading = false;
+                }, 3000);
+            } else {
+                this.pageLoading = false;
+            }
         },
         /**选择产品 */
         selectProduct() {
@@ -1284,6 +1368,236 @@ export default {
                     this.loading = false;
                 }
             });
+        },
+        menuSelectECN22(e) {
+            let dataList = [];
+            let settingTable = {};
+            switch (e) {
+                case 'fanSetting':
+                    dataList = generateFanSettingDatalist(this.form.thingsModels, true);
+                    const fanSetting = ECN22JSON.setting.fanSetting;
+                    this.fixedNum = fanSetting.fixedNum;
+                    settingTable = generateFanSettingTable(fanSetting.fans, fanSetting.frequency, fanSetting.level, fanSetting.valueID, fanSetting.options);
+                    this.columns = settingTable.columns;
+                    this.tableList = settingTable.defaultData.map((item, index) => {
+                        for (const key in item) {
+                            if (item[key].sort) {
+                                item[key].value = dataList[index][item[key].sort - 1];
+                            }
+                        }
+                        return item;
+                    });
+                    break;
+                case 'ratioSetting':
+                    dataList = generateRatioSettingDatalist(this.form.thingsModels, 8);
+                    const ratioSetting = ECN22JSON.setting.ratioSetting;
+                    this.fixedNum = ratioSetting.fixedNum;
+                    settingTable = generateRatioTable(ratioSetting.vents, ratioSetting.level, ratioSetting.valueID);
+                    this.columns = settingTable.columns;
+                    this.tableList = settingTable.defaultData.map((item, index) => {
+                        console.log(item, 'item');
+                        for (const key in item) {
+                            if (item[key].sort) {
+                                item[key].value = dataList[index][item[key].sort - 1];
+                            }
+                        }
+                        return item;
+                    });
+                    break;
+                case 'heatingSetting':
+                    dataList = generateHeatingSettingDatalist(this.form.thingsModels, 'mode2');
+                    const heatingSetting1 = ECN22JSON.setting.heatingSetting;
+                    this.fixedNum = heatingSetting1.fixedNum;
+                    const heatingTable = generateHeatingTable(heatingSetting1.mode, heatingSetting1.level, heatingSetting1.valueID);
+                    this.columns = heatingTable.columns;
+                    this.tableList = heatingTable.defaultData.map((item, index) => {
+                        for (const key in item) {
+                            if (item[key].sort) {
+                                item[key].value = dataList[index][item[key].sort - 1];
+                            }
+                        }
+                        return item;
+                    });
+                    break;
+                case 'coolingSetting':
+                    dataList = generateCoolingSettingDatalist(this.form.thingsModels, 'mode1');
+                    const coolingSetting = ECN22JSON.setting.coolingSetting;
+                    this.fixedNum = coolingSetting.fixedNum;
+                    const coolingTable = generateCoolingTable(coolingSetting.mode, coolingSetting.level, coolingSetting.valueID);
+                    this.columns = coolingTable.columns;
+                    this.tableList = coolingTable.defaultData.map((item, index) => {
+                        console.log(item, 'item');
+                        for (const key in item) {
+                            if (item[key].sort) {
+                                item[key].value = dataList[index][item[key].sort - 1];
+                            }
+                        }
+                        return item;
+                    });
+                    break;
+                case 'lightSetting':
+                    dataList = generateLightSettingDatalist(this.form.thingsModels, 'mode2');
+                    const lightSetting1 = ECN22JSON.setting.lightSetting;
+                    this.fixedNum = lightSetting1.fixedNum;
+                    const lightTable = generateLightTable(lightSetting1.mode, lightSetting1.level, lightSetting1.valueID);
+                    this.columns = lightTable.columns;
+                    this.tableList = lightTable.defaultData.map((item, index) => {
+                        console.log(item, 'item');
+                        for (const key in item) {
+                            if (item[key].sort) {
+                                item[key].value = dataList[index][item[key].sort - 1];
+                            }
+                        }
+                        return item;
+                    });
+                    break;
+                case 'humiditySetting':
+                    dataList = generateHumiditySettingDatalist(this.form.thingsModels, 'mode2');
+                    const humiditySetting = ECN22JSON.setting.humiditySetting;
+                    this.fixedNum = humiditySetting.fixedNum;
+                    const humidityTable = generateHumidityTable(humiditySetting.mode, humiditySetting.level, humiditySetting.valueID);
+                    this.columns = humidityTable.columns;
+                    this.tableList = humidityTable.defaultData.map((item, index) => {
+                        console.log(item, 'item');
+                        for (const key in item) {
+                            if (item[key].sort) {
+                                item[key].value = dataList[index][item[key].sort - 1];
+                            }
+                        }
+                        return item;
+                    });
+                    break;
+                case 'harmfulGasSetting':
+                    dataList = generateGasSettingDatalist(this.form.thingsModels, 'mode2');
+                    const gasSetting = ECN22JSON.setting.gasSetting;
+                    this.fixedNum = gasSetting.fixedNum;
+                    const gasTable = generateGasTable(gasSetting.mode, gasSetting.level, gasSetting.valueID);
+                    this.columns = gasTable.columns;
+                    this.tableList = gasTable.defaultData.map((item, index) => {
+                        for (const key in item) {
+                            if (item[key].sort) {
+                                item[key].value = dataList[index][item[key].sort - 1];
+                            }
+                        }
+                        return item;
+                    });
+                    break;
+                case 'systemSetting':
+                    dataList = generateSystemSettingDatalist(this.form.thingsModels, 'mode2');
+                    const systemSetting = ECN22JSON.setting.systemSetting;
+                    this.fixedNum = systemSetting.fixedNum;
+                    const systemTable = generateSystemTable(systemSetting.mode, systemSetting.level, systemSetting.valueID);
+                    this.columns = systemTable.columns;
+                    this.tableList = systemTable.defaultData.map((item, index) => {
+                        for (const key in item) {
+                            if (item[key].sort) {
+                                item[key].value = dataList[index][item[key].sort - 1];
+                            }
+                        }
+                        return item;
+                    });
+                    break;
+                case 'addOxygenSetting':
+                    dataList = generateAddOxygenSettingDatalist(this.form.thingsModels, 'mode1');
+                    const addOxygenSetting = ECN22JSON.setting.addOxygenSetting;
+                    this.fixedNum = addOxygenSetting.fixedNum;
+                    const addOxygenTable = generateAddOxygenTable(addOxygenSetting.mode, addOxygenSetting.level, addOxygenSetting.valueID);
+                    this.columns = addOxygenTable.columns;
+                    this.tableList = addOxygenTable.defaultData.map((item, index) => {
+                        for (const key in item) {
+                            if (item[key].sort) {
+                                item[key].value = dataList[index][item[key].sort - 1];
+                            }
+                        }
+                        return item;
+                    });
+                    break;
+                case 'temperatureSetting':
+                    dataList = generateTemperatureSettingDatalist(this.form.thingsModels, 'mode1');
+                    const temperatureSetting = ECN22JSON.setting.temperatureSetting;
+                    this.fixedNum = temperatureSetting.fixedNum;
+                    const temperatureTable = generateTemperatureTable(temperatureSetting.mode, temperatureSetting.level, temperatureSetting.valueID);
+                    this.columns = temperatureTable.columns;
+                    this.tableList = temperatureTable.defaultData.map((item, index) => {
+                        for (const key in item) {
+                            if (item[key].sort) {
+                                item[key].value = dataList[index] !== undefined ? dataList[index][item[key].sort - 1] : 0;
+                            }
+                        }
+                        return item;
+                    });
+                    break;
+                case 'alarmSetting':
+                    dataList = generateAlarmSettingDatalist(this.form.thingsModels, 'mode2');
+                    const alarmSetting = ECN22JSON.setting.alarmSetting;
+                    this.fixedNum = alarmSetting.fixedNum;
+                    const alarmTable = generateAlarmTable(alarmSetting.mode, alarmSetting.level, alarmSetting.valueID, alarmSetting.title);
+                    this.columns = alarmTable.columns;
+                    console.log(this.columns, 'dataList');
+                    this.tableList = alarmTable.defaultData.map((item, index) => {
+                        for (const key in item) {
+                            if (item[key].sort) {
+                                if (index === 0) {
+                                    if (item[key].sort === 3) {
+                                        item[key].value = dataList[index] !== undefined ? dataList[index][item[key].sort - 1] : 0;
+                                    } else {
+                                        item[key].value = 'none';
+                                        item[key].editable = false; // 设置该单元格为不可编辑
+                                    }
+                                } else {
+                                    item[key].value = dataList[index] !== undefined ? dataList[index][item[key].sort - 1] : 0;
+                                }
+                            }
+                        }
+                        return item;
+                    });
+                    break;
+                case 'smallWindowSetting':
+                    dataList = generateWindowSettingDatalist(this.form.thingsModels, 'mode1');
+                    const windowSetting = ECN22JSON.setting.windowSetting;
+                    this.fixedNum = windowSetting.fixedNum;
+                    const windowTable = generateWindowTable(windowSetting.mode, windowSetting.level, windowSetting.valueID);
+                    this.columns = windowTable.columns;
+                    this.tableList = windowTable.defaultData.map((item, index) => {
+                        for (const key in item) {
+                            if (item[key].sort) {
+                                item[key].value = dataList[index] !== undefined ? dataList[index][item[key].sort - 1] : 0;
+                            }
+                        }
+                        return item;
+                    });
+                    break;
+                case 'partitionSetting':
+                    dataList = generateZoneAlarmSettingDatalist(this.form.thingsModels, 'mode1');
+                    const zoneAlarmSetting = ECN22JSON.setting.zoneAlarmSetting;
+                    this.fixedNum = zoneAlarmSetting.fixedNum;
+                    const zoneAlarmTable = generateZoneAlarmTable(zoneAlarmSetting.mode, zoneAlarmSetting.level, zoneAlarmSetting.valueID, zoneAlarmSetting.title);
+                    this.columns = zoneAlarmTable.columns;
+                    this.tableList = zoneAlarmTable.defaultData.map((item, index) => {
+                        for (const key in item) {
+                            if (item[key].sort) {
+                                item[key].value = dataList[index] !== undefined ? dataList[index][item[key].sort - 1] : 0;
+                            }
+                        }
+                        return item;
+                    });
+                    break;
+                case 'customSetting':
+                    dataList = generateCustomSettingDatalist(this.form.thingsModels, 'mode2');
+                    const customSetting = ECN22JSON.setting.customSetting;
+                    this.fixedNum = customSetting.fixedNum;
+                    const customTable = generateCustomTable(customSetting.mode, customSetting.level, customSetting.valueID);
+                    this.columns = customTable.columns;
+                    customTable.defaultData.forEach((item, index) => {
+                        for (const key in item) {
+                            if (item[key].sort) {
+                                item[key].value = dataList[parseInt(item[key].sort) - 1];
+                            }
+                        }
+                    });
+                    this.tableList = customTable.defaultData;
+                    break;
+            }
         },
         // 跳转位置
         menuSelect(e) {
@@ -1462,6 +1776,71 @@ export default {
 
             traverse(jsonData);
             return jsonData;
+        },
+        // ------
+        cellStyle({ column }) {
+            return column.editRender ? { cursor: 'pointer' } : {}; // 如果单元格可编辑，返回小手样式
+        },
+        rowClassName({ row, column }) {
+            return 'cursor-pointer';
+        },
+        handleSelectChange(row, column) {
+            console.log(row, column, 'row, column');
+        },
+        handleEditStart({ row, rowIndex, $rowIndex, column, columnIndex, $columnIndex }) {
+            this.originalRow = { ...row }; // 保存原始数据
+            this.currentIndex = rowIndex; // 记录当前索引
+            this.currentSaveData = { ...row }[column.field];
+
+            // 处于报警table中，无法修改
+            this.$confirm(`安全考虑，该参数无法修改`, '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning',
+            });
+            // if (this.activeMenuECN22 === 'alarmSetting') {
+            //     if ($rowIndex === 0 && $columnIndex === 1) {
+            //         this.$confirm(`无法修改`, '提示', {
+            //             confirmButtonText: '确定',
+            //             cancelButtonText: '取消',
+            //             type: 'warning',
+            //         });
+            //     }
+            //     if ($rowIndex === 0 && $columnIndex === 2) {
+            //         this.$confirm(`无法修改`, '提示', {
+            //             confirmButtonText: '确定',
+            //             cancelButtonText: '取消',
+            //             type: 'warning',
+            //         });
+            //     }
+            // }
+        },
+        handleEditClosed({ row, column, $rowIndex, $columnIndex }) {
+            console.log(row, column, 'this.tableList');
+            let _obj = { ...row };
+            let _changeValue = '';
+            if (column.title.includes('风机')) {
+                _changeValue = this.optionsFormat(_obj[column.field]);
+            } else {
+                _changeValue = _obj[column.field];
+            }
+            if (this.originalRow[column.field] != _obj[column.field]) {
+                this.$confirm(`确认要修改: ${column.title}，修改的值: ${_changeValue}`, '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning',
+                })
+                    .then(() => {
+                        const { key } = this.tableList[$rowIndex][column.field];
+                        const value = _obj[column.field];
+                        console.log(key, value, '_updata');
+                    })
+                    .catch(() => {});
+            }
+        },
+        optionsFormat(value) {
+            const fanFormat = ECN22JSON.setting.fanSetting.options;
+            return fanFormat.find((option) => option.value == value)?.label || value;
         },
     },
 };
