@@ -1,0 +1,537 @@
+{
+  "type": "env",
+  "data": {
+      "dataKey": {
+          "DataTemperatureSensor": ["DataTemperatureSensor01", "DataTemperatureSensor02", "DataTemperatureSensor03", "DataTemperatureSensor04"],
+          "DataFrequencyConversion": ["DataFrequencyConversion1", "DataFrequencyConversion2"],
+          "indoorAverageTemperature": ["DataTemperatureAva01"],
+          "outdoorAverageTemperature": ["DataTemperatureAva02"],
+          "indoorAverageHumidity": ["DataHumidityAva01"],
+          "outdoorAverageHumidity": ["DataHumidityAva02"],
+          "co2Sensor": ["DataCO2Sensor"],
+          "NH3Sensor": ["DataNH3Sensor"],
+          "DataCurrentWindLevel": ["DataCurrentWindLevel"],
+          "DataTargetTemperature": ["DataTargetTemperature"],
+          "DataDayLive": ["DataDayLive"],
+          "DataAllDeviceStatus": ["DataAllDeviceStatus"]
+      },
+      "dataStatus": {
+          "fansNum": 8,
+          "hot": 1,
+          "cold": 1,
+          "light": 1,
+          "mapLength": 21,
+          "enableMap": {
+              "fans": [19, 18, 17, 16, 15, 14, 13, 12],
+              "hot": [11],
+              "cold": [10],
+              "light": [1]
+          }
+      }
+  },
+  "setting": {
+      "fanSetting": {
+          "fans": 8,
+          "level": 30,
+          "options": [
+              { "value": "1", "label": "关闭" },
+              { "value": "2", "label": "开启" },
+              { "value": "3", "label": "循环" },
+              { "value": "4", "label": "轮询" }
+          ],
+          "valueID": [
+              [
+                  "array_00_level1-air_status",
+                  "array_01_level1-air_status",
+                  "array_02_level1-air_status",
+                  "array_03_level1-air_status",
+                  "array_04_level1-air_status",
+                  "array_05_level1-air_status",
+                  "array_06_level1-air_status",
+                  "array_07_level1-air_status",
+                  "FanSettingOpenTime01",
+                  "FanSettingCloseTime01",
+                  "FanSettingTemperatureDiff01"
+              ],
+              [
+                  "array_00_level2-air_status",
+                  "array_01_level2-air_status",
+                  "array_02_level2-air_status",
+                  "array_03_level2-air_status",
+                  "array_04_level2-air_status",
+                  "array_05_level2-air_status",
+                  "array_06_level2-air_status",
+                  "array_07_level2-air_status",
+                  "FanSettingOpenTime02",
+                  "FanSettingCloseTime02",
+                  "FanSettingTemperatureDiff02"
+              ],
+              [
+                  "array_00_level3-air_status",
+                  "array_01_level3-air_status",
+                  "array_02_level3-air_status",
+                  "array_03_level3-air_status",
+                  "array_04_level3-air_status",
+                  "array_05_level3-air_status",
+                  "array_06_level3-air_status",
+                  "array_07_level3-air_status",
+                  "FanSettingOpenTime03",
+                  "FanSettingCloseTime03",
+                  "FanSettingTemperatureDiff03"
+              ],
+              [
+                  "array_00_level4-air_status",
+                  "array_01_level4-air_status",
+                  "array_02_level4-air_status",
+                  "array_03_level4-air_status",
+                  "array_04_level4-air_status",
+                  "array_05_level4-air_status",
+                  "array_06_level4-air_status",
+                  "array_07_level4-air_status",
+                  "FanSettingOpenTime04",
+                  "FanSettingCloseTime04",
+                  "FanSettingTemperatureDiff04"
+              ],
+              [
+                  "array_00_level5-air_status",
+                  "array_01_level5-air_status",
+                  "array_02_level5-air_status",
+                  "array_03_level5-air_status",
+                  "array_04_level5-air_status",
+                  "array_05_level5-air_status",
+                  "array_06_level5-air_status",
+                  "array_07_level5-air_status",
+                  "FanSettingOpenTime05",
+                  "FanSettingCloseTime05",
+                  "FanSettingTemperatureDiff05"
+              ],
+              [
+                  "array_00_level6-air_status",
+                  "array_01_level6-air_status",
+                  "array_02_level6-air_status",
+                  "array_03_level6-air_status",
+                  "array_04_level6-air_status",
+                  "array_05_level6-air_status",
+                  "array_06_level6-air_status",
+                  "array_07_level6-air_status",
+                  "FanSettingOpenTime06",
+                  "FanSettingCloseTime06",
+                  "FanSettingTemperatureDiff06"
+              ],
+              [
+                  "array_00_level7-air_status",
+                  "array_01_level7-air_status",
+                  "array_02_level7-air_status",
+                  "array_03_level7-air_status",
+                  "array_04_level7-air_status",
+                  "array_05_level7-air_status",
+                  "array_06_level7-air_status",
+                  "array_07_level7-air_status",
+                  "FanSettingOpenTime07",
+                  "FanSettingCloseTime07",
+                  "FanSettingTemperatureDiff07"
+              ],
+              [
+                  "array_00_level8-air_status",
+                  "array_01_level8-air_status",
+                  "array_02_level8-air_status",
+                  "array_03_level8-air_status",
+                  "array_04_level8-air_status",
+                  "array_05_level8-air_status",
+                  "array_06_level8-air_status",
+                  "array_07_level8-air_status",
+                  "FanSettingOpenTime08",
+                  "FanSettingCloseTime08",
+                  "FanSettingTemperatureDiff08"
+              ],
+              [
+                  "array_00_level9-air_status",
+                  "array_01_level9-air_status",
+                  "array_02_level9-air_status",
+                  "array_03_level9-air_status",
+                  "array_04_level9-air_status",
+                  "array_05_level9-air_status",
+                  "array_06_level9-air_status",
+                  "array_07_level9-air_status",
+                  "FanSettingOpenTime09",
+                  "FanSettingCloseTime09",
+                  "FanSettingTemperatureDiff09"
+              ],
+              [
+                  "array_00_level10-air_status",
+                  "array_01_level10-air_status",
+                  "array_02_level10-air_status",
+                  "array_03_level10-air_status",
+                  "array_04_level10-air_status",
+                  "array_05_level10-air_status",
+                  "array_06_level10-air_status",
+                  "array_07_level10-air_status",
+                  "FanSettingOpenTime10",
+                  "FanSettingCloseTime10",
+                  "FanSettingTemperatureDiff10"
+              ],
+              [
+                  "array_00_level11-air_status",
+                  "array_01_level11-air_status",
+                  "array_02_level11-air_status",
+                  "array_03_level11-air_status",
+                  "array_04_level11-air_status",
+                  "array_05_level11-air_status",
+                  "array_06_level11-air_status",
+                  "array_07_level11-air_status",
+                  "FanSettingOpenTime11",
+                  "FanSettingCloseTime11",
+                  "FanSettingTemperatureDiff11"
+              ],
+              [
+                  "array_00_level12-air_status",
+                  "array_01_level12-air_status",
+                  "array_02_level12-air_status",
+                  "array_03_level12-air_status",
+                  "array_04_level12-air_status",
+                  "array_05_level12-air_status",
+                  "array_06_level12-air_status",
+                  "array_07_level12-air_status",
+                  "FanSettingOpenTime12",
+                  "FanSettingCloseTime12",
+                  "FanSettingTemperatureDiff12"
+              ],
+              [
+                  "array_00_level13-air_status",
+                  "array_01_level13-air_status",
+                  "array_02_level13-air_status",
+                  "array_03_level13-air_status",
+                  "array_04_level13-air_status",
+                  "array_05_level13-air_status",
+                  "array_06_level13-air_status",
+                  "array_07_level13-air_status",
+                  "FanSettingOpenTime13",
+                  "FanSettingCloseTime13",
+                  "FanSettingTemperatureDiff13"
+              ],
+              [
+                  "array_00_level14-air_status",
+                  "array_01_level14-air_status",
+                  "array_02_level14-air_status",
+                  "array_03_level14-air_status",
+                  "array_04_level14-air_status",
+                  "array_05_level14-air_status",
+                  "array_06_level14-air_status",
+                  "array_07_level14-air_status",
+                  "FanSettingOpenTime14",
+                  "FanSettingCloseTime14",
+                  "FanSettingTemperatureDiff14"
+              ],
+              [
+                  "array_00_level15-air_status",
+                  "array_01_level15-air_status",
+                  "array_02_level15-air_status",
+                  "array_03_level15-air_status",
+                  "array_04_level15-air_status",
+                  "array_05_level15-air_status",
+                  "array_06_level15-air_status",
+                  "array_07_level15-air_status",
+                  "FanSettingOpenTime15",
+                  "FanSettingCloseTime15",
+                  "FanSettingTemperatureDiff15"
+              ],
+              [
+                  "array_00_level16-air_status",
+                  "array_01_level16-air_status",
+                  "array_02_level16-air_status",
+                  "array_03_level16-air_status",
+                  "array_04_level16-air_status",
+                  "array_05_level16-air_status",
+                  "array_06_level16-air_status",
+                  "array_07_level16-air_status",
+                  "FanSettingOpenTime16",
+                  "FanSettingCloseTime16",
+                  "FanSettingTemperatureDiff16"
+              ],
+              [
+                  "array_00_level17-air_status",
+                  "array_01_level17-air_status",
+                  "array_02_level17-air_status",
+                  "array_03_level17-air_status",
+                  "array_04_level17-air_status",
+                  "array_05_level17-air_status",
+                  "array_06_level17-air_status",
+                  "array_07_level17-air_status",
+                  "FanSettingOpenTime17",
+                  "FanSettingCloseTime17",
+                  "FanSettingTemperatureDiff17"
+              ],
+              [
+                  "array_00_level18-air_status",
+                  "array_01_level18-air_status",
+                  "array_02_level18-air_status",
+                  "array_03_level18-air_status",
+                  "array_04_level18-air_status",
+                  "array_05_level18-air_status",
+                  "array_06_level18-air_status",
+                  "array_07_level18-air_status",
+                  "FanSettingOpenTime18",
+                  "FanSettingCloseTime18",
+                  "FanSettingTemperatureDiff18"
+              ],
+              [
+                  "array_00_level19-air_status",
+                  "array_01_level19-air_status",
+                  "array_02_level19-air_status",
+                  "array_03_level19-air_status",
+                  "array_04_level19-air_status",
+                  "array_05_level19-air_status",
+                  "array_06_level19-air_status",
+                  "array_07_level19-air_status",
+                  "FanSettingOpenTime19",
+                  "FanSettingCloseTime19",
+                  "FanSettingTemperatureDiff19"
+              ],
+              [
+                  "array_00_level20-air_status",
+                  "array_01_level20-air_status",
+                  "array_02_level20-air_status",
+                  "array_03_level20-air_status",
+                  "array_04_level20-air_status",
+                  "array_05_level20-air_status",
+                  "array_06_level20-air_status",
+                  "array_07_level20-air_status",
+                  "FanSettingOpenTime20",
+                  "FanSettingCloseTime20",
+                  "FanSettingTemperatureDiff20"
+              ],
+              [
+                  "array_00_level21-air_status",
+                  "array_01_level21-air_status",
+                  "array_02_level21-air_status",
+                  "array_03_level21-air_status",
+                  "array_04_level21-air_status",
+                  "array_05_level21-air_status",
+                  "array_06_level21-air_status",
+                  "array_07_level21-air_status",
+                  "array_08_level21-air_status",
+                  "FanSettingOpenTime21",
+                  "FanSettingCloseTime21",
+                  "FanSettingTemperatureDiff21"
+              ],
+              [
+                  "array_00_level22-air_status",
+                  "array_01_level22-air_status",
+                  "array_02_level22-air_status",
+                  "array_03_level22-air_status",
+                  "array_04_level22-air_status",
+                  "array_05_level22-air_status",
+                  "array_06_level22-air_status",
+                  "array_07_level22-air_status",
+                  "FanSettingOpenTime22",
+                  "FanSettingCloseTime22",
+                  "FanSettingTemperatureDiff22"
+              ],
+              [
+                  "array_00_level23-air_status",
+                  "array_01_level23-air_status",
+                  "array_02_level23-air_status",
+                  "array_03_level23-air_status",
+                  "array_04_level23-air_status",
+                  "array_05_level23-air_status",
+                  "array_06_level23-air_status",
+                  "array_07_level23-air_status",
+                  "FanSettingOpenTime23",
+                  "FanSettingCloseTime23",
+                  "FanSettingTemperatureDiff23"
+              ],
+              [
+                  "array_00_level24-air_status",
+                  "array_01_level24-air_status",
+                  "array_02_level24-air_status",
+                  "array_03_level24-air_status",
+                  "array_04_level24-air_status",
+                  "array_05_level24-air_status",
+                  "array_06_level24-air_status",
+                  "array_07_level24-air_status",
+                  "FanSettingOpenTime24",
+                  "FanSettingCloseTime24",
+                  "FanSettingTemperatureDiff24"
+              ],
+              [
+                  "array_00_level25-air_status",
+                  "array_01_level25-air_status",
+                  "array_02_level25-air_status",
+                  "array_03_level25-air_status",
+                  "array_04_level25-air_status",
+                  "array_05_level25-air_status",
+                  "array_06_level25-air_status",
+                  "array_07_level25-air_status",
+                  "FanSettingOpenTime25",
+                  "FanSettingCloseTime25",
+                  "FanSettingTemperatureDiff25"
+              ],
+              [
+                  "array_00_level26-air_status",
+                  "array_01_level26-air_status",
+                  "array_02_level26-air_status",
+                  "array_03_level26-air_status",
+                  "array_04_level26-air_status",
+                  "array_05_level26-air_status",
+                  "array_06_level26-air_status",
+                  "array_07_level26-air_status",
+                  "FanSettingOpenTime26",
+                  "FanSettingCloseTime26",
+                  "FanSettingTemperatureDiff26"
+              ],
+              [
+                  "array_00_level27-air_status",
+                  "array_01_level27-air_status",
+                  "array_02_level27-air_status",
+                  "array_03_level27-air_status",
+                  "array_04_level27-air_status",
+                  "array_05_level27-air_status",
+                  "array_06_level27-air_status",
+                  "array_07_level27-air_status",
+                  "FanSettingOpenTime27",
+                  "FanSettingCloseTime27",
+                  "FanSettingTemperatureDiff27"
+              ],
+              [
+                  "array_00_level28-air_status",
+                  "array_01_level28-air_status",
+                  "array_02_level28-air_status",
+                  "array_03_level28-air_status",
+                  "array_04_level28-air_status",
+                  "array_05_level28-air_status",
+                  "array_06_level28-air_status",
+                  "array_07_level28-air_status",
+                  "FanSettingOpenTime28",
+                  "FanSettingCloseTime28",
+                  "FanSettingTemperatureDiff28"
+              ],
+              [
+                  "array_00_level29-air_status",
+                  "array_01_level29-air_status",
+                  "array_02_level29-air_status",
+                  "array_03_level29-air_status",
+                  "array_04_level29-air_status",
+                  "array_05_level29-air_status",
+                  "array_06_level29-air_status",
+                  "array_07_level29-air_status",
+                  "FanSettingOpenTime29",
+                  "FanSettingCloseTime29",
+                  "FanSettingTemperatureDiff29"
+              ],
+              [
+                  "array_00_level30-air_status",
+                  "array_01_level30-air_status",
+                  "array_02_level30-air_status",
+                  "array_03_level30-air_status",
+                  "array_04_level30-air_status",
+                  "array_05_level30-air_status",
+                  "array_06_level30-air_status",
+                  "array_07_level30-air_status",
+                  "FanSettingOpenTime30",
+                  "FanSettingCloseTime30",
+                  "FanSettingTemperatureDiff30"
+              ]
+          ]
+      },
+      "ratioSetting": {
+          "vents": 1,
+          "level": 30,
+          "valueID": [
+              ["ScaleSettingFrequencyConversion01", "ScaleSettingFrequencyConversion02", "ScaleSettingFrequencyConversion03", "ScaleSettingFrequencyConversion04", "ScaleSettingFrequencyConversion05"],
+              ["ScaleSettingFrequencyConversion06", "ScaleSettingFrequencyConversion07", "ScaleSettingFrequencyConversion08", "ScaleSettingFrequencyConversion09", "ScaleSettingFrequencyConversion10"],
+              ["ScaleSettingFrequencyConversion11", "ScaleSettingFrequencyConversion12", "ScaleSettingFrequencyConversion13", "ScaleSettingFrequencyConversion14", "ScaleSettingFrequencyConversion15"],
+              ["ScaleSettingFrequencyConversion16", "ScaleSettingFrequencyConversion17", "ScaleSettingFrequencyConversion18", "ScaleSettingFrequencyConversion19", "ScaleSettingFrequencyConversion20"],
+              ["ScaleSettingFrequencyConversion21", "ScaleSettingFrequencyConversion22", "ScaleSettingFrequencyConversion23", "ScaleSettingFrequencyConversion24", "ScaleSettingFrequencyConversion25"],
+              ["ScaleSettingFrequencyConversion26", "ScaleSettingFrequencyConversion27", "ScaleSettingFrequencyConversion28", "ScaleSettingFrequencyConversion29", "ScaleSettingFrequencyConversion30"],
+              ["ScaleSettingFrequencyConversion31", "ScaleSettingFrequencyConversion32", "ScaleSettingFrequencyConversion33", "ScaleSettingFrequencyConversion34", "ScaleSettingFrequencyConversion35"],
+              ["ScaleSettingFrequencyConversion36", "ScaleSettingFrequencyConversion37", "ScaleSettingFrequencyConversion38", "ScaleSettingFrequencyConversion39", "ScaleSettingFrequencyConversion40"],
+              ["ScaleSettingFrequencyConversion41", "ScaleSettingFrequencyConversion42", "ScaleSettingFrequencyConversion43", "ScaleSettingFrequencyConversion44", "ScaleSettingFrequencyConversion45"],
+              ["ScaleSettingFrequencyConversion46", "ScaleSettingFrequencyConversion47", "ScaleSettingFrequencyConversion48", "ScaleSettingFrequencyConversion49", "ScaleSettingFrequencyConversion50"],
+              ["ScaleSettingFrequencyConversion51", "ScaleSettingFrequencyConversion52", "ScaleSettingFrequencyConversion53", "ScaleSettingFrequencyConversion54", "ScaleSettingFrequencyConversion55"],
+              ["ScaleSettingFrequencyConversion56", "ScaleSettingFrequencyConversion57", "ScaleSettingFrequencyConversion58", "ScaleSettingFrequencyConversion59", "ScaleSettingFrequencyConversion60"],
+              ["ScaleSettingFrequencyConversion61", "ScaleSettingFrequencyConversion62", "ScaleSettingFrequencyConversion63", "ScaleSettingFrequencyConversion64", "ScaleSettingFrequencyConversion65"],
+              ["ScaleSettingFrequencyConversion66", "ScaleSettingFrequencyConversion67", "ScaleSettingFrequencyConversion68", "ScaleSettingFrequencyConversion69", "ScaleSettingFrequencyConversion70"],
+              ["ScaleSettingFrequencyConversion71", "ScaleSettingFrequencyConversion72", "ScaleSettingFrequencyConversion73", "ScaleSettingFrequencyConversion74", "ScaleSettingFrequencyConversion75"]
+          ]
+      },
+      "lightSetting": {
+          "Level": 15,
+          "mode": "mode1",
+          "valueID": [
+              ["IlluminationSettingDimming01", "IlluminationSettingTimeH01", "IlluminationSettingTimeS01", "IlluminationSettingEnable01"],
+              ["IlluminationSettingDimming02", "IlluminationSettingTimeH02", "IlluminationSettingTimeS02", "IlluminationSettingEnable02"],
+              ["IlluminationSettingDimming03", "IlluminationSettingTimeH03", "IlluminationSettingTimeS03", "IlluminationSettingEnable03"],
+              ["IlluminationSettingDimming04", "IlluminationSettingTimeH04", "IlluminationSettingTimeS04", "IlluminationSettingEnable04"],
+              ["IlluminationSettingDimming05", "IlluminationSettingTimeH05", "IlluminationSettingTimeS05", "IlluminationSettingEnable05"],
+              ["IlluminationSettingDimming06", "IlluminationSettingTimeH06", "IlluminationSettingTimeS06", "IlluminationSettingEnable06"],
+              ["IlluminationSettingDimming07", "IlluminationSettingTimeH07", "IlluminationSettingTimeS07", "IlluminationSettingEnable07"],
+              ["IlluminationSettingDimming08", "IlluminationSettingTimeH08", "IlluminationSettingTimeS08", "IlluminationSettingEnable08"],
+              ["IlluminationSettingDimming09", "IlluminationSettingTimeH09", "IlluminationSettingTimeS09", "IlluminationSettingEnable09"],
+              ["IlluminationSettingDimming10", "IlluminationSettingTimeH10", "IlluminationSettingTimeS10", "IlluminationSettingEnable10"],
+              ["IlluminationSettingDimming11", "IlluminationSettingTimeH11", "IlluminationSettingTimeS11", "IlluminationSettingEnable11"],
+              ["IlluminationSettingDimming12", "IlluminationSettingTimeH12", "IlluminationSettingTimeS12", "IlluminationSettingEnable12"],
+              ["IlluminationSettingDimming13", "IlluminationSettingTimeH13", "IlluminationSettingTimeS13", "IlluminationSettingEnable13"],
+              ["IlluminationSettingDimming14", "IlluminationSettingTimeH14", "IlluminationSettingTimeS14", "IlluminationSettingEnable14"],
+              ["IlluminationSettingDimming15", "IlluminationSettingTimeH15", "IlluminationSettingTimeS15", "IlluminationSettingEnable15"]
+          ]
+      },
+      "systemSetting": {
+          "Level": 1,
+          "mode": "mode1",
+          "valueID": [
+              [
+                  "SystemSettingHappinessIndex",
+                  "SystemSettingInitialLessTime",
+                  "SystemSettingDowngradingDelay",
+                  "SystemSettingTunnelTemperature",
+                  "SystemSettingDefaultStartup",
+                  "SystemSettingVentilationLevel",
+                  "SystemSettingInitialLevelOfTunnel",
+                  "SystemSettingUpgradeDelay"
+              ]
+          ]
+      },
+      "humiditySetting": {
+          "Level": 1,
+          "mode": "mode1",
+          "valueID": [["HumiditySettingEnable", "HumiditySettingControlInterval", "HumiditySettingStartHumidity", "HumiditySettingEndHumidity", "HumiditySettingControlDuration", "HumiditySettingHumidityDeviation"]]
+      },
+      "heatingSetting": {
+          "Level": 1,
+          "mode": "mode1",
+          "valueID": [
+              [
+                  "HeatingSettingOpenTime01",
+                  "HeatingSettingCloseTime01",
+                  "HeatingSettingStartTemperature01",
+                  "HeatingSettingEndTemperature01",
+                  "HeatingSettingStartTimeH01",
+                  "HeatingSettingStartTimeS01",
+                  "HeatingSettingEndTimeH01",
+                  "HeatingSettingEndTimeS01"
+              ]
+          ]
+      },
+      "coolingSetting": {
+          "Level": 1,
+          "mode": "mode1",
+          "valueID": [
+              [
+                  "CoolingSettingOpenTime01",
+                  "CoolingSettingCloseTime01",
+                  "CoolingSettingStartTemperature01",
+                  "CoolingSettingEndTemperature01",
+                  "CoolingSettingStartTimeH01",
+                  "CoolingSettingStartTimeS01",
+                  "CoolingSettingEndTimeH01",
+                  "CoolingSettingEndTimeS01"
+              ]
+          ]
+      },
+      "gasSetting": {
+          "Level": 1,
+          "mode": "mode1",
+          "valueID": [["HarmfulGasControlInterval", "HarmfulGasControlDuration", "HarmfulGasTemperatureDeviation", "HarmfulGasNH3Start", "HarmfulGasNH3End", "HarmfulGasCO2Start", "HarmfulGasCO2End"]]
+      }
+  }
+}

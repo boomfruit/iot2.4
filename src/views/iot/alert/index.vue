@@ -179,6 +179,7 @@ import { listAlert, getAlert, delAlert, addAlert, updateAlert, getScenesByAlertI
 import sceneList from './scene-list';
 import notifyTempList from './notify-temp-list.vue';
 import { getDeviceRunningStatus } from '@/api/iot/device';
+import newEnvEc08pro from './newEnvEc08pro.json';
 export default {
     name: 'alert',
     dicts: ['iot_alert_level', 'sys_job_status', 'notify_channel_type'],
@@ -257,7 +258,9 @@ export default {
             });
         },
     },
-    mounted() {},
+    mounted() {
+        console.log(newEnvEc08pro, 'newEnvEc08pro');
+    },
     created() {
         this.getList();
     },

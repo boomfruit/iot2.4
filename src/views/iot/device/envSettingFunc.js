@@ -228,7 +228,18 @@ export function generateLightTable(mode, levels, valueIDs) {
             { field: 'light', title: '光照', align: 'center', editRender: { name: 'input' } },
             { field: 'startTime1', title: '开启时间', align: 'center', editRender: { name: 'input' } },
             { field: 'endTime1', title: '关闭时间', align: 'center', editRender: { name: 'input' } },
-            { field: 'time', title: '时长', align: 'center', editRender: { name: 'input' } },
+            {
+                field: 'time',
+                title: '开关',
+                align: 'center',
+                editRender: {
+                    name: 'select',
+                    options: [
+                        { label: '开启', value: 1 },
+                        { label: '关闭', value: 0 },
+                    ],
+                },
+            },
         ],
         mode2: [
             { field: 'level', title: '', width: 100, align: 'center' },
@@ -312,14 +323,14 @@ export function generateSystemTable(mode, levels, valueIDs) {
     const modeConfig = {
         mode1: {
             columns: [
-                { field: 'tempDiff', title: '温差温度', align: 'center', editRender: { name: 'input' } },
-                { field: 'windDirection', title: '风力时间', align: 'center', editRender: { name: 'input' } },
-                { field: 'ventTime', title: '降温时间', align: 'center', editRender: { name: 'input' } },
-                { field: 'tempRange', title: '降温温度', align: 'center', editRender: { name: 'input' } },
-                { field: 'defrostTime', title: '默认时间', align: 'center', editRender: { name: 'input' } },
-                { field: 'tempControl', title: '温度调节', align: 'center', editRender: { name: 'input' } },
-                { field: 'initialTemp', title: '初始温度', align: 'center', editRender: { name: 'input' } },
-                { field: 'openingTime', title: '开启时间', align: 'center', editRender: { name: 'input' } },
+                { field: 'tempDiff', title: '幸福温度', align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
+                { field: 'windDirection', title: '最小时间', align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
+                { field: 'ventTime', title: '降级延时', align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
+                { field: 'tempRange', title: '隧道温度', align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
+                { field: 'defrostTime', title: '默认时间', align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
+                { field: 'tempControl', title: '通风级别', align: 'center', editRender: { name: 'input' } },
+                { field: 'initialTemp', title: '初始温度', align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
+                { field: 'openingTime', title: '升级延时', align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
             ],
         },
         mode2: {
@@ -409,10 +420,11 @@ export function generateHumidityTable(mode, levels, valueIDs) {
                         ],
                     },
                 },
-                { field: 'startHumidity', title: '开启湿度', align: 'center', editRender: { name: 'input' } },
-                { field: 'startTemp', title: '开启温度', align: 'center', editRender: { name: 'input' } },
-                { field: 'protectTemp', title: '保护温度', align: 'center', editRender: { name: 'input' } },
-                { field: 'controlTime', title: '控制时间', align: 'center', editRender: { name: 'input' } },
+                { field: 'startHumidity', title: '控制间隔', align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
+                { field: 'startTemp', title: '开启湿度', align: 'center', editRender: { name: 'input' } },
+                { field: 'protectTemp1', title: '结束湿度', align: 'center', editRender: { name: 'input' } },
+                { field: 'controlTime2', title: '控制时间', align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
+                { field: 'controlTime3', title: '温度差异', align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
             ],
         },
         mode2: {
@@ -501,10 +513,10 @@ export function generateHeatingTable(mode, levels, valueIDs) {
                 { field: 'endTime1', title: '关闭时间', align: 'center', editRender: { name: 'input' } },
                 { field: 'startTemp', title: '开启温度', align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
                 { field: 'endTemp', title: '关闭温度', align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
-                { field: 'openTime', title: '开启时长', align: 'center', editRender: { name: 'input' } },
-                { field: 'closeTime', title: '关闭时长', align: 'center', editRender: { name: 'input' } },
-                { field: 'lowTemp', title: '低温时长', align: 'center', editRender: { name: 'input' } },
-                { field: 'highTemp', title: '高温时长', align: 'center', editRender: { name: 'input' } },
+                { field: 'openTime', title: '开启时', align: 'center', editRender: { name: 'input' } },
+                { field: 'closeTime', title: '开启分', align: 'center', editRender: { name: 'input' } },
+                { field: 'lowTemp', title: '结束时', align: 'center', editRender: { name: 'input' } },
+                { field: 'highTemp', title: '结束分', align: 'center', editRender: { name: 'input' } },
             ],
         },
         mode2: {
@@ -624,6 +636,19 @@ export function generateCoolingTable(mode, levels, valueIDs) {
         mode1: {
             columns: [
                 { field: 'level', title: '', width: 80, align: 'center' },
+                { field: 'startTime1', title: '开启时间', align: 'center', editRender: { name: 'input' } },
+                { field: 'endTime1', title: '结束时间', align: 'center', editRender: { name: 'input' } },
+                { field: 'startTemp', title: '开始温度', align: 'center', editRender: { name: 'input' } },
+                { field: 'endTemp', title: '结束温度', align: 'center', editRender: { name: 'input' } },
+                { field: 'openTime', title: '开始时', align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
+                { field: 'closeTime', title: '开始分', align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
+                { field: 'lowTemp', title: '结束时', align: 'center', editRender: { name: 'input' } },
+                { field: 'highTemp', title: '结束分', align: 'center', editRender: { name: 'input' } },
+            ],
+        },
+        mode2: {
+            columns: [
+                { field: 'level', title: '', width: 80, align: 'center' },
                 { field: 'startTime1', title: '开启时', align: 'center', editRender: { name: 'input' } },
                 { field: 'endTime1', title: '开启分', align: 'center', editRender: { name: 'input' } },
                 { field: 'startTemp', title: '关闭时', align: 'center', editRender: { name: 'input' } },
@@ -690,13 +715,13 @@ export function generateGasTable(mode, levels, valueIDs) {
     const modeConfig = {
         mode1: {
             columns: [
-                { field: 'ventilationTime', title: '换气时间', width: 120, align: 'center', editRender: { name: 'input' } },
-                { field: 'controlTime', title: '控制时间', width: 120, align: 'center', editRender: { name: 'input' } },
+                { field: 'ventilationTime', title: '间隔时间', width: 120, align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
+                { field: 'controlTime', title: '控制时间', width: 120, align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
                 { field: 'tempDiff', title: '温度差异', width: 120, align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
-                { field: 'nitrogenLimit', title: '氮气下限', width: 120, align: 'center', editRender: { name: 'input' } },
-                { field: 'nitrogenSpeed', title: '氮气速度', width: 120, align: 'center', editRender: { name: 'input' } },
-                { field: 'co2Switch', title: 'CO2开关', width: 120, align: 'center', editRender: { name: 'input' } },
-                { field: 'co2Speed', title: 'CO2速度', width: 120, align: 'center', editRender: { name: 'input' } },
+                { field: 'nitrogenLimit', title: '氮气开始', width: 120, align: 'center', editRender: { name: 'input' } },
+                { field: 'nitrogenSpeed', title: '氮气结束', width: 120, align: 'center', editRender: { name: 'input' } },
+                { field: 'co2Switch', title: 'CO2开始', width: 120, align: 'center', editRender: { name: 'input' } },
+                { field: 'co2Speed', title: 'CO2结束', width: 120, align: 'center', editRender: { name: 'input' } },
             ],
         },
         mode2: {
@@ -1115,7 +1140,20 @@ export function generateCustomTable(mode, levels, valueIDs) {
     const modeConfig = {
         mode1: {
             columns: [
-                { field: 'tempMode', title: '温度模式', width: 120, align: 'center', editRender: { name: 'input' } },
+                {
+                    field: 'tempMode',
+                    title: '温度模式',
+                    width: 120,
+                    align: 'center',
+                    editRender: {
+                        name: 'select',
+                        options: [
+                            { label: '自设模式', value: 0 },
+                            { label: '曲线模式', value: 1 },
+                        ],
+                    },
+                },
+                { field: 'targetTemp', title: '目标温度', width: 120, align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
                 { field: 'date', title: '日龄', width: 120, align: 'center', editRender: { name: 'input' } },
             ],
         },

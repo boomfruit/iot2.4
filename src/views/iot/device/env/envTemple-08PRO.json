@@ -1256,7 +1256,7 @@
                                             "gutter": 20,
                                             "id": "comment29",
                                             "componentName": "inputBox",
-                                            "title": "湿度差异:",
+                                            "title": "温度差异:",
                                             "valueID": ["HumiditySettingHumidityDeviation"],
                                             "childrenSpan": [12, 12],
                                             "textDirection": "right",

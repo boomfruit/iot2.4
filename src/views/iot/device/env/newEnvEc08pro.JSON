@@ -1,0 +1,5 @@
+{
+    "data": {
+        "DataTemperatureSensor": ["DataTemperatureSensor01", "DataTemperatureSensor02", "DataTemperatureSensor03", "DataTemperatureSensor04"]
+    }
+}
