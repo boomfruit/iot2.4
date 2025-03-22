@@ -449,6 +449,26 @@ export function generateHumidityTable(mode, levels, valueIDs) {
                 { field: 'humidityRange', title: '湿度温度差', align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
             ],
         },
+        mode3: {
+            columns: [
+                {
+                    field: 'humiditySwitch',
+                    title: '湿度开关',
+                    align: 'center',
+                    editRender: {
+                        name: 'select',
+                        options: [
+                            { label: '开启', value: 1 },
+                            { label: '关闭', value: 0 },
+                        ],
+                    },
+                },
+                { field: 'startHumidity', title: '控制间隔', align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
+                { field: 'startTemp', title: '开启湿度', align: 'center', editRender: { name: 'input' } },
+                { field: 'protectTemp1', title: '结束湿度', align: 'center', editRender: { name: 'input' } },
+                { field: 'controlTime2', title: '控制时间', align: 'center', editRender: { name: 'VxeNumberInput', props: { type: 'float', digits: 1 } } },
+            ],
+        },
     };
 
     // 确保选择的模式有效
@@ -470,6 +490,8 @@ export function generateHumidityTable(mode, levels, valueIDs) {
             row.startHumidity = { key: 'startHumidity', value: '2', sort: 2 };
             row.startTemp = { key: 'startTemp', value: '3', sort: 3 };
             row.protectTemp = { key: 'protectTemp', value: '4', sort: 4 };
+            row.controlTime2 = { key: 'controlTime2', value: '5', sort: 5 };
+            row.controlTime3 = { key: 'controlTime3', value: '6', sort: 6 };
         } else if (mode === 'mode2') {
             row.humiditySwitch = { key: 'humiditySwitch', value: '1', sort: 1 };
             row.startHumidity = { key: 'startHumidity', value: '2', sort: 2 };
@@ -477,6 +499,12 @@ export function generateHumidityTable(mode, levels, valueIDs) {
             row.protectTemp = { key: 'protectTemp', value: '4', sort: 4 };
             row.controlTime = { key: 'controlTime', value: '5', sort: 5 };
             row.humidityRange = { key: 'humidityRange', value: '6', sort: 6 };
+        } else if (mode === 'mode3') {
+            row.humiditySwitch = { key: 'humiditySwitch', value: '1', sort: 1 };
+            row.startHumidity = { key: 'startHumidity', value: '2', sort: 2 };
+            row.startTemp = { key: 'startTemp', value: '3', sort: 3 };
+            row.protectTemp1 = { key: 'protectTemp1', value: '4', sort: 4 };
+            row.controlTime2 = { key: 'controlTime2', value: '5', sort: 5 };
         }
 
         rows.push(row);
@@ -951,6 +979,13 @@ export function generateAlarmTable(mode, levels, valueIDs, title) {
                     },
                 },
             ],
+        },
+        mode3: {
+            columns: [
+                { field: 'alarmUpperLimit', title: '上限', width: 120, align: 'center', editRender: { name: 'input' } },
+                { field: 'alarmLowerLimit', title: '下限', width: 120, align: 'center', editRender: { name: 'input' } },
+            ],
+            fields: ['upperLimit', 'lowerLimit'],
         },
     };
 

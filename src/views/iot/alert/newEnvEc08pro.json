@@ -451,7 +451,22 @@
                 ["ScaleSettingFrequencyConversion56", "ScaleSettingFrequencyConversion57", "ScaleSettingFrequencyConversion58", "ScaleSettingFrequencyConversion59", "ScaleSettingFrequencyConversion60"],
                 ["ScaleSettingFrequencyConversion61", "ScaleSettingFrequencyConversion62", "ScaleSettingFrequencyConversion63", "ScaleSettingFrequencyConversion64", "ScaleSettingFrequencyConversion65"],
                 ["ScaleSettingFrequencyConversion66", "ScaleSettingFrequencyConversion67", "ScaleSettingFrequencyConversion68", "ScaleSettingFrequencyConversion69", "ScaleSettingFrequencyConversion70"],
-                ["ScaleSettingFrequencyConversion71", "ScaleSettingFrequencyConversion72", "ScaleSettingFrequencyConversion73", "ScaleSettingFrequencyConversion74", "ScaleSettingFrequencyConversion75"]
+                ["ScaleSettingFrequencyConversion71", "ScaleSettingFrequencyConversion72", "ScaleSettingFrequencyConversion73", "ScaleSettingFrequencyConversion74", "ScaleSettingFrequencyConversion75"],
+                ["ScaleSettingFrequencyConversion76", "ScaleSettingFrequencyConversion77", "ScaleSettingFrequencyConversion78", "ScaleSettingFrequencyConversion79", "ScaleSettingFrequencyConversion80"],
+                ["ScaleSettingFrequencyConversion81", "ScaleSettingFrequencyConversion82", "ScaleSettingFrequencyConversion83", "ScaleSettingFrequencyConversion84", "ScaleSettingFrequencyConversion85"],
+                ["ScaleSettingFrequencyConversion86", "ScaleSettingFrequencyConversion87", "ScaleSettingFrequencyConversion88", "ScaleSettingFrequencyConversion89", "ScaleSettingFrequencyConversion90"],
+                ["ScaleSettingFrequencyConversion91", "ScaleSettingFrequencyConversion92", "ScaleSettingFrequencyConversion93", "ScaleSettingFrequencyConversion94", "ScaleSettingFrequencyConversion95"],
+                ["ScaleSettingFrequencyConversion96", "ScaleSettingFrequencyConversion97", "ScaleSettingFrequencyConversion98", "ScaleSettingFrequencyConversion99", "ScaleSettingFrequencyConversion100"],
+                ["ScaleSettingFrequencyConversion101", "ScaleSettingFrequencyConversion102", "ScaleSettingFrequencyConversion103", "ScaleSettingFrequencyConversion104", "ScaleSettingFrequencyConversion105"],
+                ["ScaleSettingFrequencyConversion106", "ScaleSettingFrequencyConversion107", "ScaleSettingFrequencyConversion108", "ScaleSettingFrequencyConversion109", "ScaleSettingFrequencyConversion110"],
+                ["ScaleSettingFrequencyConversion111", "ScaleSettingFrequencyConversion112", "ScaleSettingFrequencyConversion113", "ScaleSettingFrequencyConversion114", "ScaleSettingFrequencyConversion115"],
+                ["ScaleSettingFrequencyConversion116", "ScaleSettingFrequencyConversion117", "ScaleSettingFrequencyConversion118", "ScaleSettingFrequencyConversion119", "ScaleSettingFrequencyConversion120"],
+                ["ScaleSettingFrequencyConversion121", "ScaleSettingFrequencyConversion122", "ScaleSettingFrequencyConversion123", "ScaleSettingFrequencyConversion124", "ScaleSettingFrequencyConversion125"],
+                ["ScaleSettingFrequencyConversion126", "ScaleSettingFrequencyConversion127", "ScaleSettingFrequencyConversion128", "ScaleSettingFrequencyConversion129", "ScaleSettingFrequencyConversion130"],
+                ["ScaleSettingFrequencyConversion131", "ScaleSettingFrequencyConversion132", "ScaleSettingFrequencyConversion133", "ScaleSettingFrequencyConversion134", "ScaleSettingFrequencyConversion135"],
+                ["ScaleSettingFrequencyConversion136", "ScaleSettingFrequencyConversion137", "ScaleSettingFrequencyConversion138", "ScaleSettingFrequencyConversion139", "ScaleSettingFrequencyConversion140"],
+                ["ScaleSettingFrequencyConversion141", "ScaleSettingFrequencyConversion142", "ScaleSettingFrequencyConversion143", "ScaleSettingFrequencyConversion144", "ScaleSettingFrequencyConversion145"],
+                ["ScaleSettingFrequencyConversion146", "ScaleSettingFrequencyConversion147", "ScaleSettingFrequencyConversion148", "ScaleSettingFrequencyConversion149", "ScaleSettingFrequencyConversion150"]
             ]
         },
         "lightSetting": {
@@ -547,8 +562,8 @@
             ]
         },
         "alarmSetting": {
-            "Level": 9,
-            "mode": "mode1",
+            "Level": 4,
+            "mode": "mode3",
             "valueID": [
                 ["AlarmSettingTemperatureMax", "AlarmSettingTemperatureMin"],
                 ["AlarmSettingHumidityMax", "-"],
@@ -559,7 +574,7 @@
         "customSetting": {
             "Level": 1,
             "mode": "mode1",
-            "valueID": [["DaySetting01", "dtm_x3l", "TemperatureSettingTemperature01"]]
+            "valueID": [["dtm_x3l", "DaySetting01", "TemperatureSettingTemperature01"]]
         }
     }
 }
