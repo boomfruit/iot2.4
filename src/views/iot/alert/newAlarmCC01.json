@@ -1,0 +1,102 @@
+{
+    "type": "alarm",
+    "data": {
+        "dataKey": [
+            {
+                "key": "U",
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/uvw_data.png",
+                "title": "U相",
+                "value": ""
+            },
+            {
+                "key": "V",
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/uvw_data.png",
+                "title": "V相",
+                "value": ""
+            },
+            {
+                "key": "W",
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/uvw_data.png",
+                "title": "W相",
+                "value": ""
+            },
+            {
+                "key": "error",
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/uvw_data.png",
+                "title": "错相",
+                "value": ""
+            },
+            {
+                "key": "device_name1",
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/out_device_data.png",
+                "title": "外部一",
+                "value": ""
+            },
+            {
+                "key": "device_name2",
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/out_device_data.png",
+                "title": "外部二",
+                "value": ""
+            },
+            {
+                "key": "device_name3",
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/out_device_data.png",
+                "title": "外部三",
+                "value": ""
+            },
+            {
+                "key": "device_name4",
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/out_device_data.png",
+                "title": "外部四",
+                "value": ""
+            },
+            {
+                "key": "device_name5",
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/out_device_data.png",
+                "title": "外部五",
+                "value": ""
+            },
+            {
+                "key": "device_name6",
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/out_device_data.png",
+                "title": "外部六",
+                "value": ""
+            },
+            {
+                "key": "temp",
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/data_temp.png",
+                "title": "高温",
+                "value": ""
+            },
+            {
+                "key": "temp",
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/data_temp.png",
+                "title": "低温",
+                "value": ""
+            },
+            {
+                "key": "battery",
+                "icon": "http://sunseen-iot-static.oss-cn-hangzhou.aliyuncs.com/iot-saas/iot-admin/ALARM/battery.png",
+                "title": "电量",
+                "value": ""
+            }
+        ]
+    },
+    "setting": {
+        "customSetting": {
+            "Level": 1,
+            "mode": "mode1",
+            "valueID": [["deviceName"]]
+        },
+        "nameSetting": {
+            "Level": 1,
+            "mode": "mode1",
+            "valueID": [["external1", "external2", "external3", "external4", "external5", "external6"]]
+        },
+        "systemSetting": {
+            "Level": 1,
+            "mode": "mode1",
+            "valueID": [["DataTemperatureAlarm", "DataTemperatureMax", "DataTemperatureMin"]]
+        }
+    }
+}
